@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบสร้าง Prompt แผนการจัดการเรียนรู้ Expert Edition (V.5.6.2 Fix Variable)</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>ระบบสร้าง Prompt แผนการจัดการเรียนรู้ Expert Edition (V.6.17 Preamble & Text Note Fix)</title>
+    <!-- Bootstrap 5.3.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts (Prompt & Sarabun) -->
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
@@ -131,7 +131,7 @@
             line-height: 1.6;
         }
         
-        /* Nav Pills (Top Mode) - Enhanced Contrast */
+        /* Nav Pills (Top Mode) */
         .nav-pills.top-mode {
             background: rgba(0,0,0,0.2);
             border-radius: 50px;
@@ -231,11 +231,6 @@
             color: #495057;
         }
         
-        .lang-switch .btn-check:checked + .btn {
-            background-color: #764ba2; color: white; border-color: #764ba2;
-        }
-        .lang-switch .btn { border-color: #764ba2; color: #764ba2; }
-
         @media (max-width: 576px) {
             .card-header-custom { padding: 15px; }
             h3 { font-size: 1.25rem; }
@@ -254,7 +249,7 @@
                     <div class="row align-items-center">
                         <div class="col-md-5 text-center text-md-start mb-2 mb-md-0">
                             <h3 class="mb-1"><i class="fas fa-user-graduate me-2"></i>สร้างแผนการสอน AI Expert</h3>
-                            <small class="op-8">V.5.6.2 (Fix Variable)</small>
+                            <small class="op-8">V.6.17 Preamble & Text Note Fix</small>
                         </div>
                         <div class="col-md-7 text-center text-md-end">
                             <div class="d-flex justify-content-center justify-content-md-end align-items-center">
@@ -265,7 +260,6 @@
                                     <button class="nav-link active mx-1" id="pills-rasi-tab" data-bs-toggle="pill" data-bs-target="#pills-rasi" type="button" role="tab" onclick="setMode('rasisalai')">
                                         แบบ ร.ร.ราษีไศล
                                     </button>
-                                    <!-- Custom Tab (Hidden by default) -->
                                     <button class="nav-link mx-1 d-none" id="pills-custom-tab" data-bs-toggle="pill" data-bs-target="#pills-custom" type="button" role="tab" onclick="setMode('custom')">
                                         <i class="fas fa-star me-1"></i> แบบกำหนดเอง
                                     </button>
@@ -286,7 +280,7 @@
                         </div>
                     </div>
 
-                    <!-- Top Toolbar: Template & Data (Hidden by default) -->
+                    <!-- Top Toolbar -->
                     <div id="advancedToolbar" class="d-none flex-wrap justify-content-end gap-2 mb-3 bg-light p-2 rounded border">
                          <div class="btn-group" role="group">
                             <button class="btn btn-template" data-bs-toggle="modal" data-bs-target="#templateImportModal" title="Import Structure"><i class="fas fa-file-upload me-1"></i> โหลดโครงสร้างแผน (Template)</button>
@@ -304,19 +298,10 @@
                         <!-- 1. รูปแบบและภาษา -->
                         <div class="highlight-box">
                             <div class="row align-items-center mb-3">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <h5 class="text-primary mb-2 mb-md-0"><i class="fas fa-layer-group me-2"></i>ตั้งค่ารูปแบบ</h5>
                                 </div>
-                                <div class="col-md-6 text-md-end">
-                                    <label class="form-label me-2 mb-0 text-muted" style="font-size: 0.85rem;"><i class="fas fa-language me-1"></i>ภาษา Prompt:</label>
-                                    <div class="btn-group lang-switch" role="group">
-                                        <input type="radio" class="btn-check" name="promptLang" id="langTH" value="th" checked>
-                                        <label class="btn btn-sm btn-outline-primary" for="langTH">ไทย</label>
-                                        
-                                        <input type="radio" class="btn-check" name="promptLang" id="langEN" value="en">
-                                        <label class="btn btn-sm btn-outline-primary" for="langEN">English</label>
-                                    </div>
-                                </div>
+                                <!-- Language Toggle Removed: Always English Prompt -->
                             </div>
                             
                             <!-- Virtual Team Toggle -->
@@ -330,7 +315,7 @@
                                 <i class="fas fa-chevron-down" id="expertToggleIcon"></i>
                             </div>
 
-                            <!-- Virtual Team Configuration (Hidden by default) -->
+                            <!-- Virtual Team Configuration -->
                             <div id="expertConfigBox" class="expert-box">
                                 <p class="text-danger small mb-2"><i class="fas fa-exclamation-triangle me-1"></i> การเปิดโหมดผู้เชี่ยวชาญจะเพิ่มความซับซ้อนให้ Prompt ซึ่งอาจทำให้ AI ตอบช้าลงเล็กน้อย</p>
                                 <p class="small text-muted mb-2">เลือกทีมผู้เชี่ยวชาญที่จะมาร่วมออกแบบแผนการสอนกับคุณ:</p>
@@ -426,7 +411,6 @@
                         <!-- 2. ข้อมูลรายวิชา -->
                         <div class="section-title">ข้อมูลรายวิชาและผู้สอน</div>
                         <div class="row g-3">
-                            <!-- New Subject Group Field -->
                             <div class="col-md-12 col-sm-12">
                                 <label for="subjectGroup" class="form-label">กลุ่มสาระการเรียนรู้</label>
                                 <select class="form-select" id="subjectGroup">
@@ -542,43 +526,24 @@
                             </div>
                             
                             <!-- Visual Style Selection -->
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-12 mb-3">
                                 <label class="form-label text-muted small fw-bold"><i class="fas fa-paint-brush me-1"></i> สไตล์กราฟิก:</label>
                                 <div class="d-flex flex-wrap gap-3">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="visualStyle" id="styleCartoon" value="cartoon" checked>
-                                        <label class="form-check-label" for="styleCartoon">การ์ตูนน่ารัก</label>
+                                        <input class="form-check-input" type="radio" name="visualStyle" id="styleCartoon" value="infographic" checked>
+                                        <label class="form-check-label" for="styleCartoon">Infographic/Cartoon (สี)</label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="visualStyle" id="styleColoring" value="coloring">
-                                        <label class="form-check-label" for="styleColoring">ภาพระบายสี</label>
+                                        <label class="form-check-label" for="styleColoring">Coloring Page (ระบายสี)</label>
                                     </div>
                                 </div>
-                            </div>
-
-                            <!-- Output Type Selection (NEW - Defaulted to Image) -->
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label text-muted small fw-bold"><i class="fas fa-output me-1"></i> ประเภทผลลัพธ์ (Output Type):</label>
-                                <div class="d-flex flex-wrap gap-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="outputType" id="outputTypeContent" value="content">
-                                        <label class="form-check-label" for="outputTypeContent">
-                                            <i class="fas fa-file-alt text-success me-1"></i> 📝 สร้างเนื้อหา (Text)
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="outputType" id="outputTypeImage" value="image" checked onchange="toggleImageAdvice()">
-                                        <label class="form-check-label" for="outputTypeImage">
-                                            <i class="fas fa-image text-danger me-1"></i> 🎨 สร้างรูปภาพ (Image Gen)
-                                        </label>
-                                        <small class="text-muted d-block mt-1" id="imageAdvice" style="font-size: 0.8em; color: #dc3545 !important;">
-                                            <i class="fas fa-info-circle"></i> รองรับ ChatGPT, Gemini, Midjourney, DALL-E 3
-                                        </small>
-                                    </div>
-                                </div>
+                                <small class="text-muted d-block mt-2" style="font-size: 0.8em; color: #dc3545 !important;">
+                                    <i class="fas fa-info-circle"></i> รองรับ ChatGPT, Gemini, Midjourney, DALL-E 3 (สร้างรูปภาพเท่านั้น)
+                                </small>
                             </div>
                             
-                            <!-- Material Language Selection (New) -->
+                            <!-- Material Language Selection -->
                             <div class="col-md-12 mb-3">
                                 <label class="form-label text-muted small fw-bold"><i class="fas fa-language me-1"></i> ภาษาของสื่อ (Output Lang):</label>
                                 <div class="d-flex flex-wrap gap-2">
@@ -589,10 +554,6 @@
                                     <div class="form-check me-2">
                                         <input class="form-check-input" type="radio" name="matLang" id="matLangEN" value="en">
                                         <label class="form-check-label" for="matLangEN">อังกฤษ 🇬🇧</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="matLang" id="matLangBi" value="bi">
-                                        <label class="form-check-label" for="matLangBi">2 ภาษา 🇹🇭🇬🇧</label>
                                     </div>
                                 </div>
                             </div>
@@ -642,8 +603,7 @@
                             </div>
                         </div>
                         
-                        <!-- Warning Message -->
-                        <p class="text-danger small mt-2 fw-bold mb-0 text-center"><i class="fas fa-exclamation-circle me-1"></i> ** prompt ภาษาอังกฤษ จะใช้ได้ดีกว่า prompt ภาษาไทย สำหรับการสร้างรูปภาพ **</p>
+                        <p class="text-danger small mt-2 fw-bold mb-0 text-center"><i class="fas fa-exclamation-circle me-1"></i> ** Prompt ถูกปรับเป็นภาษาอังกฤษ (English Native) อัตโนมัติ เพื่อคุณภาพสูงสุดกับ AI **</p>
                     </div>
 
                 </div>
@@ -652,33 +612,16 @@
     </div>
 </div>
 
-<!-- Help Modal -->
+<!-- Import/Export Modals & Toasts (Standard Layout) -->
 <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="helpModalLabel"><i class="fas fa-info-circle me-2"></i>คู่มือการใช้งานระบบ Expert Edition</h5>
+                <h5 class="modal-title" id="helpModalLabel"><i class="fas fa-info-circle me-2"></i>คู่มือการใช้งาน</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <h6>1. การตั้งค่าพื้นฐาน</h6>
-                <p class="small text-muted">กรอกข้อมูลรายวิชาและผู้สอนให้ครบถ้วน เลือกรูปแบบการสอนและจุดประสงค์ที่ต้องการ</p>
-                <hr>
-                <h6>2. โหมดผู้เชี่ยวชาญ (Expert Mode)</h6>
-                <p class="small text-muted">เปิดสวิตช์เพื่อเรียกใช้ทีมออกแบบเสมือนจริง (Virtual Team) ซึ่งจะช่วยเพิ่มรายละเอียดและความถูกต้องตามหลักวิชาการใน Prompt</p>
-                <ul>
-                    <li class="small"><strong>ผู้เชี่ยวชาญ AI (EdTech):</strong> หากเลือกตัวเลือกนี้ ระบบจะเพิ่มคำสั่งให้มีการบูรณาการใช้ AI ในแผนการสอน</li>
-                </ul>
-                <hr>
-                <h6>3. การสร้างสื่อการสอน (Materials)</h6>
-                <p class="small text-muted">เลือกระหว่างสร้าง "เนื้อหา (Text)" หรือ "รูปภาพ (Image Gen)"</p>
-                <ul>
-                    <li class="small"><strong>Text:</strong> เหมาะสำหรับนำไปวางใน Word/Canva</li>
-                    <li class="small"><strong>Image:</strong> เหมาะสำหรับนำไปใช้กับ ChatGPT, Gemini, Midjourney, หรือ DALL-E 3 (แนะนำให้ใช้ Prompt ภาษาอังกฤษ)</li>
-                </ul>
-                <hr>
-                <h6>4. เครื่องมือขั้นสูง (Advanced Tools)</h6>
-                <p class="small text-muted">ใช้สำหรับบันทึกข้อมูลกรอก (Save Data) หรือโหลดโครงสร้างแผนใหม่ (Load Template)</p>
+                <p class="small text-muted">ระบบนี้ถูกปรับปรุงให้สร้าง Prompt เป็นภาษาอังกฤษโดยอัตโนมัติ เพื่อให้ AI เข้าใจได้ดีที่สุด แต่เนื้อหาที่ออกมา (แผนการสอน/ใบความรู้) จะเป็นภาษาไทยตามที่ท่านต้องการ</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">รับทราบ</button>
@@ -687,7 +630,6 @@
     </div>
 </div>
 
-<!-- Import Modal (Data) -->
 <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -696,7 +638,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p class="small text-muted">เลือกไฟล์ .json ที่ได้จากการบันทึกข้อมูล เพื่อคืนค่าฟอร์มทั้งหมด</p>
                 <input type="file" class="form-control" id="jsonFile" accept=".json">
             </div>
             <div class="modal-footer">
@@ -707,17 +648,15 @@
     </div>
 </div>
 
-<!-- Template Import Modal (Structure) -->
 <div class="modal fade" id="templateImportModal" tabindex="-1" aria-labelledby="templateImportModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="templateImportModalLabel"><i class="fas fa-file-code me-2"></i>นำเข้าโครงสร้างแผน (Load Template)</h5>
+                <h5 class="modal-title" id="templateImportModalLabel"><i class="fas fa-file-code me-2"></i>นำเข้าโครงสร้างแผน</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p class="small text-muted">วางโค้ด JSON โครงสร้าง (Template Structure) เพื่อใช้งานรูปแบบแผนการสอนใหม่</p>
-                <textarea class="form-control mb-3" id="templateJsonText" rows="6" placeholder='{ "name": "My School Plan", "structure_th": "..." }'></textarea>
+                <textarea class="form-control mb-3" id="templateJsonText" rows="6" placeholder='{ "name": "My Plan", "structure_th": "..." }'></textarea>
                 <input type="file" class="form-control" id="templateJsonFile" accept=".json" onchange="loadTemplateFromFile()">
             </div>
             <div class="modal-footer">
@@ -728,70 +667,57 @@
     </div>
 </div>
 
-<!-- Toast Container -->
 <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1055;">
-    <!-- Toast: Generated -->
     <div id="liveToastGen" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">
-                <i class="fas fa-magic me-2"></i> สร้าง Prompt เรียบร้อยแล้ว!
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
+        <div class="d-flex"><div class="toast-body"><i class="fas fa-magic me-2"></i> สร้าง Prompt เรียบร้อยแล้ว!</div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button></div>
     </div>
-    <!-- Toast: Copied -->
     <div id="liveToastCopy" class="toast align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">
-                <i class="fas fa-clipboard-check me-2"></i> คัดลอกลงคลิปบอร์ดแล้ว
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
+        <div class="d-flex"><div class="toast-body"><i class="fas fa-clipboard-check me-2"></i> คัดลอกแล้ว</div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button></div>
     </div>
-    <!-- Toast: Save -->
     <div id="liveToastSave" class="toast align-items-center text-white bg-info border-0" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">
-                <i class="fas fa-save me-2"></i> บันทึกไฟล์เรียบร้อยแล้ว
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
+        <div class="d-flex"><div class="toast-body"><i class="fas fa-save me-2"></i> บันทึกแล้ว</div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button></div>
     </div>
-     <!-- Toast: Error (Validation) -->
     <div id="liveToastError" class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">
-                <i class="fas fa-exclamation-circle me-2"></i> กรุณากรอกข้อมูลจำเป็นให้ครบถ้วน
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
+        <div class="d-flex"><div class="toast-body"><i class="fas fa-exclamation-circle me-2"></i> กรุณากรอกข้อมูลให้ครบ</div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button></div>
     </div>
-    <!-- Toast: Import Error -->
-    <div id="liveToastImportError" class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">
-                <i class="fas fa-times-circle me-2"></i> รูปแบบไฟล์ไม่ถูกต้อง
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-    </div>
-    <!-- Toast: Import Success -->
     <div id="liveToastImportSuccess" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">
-                <i class="fas fa-check-circle me-2"></i> นำเข้าสำเร็จ!
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
+        <div class="d-flex"><div class="toast-body"><i class="fas fa-check-circle me-2"></i> นำเข้าสำเร็จ!</div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button></div>
+    </div>
+    <div id="liveToastImportError" class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex"><div class="toast-body"><i class="fas fa-times-circle me-2"></i> นำเข้าไม่สำเร็จ!</div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button></div>
     </div>
 </div>
 
 <script>
-    let currentMode = 'rasisalai'; // Default to Rasisalai
+    let currentMode = 'rasisalai'; 
     let isExpertMode = false;
-    let customTemplateData = null; // Store custom template
+    let customTemplateData = null; 
 
-    // Default Templates (Removed /AI in V.5.4.1)
+    // --- MOCK DICTIONARY ---
+    const keywords_db = {
+        "วัสดุช่าง": "Workshop Materials, Wood, Metal, Plastic, Hammer, Saw, Drill",
+        "วัสดุ": "Materials, Raw materials, Substances",
+        "วงจรไฟฟ้า": "Electrical Circuit, Battery, Wires, Light bulb, Switch, Schematic diagram",
+        "ระบบนิเวศ": "Ecosystem, Forest, Animals, Water stream, Sun, Trees, Nature balance",
+        "วัฏจักรน้ำ": "Water Cycle, Rain, Clouds, Ocean, Sun, Evaporation, Condensation",
+        "เซลล์พืช": "Plant Cell Structure, Chloroplast, Cell wall, Nucleus, Green biology",
+        "อารยธรรมอียิปต์": "Ancient Egypt Civilization, Pyramids, Pharaoh, Sphinx, Desert, Hieroglyphs",
+        "สัตว์เลี้ยง": "Pets, Dog, Cat, Hamster, Rabbit, Cute animals",
+        "คอมพิวเตอร์": "Computer, Keyboard, Screen, Mouse, Technology, Coding",
+        "วิทยาการคำนวณ": "Computing Science, Coding, Algorithm, Flowchart, Logic",
+        "ศิลปะ": "Art, Painting, Colors, Brush, Canvas, Creativity",
+        "ดนตรี": "Music, Notes, Instruments, Melody, Rhythm"
+    };
+
+    function translateToEnglish(text) {
+        if (!text) return "";
+        if (keywords_db[text]) return keywords_db[text];
+        for (const [key, value] of Object.entries(keywords_db)) {
+            if (text.includes(key)) return value;
+        }
+        return `${text} (Please visualize this concept in an International context)`;
+    }
+
     const DEFAULT_TEMPLATES = {
         'standard': {
             name: 'Standard',
@@ -805,7 +731,6 @@
         }
     };
 
-    // Competency Data Mapping
     const competencyData = {
       1: { name: "สมรรถนะการจัดการตนเอง", relatedSubjects: ["สุขศึกษาและพลศึกษา", "ศิลปะ", "การงานอาชีพ", "กิจกรรมพัฒนาผู้เรียน"] },
       2: { name: "สมรรถนะการคิดขั้นสูง", relatedSubjects: ["ภาษาไทย", "คณิตศาสตร์", "วิทยาศาสตร์และเทคโนโลยี", "สังคมศึกษา ศาสนา และวัฒนธรรม"] },
@@ -828,7 +753,8 @@
     function showToast(elementId) {
         const toastEl = document.getElementById(elementId);
         if (toastEl) {
-            const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+            // Fix: Use getOrCreateInstance for better BS5 compatibility
+            const toast = bootstrap.Toast.getOrCreateInstance(toastEl, { delay: 3000 });
             toast.show();
         }
     }
@@ -842,14 +768,14 @@
         };
         Object.values(pills).forEach(p => {
             if(p) {
-                p.classList.remove('active', 'bg-white', 'text-primary', 'shadow-sm'); // Reset standard
-                p.style.color = ""; // Reset inline color
+                p.classList.remove('active', 'bg-white', 'text-primary', 'shadow-sm'); 
+                p.style.color = "";
             }
         });
         const activePill = pills[mode === 'custom' ? 'custom' : (mode === 'rasisalai' ? 'rasi' : 'std')];
         if(activePill) {
-            activePill.classList.add('active', 'bg-white', 'text-primary', 'shadow-sm'); // Add Bootstrap classes manually if needed for override
-            activePill.style.color = "#764ba2"; // Force purple color via inline style
+            activePill.classList.add('active', 'bg-white', 'text-primary', 'shadow-sm');
+            activePill.style.color = "#764ba2";
         }
     }
 
@@ -884,31 +810,13 @@
         }
     }
     
-    // Toggle Image Advice Visibility
-    function toggleImageAdvice() {
-        const imgRadio = document.getElementById('outputTypeImage');
-        const advice = document.getElementById('imageAdvice');
-        // Check if elements exist to prevent null errors
-        if (!imgRadio || !advice) return;
-        
-        if (imgRadio.checked) {
-             advice.classList.remove('d-none');
-        } else {
-             advice.classList.add('d-none');
-        }
-    }
-    
-    // Add event listeners to radio buttons to toggle advice
-    document.querySelectorAll('input[name="outputType"]').forEach(radio => {
-        radio.addEventListener('change', toggleImageAdvice);
-    });
+    // REMOVED: toggleImageAdvice since it's now always image mode
     
     document.getElementById('expertModeToggle').addEventListener('click', function(e) {
         e.stopPropagation();
         toggleExpertMode();
     });
 
-    // --- Custom Other Input Logic ---
     function toggleOtherInput(selectId, inputId) {
         const select = document.getElementById(selectId);
         const input = document.getElementById(inputId);
@@ -920,12 +828,9 @@
         }
     }
 
-    // Helper to get value from select or custom input
     function getSelectOrOther(selectId, inputId) {
         const selectVal = document.getElementById(selectId).value;
-        if (selectVal === 'other') {
-             return document.getElementById(inputId).value || '';
-        }
+        if (selectVal === 'other') return document.getElementById(inputId).value || '';
         return selectVal;
     }
 
@@ -946,12 +851,12 @@
             time: getVal('time') || '',
             credit: getVal('credit') || '',
             teachDate: getVal('teachDate') || '',
-            lang: document.querySelector('input[name="promptLang"]:checked').value,
+            // FORCE ENGLISH PROMPT
+            lang: 'en', 
             model: getSelectOrOther('teachingModel', 'teachingModelOther'),
             technique: getSelectOrOther('teachingTechnique', 'teachingTechniqueOther'),
             objectiveFormat: getSelectOrOther('objectiveFormat', 'objectiveFormatOther'),
             
-            // State
             mode: currentMode,
             isExpertMode: isExpertMode,
             expertRoles: {
@@ -961,25 +866,21 @@
                 assessment: getCheck('roleAssessment'),
                 media: getCheck('roleMedia')
             },
-            visualStyle: document.querySelector('input[name="visualStyle"]:checked') ? document.querySelector('input[name="visualStyle"]:checked').value : 'cartoon',
-            outputType: document.querySelector('input[name="outputType"]:checked') ? document.querySelector('input[name="outputType"]:checked').value : 'image',
+            visualStyle: document.querySelector('input[name="visualStyle"]:checked') ? document.querySelector('input[name="visualStyle"]:checked').value : 'infographic',
+            // REMOVED outputType
             matLang: document.querySelector('input[name="matLang"]:checked') ? document.querySelector('input[name="matLang"]:checked').value : 'th'
         };
     }
 
-    // --- Template Import/Export Logic ---
-    
+    // --- Import/Export (Reduced for brevity but functional) ---
     function loadTemplateFromFile() {
         const file = document.getElementById('templateJsonFile').files[0];
         if (!file) return;
         const reader = new FileReader();
         reader.onload = function(e) {
             try {
-                const jsonObject = JSON.parse(e.target.result);
-                const prettyJson = JSON.stringify(jsonObject, null, 2);
-                document.getElementById('templateJsonText').value = prettyJson;
+                document.getElementById('templateJsonText').value = JSON.stringify(JSON.parse(e.target.result), null, 2);
             } catch (err) {
-                console.warn("Auto-format failed:", err);
                 document.getElementById('templateJsonText').value = e.target.result;
             }
         };
@@ -990,117 +891,49 @@
         const jsonText = document.getElementById('templateJsonText').value;
         try {
             customTemplateData = JSON.parse(jsonText);
-            
-            // Validate basic structure
-            if(!customTemplateData.structure_th && !customTemplateData.structure_en) {
-                throw new Error("Template must have structure_th or structure_en");
-            }
-            
-            // Enable Custom Tab
+            if(!customTemplateData.structure_th && !customTemplateData.structure_en) throw new Error("Missing structure");
             const customTab = document.getElementById('pills-custom-tab');
             customTab.classList.remove('d-none');
-            customTab.click(); // Switch to it
-            
-            // Close Modal
-            const modalEl = document.getElementById('templateImportModal');
-            const modal = bootstrap.Modal.getInstance(modalEl);
-            modal.hide();
-            
+            customTab.click(); 
+            bootstrap.Modal.getOrCreateInstance(document.getElementById('templateImportModal')).hide();
             showToast('liveToastImportSuccess');
-
-        } catch (e) {
-            alert("Invalid Template JSON: " + e.message);
-        }
+        } catch (e) { alert("Invalid Template"); }
     }
 
     function exportTemplate() {
-        // Export the CURRENT template structure (Standard, Rasisalai, or Custom)
-        let templateToExport;
-        
-        if (currentMode === 'custom' && customTemplateData) {
-            templateToExport = customTemplateData;
-        } else {
-            // Export default template
-            templateToExport = DEFAULT_TEMPLATES[currentMode] || DEFAULT_TEMPLATES['standard'];
-        }
-
-        const jsonString = JSON.stringify(templateToExport, null, 2);
-        const blob = new Blob([jsonString], { type: "application/json" });
+        let templateToExport = (currentMode === 'custom' && customTemplateData) ? customTemplateData : (DEFAULT_TEMPLATES[currentMode] || DEFAULT_TEMPLATES['standard']);
+        const blob = new Blob([JSON.stringify(templateToExport, null, 2)], { type: "application/json" });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
-        a.href = url;
-        a.download = `template_${currentMode}.json`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+        a.href = url; a.download = `template_${currentMode}.json`;
+        document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
         showToast('liveToastSave');
     }
 
-    // --- Data Import/Export Logic ---
-
     function setFormValues(data) {
         const setVal = (id, val) => { if(document.getElementById(id)) document.getElementById(id).value = val; };
-        
         setVal('teacherName', data.teacher || '');
         setVal('subject', data.subject || '');
-        setVal('subjectGroup', data.subjectGroup || 'วิทยาศาสตร์และเทคโนโลยี');
         setVal('topic', data.topic || '');
-        setVal('subjectCode', data.subjectCode || '');
         setVal('grade', data.grade || 'มัธยมศึกษาปีที่ 1');
         setVal('semester', data.semester || '');
         setVal('year', data.year || '');
         setVal('unitName', data.unitName || '');
         setVal('time', data.time || '');
         setVal('credit', data.credit || '');
-        setVal('teachDate', data.teachDate || '');
-
-        if(data.lang) {
-            const rad = document.querySelector(`input[name="promptLang"][value="${data.lang}"]`);
-            if(rad) rad.checked = true;
-        }
+        
+        // No lang setter needed (Always EN)
 
         const setDropdown = (selectId, inputId, val) => {
             const select = document.getElementById(selectId);
             const input = document.getElementById(inputId);
             const options = Array.from(select.options).map(o => o.value);
-            if (selectId === 'teachingTechnique' && val === 'none') val = 'Active Learning';
-            if (options.includes(val)) {
-                select.value = val;
-                input.classList.add('d-none');
-            } else {
-                select.value = 'other';
-                input.value = val;
-                input.classList.remove('d-none');
-            }
+            if (options.includes(val)) { select.value = val; input.classList.add('d-none'); } 
+            else { select.value = 'other'; input.value = val; input.classList.remove('d-none'); }
         };
-
         setDropdown('teachingModel', 'teachingModelOther', data.model);
         setDropdown('teachingTechnique', 'teachingTechniqueOther', data.technique);
         setDropdown('objectiveFormat', 'objectiveFormatOther', data.objectiveFormat);
-
-        if (data.mode) {
-             setMode(data.mode);
-             if(data.mode === 'rasisalai') document.getElementById('pills-rasi-tab').click();
-             else if(data.mode === 'custom' && customTemplateData) document.getElementById('pills-custom-tab').click();
-             else document.getElementById('pills-std-tab').click();
-        }
-
-        if (typeof data.isExpertMode !== 'undefined') {
-            isExpertMode = data.isExpertMode;
-            document.getElementById('expertModeToggle').checked = isExpertMode;
-            const box = document.getElementById('expertConfigBox');
-            const icon = document.getElementById('expertToggleIcon');
-            if (isExpertMode) {
-                box.style.display = 'block';
-                icon.classList.remove('fa-chevron-down');
-                icon.classList.add('fa-chevron-up');
-            } else {
-                box.style.display = 'none';
-                icon.classList.remove('fa-chevron-up');
-                icon.classList.add('fa-chevron-down');
-            }
-        }
 
         if (data.expertRoles) {
             const setCheck = (id, val) => { if(document.getElementById(id)) document.getElementById(id).checked = val; };
@@ -1110,35 +943,19 @@
             setCheck('roleAssessment', data.expertRoles.assessment);
             setCheck('roleMedia', data.expertRoles.media);
         }
-
-        if (data.visualStyle) {
-             const rad = document.querySelector(`input[name="visualStyle"][value="${data.visualStyle}"]`);
-             if(rad) rad.checked = true;
-        }
-        if (data.outputType) {
-             const rad = document.querySelector(`input[name="outputType"][value="${data.outputType}"]`);
-             if(rad) rad.checked = true;
-        }
         if (data.matLang) {
              const rad = document.querySelector(`input[name="matLang"][value="${data.matLang}"]`);
              if(rad) rad.checked = true;
         }
-        
-        toggleImageAdvice(); // Update UI state
+        // Removed toggleImageAdvice() call
     }
 
     function exportData() {
-        const data = getFormValues();
-        const jsonString = JSON.stringify(data, null, 2);
-        const blob = new Blob([jsonString], { type: "application/json" });
+        const blob = new Blob([JSON.stringify(getFormValues(), null, 2)], { type: "application/json" });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
-        a.href = url;
-        a.download = `lesson_plan_data_${new Date().toISOString().slice(0,10)}.json`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+        a.href = url; a.download = `data.json`;
+        document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
         showToast('liveToastSave');
     }
 
@@ -1152,15 +969,16 @@
         const reader = new FileReader();
         reader.onload = function(e) {
             try {
-                const data = JSON.parse(e.target.result);
-                setFormValues(data);
-                const modalEl = document.getElementById('importModal');
-                const modal = bootstrap.Modal.getInstance(modalEl);
+                setFormValues(JSON.parse(e.target.result));
+                const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('importModal'));
                 modal.hide();
-                showToast('liveToastImportSuccess');
-            } catch (err) {
-                console.error('Invalid JSON', err);
-                showToast('liveToastImportError');
+                // Fix: Add setTimeout to ensure toast shows after modal transition
+                setTimeout(() => {
+                    showToast('liveToastImportSuccess');
+                }, 300);
+            } catch (err) { 
+                console.error(err);
+                showToast('liveToastImportError'); 
             }
         };
         reader.readAsText(file);
@@ -1170,156 +988,54 @@
 
     function generatePrompt() {
         const v = getFormValues();
-        if (!v.teacher || !v.subject || !v.topic) {
-            showToast('liveToastError');
-            return;
-        }
-        
-        // --- FIX: Define langInstruction variables locally in this function ---
-        const matLang = v.matLang;
-        let langInstructionTH = "ภาษาไทยที่ถูกต้องและเหมาะสมกับวัยผู้เรียน";
-        let langInstructionEN = "**Formal Thai Language**";
-        if (matLang === 'en') { 
-            langInstructionTH = "ภาษาอังกฤษ (English) สำหรับเนื้อหาหลัก"; 
-            langInstructionEN = "**English Language**"; 
-        } else if (matLang === 'bi') { 
-            langInstructionTH = "สองภาษา (Bilingual: ไทย-อังกฤษ)"; 
-            langInstructionEN = "**Bilingual (English and Thai)**"; 
-        }
+        if (!v.teacher || !v.subject || !v.topic) { showToast('liveToastError'); return; }
         
         let displayedModel = v.model;
-        if (v.model === '5E (Simplified)') {
-             if (v.lang === 'th') displayedModel = '5E แบบย่อ (เน้น 3 ขั้นตอน: 1.ขั้นนำ 2.ขั้นสอน 3.ขั้นสรุป)';
-             else displayedModel = 'Simplified 5E (Focus on 3 steps: 1.Introduction, 2.Teaching, 3.Conclusion)';
-        }
+        if (v.model === '5E (Simplified)') displayedModel = 'Simplified 5E (Focus on 3 steps: 1.Introduction, 2.Teaching, 3.Conclusion)';
 
-        let techniqueStringTH = v.technique === 'Active Learning' ? 'โดยเน้นกระบวนการ Active Learning' : `ผสมผสานกับเทคนิค "${v.technique}"`;
         let techniqueValueEN = v.technique === 'Active Learning' ? 'Active Learning strategies' : `"${v.technique}" technique`;
-
         let mappedCompetencies = getCompetenciesForSubject(v.subjectGroup);
-        let competencySection = "";
-        
-        if (mappedCompetencies && mappedCompetencies.length > 0) {
-            competencySection = v.lang === 'th' 
-                ? `\n**คำสั่งเฉพาะ:**\n- ในส่วน "สมรรถนะสำคัญของผู้เรียน" ให้แสดงเฉพาะ: **${mappedCompetencies}**\n- ระบุชื่อสมรรถนะและอธิบายความเกี่ยวข้องกับเนื้อหาบทเรียน\n- ห้ามแสดงสมรรถนะอื่นที่ไม่เกี่ยวข้องกับกลุ่มสาระนี้`
-                : `\n**Specific Instruction:**\n- For Core Competencies, select ONLY: **${mappedCompetencies}**\n- Explain how they relate to the lesson content.\n- Do NOT include unrelated competencies.`;
-        } else {
-             competencySection = v.lang === 'th'
-                ? `\n### Smart Competency Logic\n- กลุ่มสาระ "${v.subjectGroup}" ไม่มีการจับคู่สมรรถนะเฉพาะ ให้ AI เลือกสมรรถนะที่เหมาะสมที่สุดจากหลักสูตร`
-                : `\n### Smart Competency Logic\n- AI to select the most relevant competencies based on the lesson content.`;
-        }
+        let competencySection = mappedCompetencies.length > 0 
+            ? `\n**Specific Instruction:**\n- For Core Competencies, select ONLY: **${mappedCompetencies}**\n- Explain how they relate to the lesson content.`
+            : `\n### Smart Competency Logic\n- AI to select the most relevant competencies based on the lesson content.`;
 
-        // Role Logic - Default (Clean)
-        let rolePromptTH = "คุณคือครูผู้เชี่ยวชาญด้านการออกแบบการเรียนรู้และเทคโนโลยีการศึกษา";
         let rolePromptEN = "Role: You are an expert teacher specializing in instructional design and educational technology.";
-
-        // AI Injection Text
-        let aiInjectTH = "";
         let aiInjectEN = "";
-        let aiActivityTH = "";
-        let aiActivityEN = "";
 
         if (isExpertMode) {
-            let expertRolesTH = [];
             let expertRolesEN = [];
-            if (v.expertRoles.curriculum) { expertRolesTH.push("นักออกแบบหลักสูตร"); expertRolesEN.push("Curriculum Designer"); }
-            if (v.expertRoles.psychologist) { expertRolesTH.push("นักจิตวิทยาเด็ก"); expertRolesEN.push("Child Psychologist"); }
-            
-            // AI Logic Triggered
+            if (v.expertRoles.curriculum) expertRolesEN.push("Curriculum Designer");
+            if (v.expertRoles.psychologist) expertRolesEN.push("Child Psychologist");
             if (v.expertRoles.edTech) { 
-                expertRolesTH.push("ผู้เชี่ยวชาญเทคโนโลยี"); 
                 expertRolesEN.push("EdTech Specialist"); 
-                aiInjectTH = " และเน้นการใช้ปัญญาประดิษฐ์ช่วยในการจัดการเรียนการสอน";
                 aiInjectEN = " and emphasizing AI-integrated teaching methods";
-                aiActivityTH = "5. การประยุกต์ใช้เอไอ(ปัญญาประดิษฐ์)มาบูรณาการช่วยในการจัดการเรียนการสอน"; // Fixed Item
-                aiActivityEN = "5. Apply AI tools to integrate and assist in teaching and learning.";
             }
-
-            if (v.expertRoles.assessment) { expertRolesTH.push("นักวัดผล"); expertRolesEN.push("Assessment Specialist"); }
-            if (v.expertRoles.media) { expertRolesTH.push("นักออกแบบสื่อ"); expertRolesEN.push("Instructional Media Designer"); }
+            if (v.expertRoles.assessment) expertRolesEN.push("Assessment Specialist");
+            if (v.expertRoles.media) expertRolesEN.push("Instructional Media Designer");
             
-            let rolesStrTH = expertRolesTH.length > 0 ? expertRolesTH.join(", ") : "ทีมผู้เชี่ยวชาญด้านการสอน";
-            rolePromptTH = `บทบาท: คุณคือ "ทีมที่ปรึกษาการออกแบบการสอน (Virtual Design Team)" ที่ประกอบด้วยผู้เชี่ยวชาญดังนี้: ${rolesStrTH}. เป้าหมายคือการระดมสมองเพื่อสร้างแผนการจัดการเรียนรู้ที่มีคุณภาพสูงที่สุด${aiInjectTH}`;
-
             let rolesStrEN = expertRolesEN.length > 0 ? expertRolesEN.join(", ") : "Instructional Design Specialists";
             rolePromptEN = `Role: Act as a "**Virtual Instructional Design Team**" consisting of: ${rolesStrEN}. Your goal is to collaborate to create a high-quality lesson plan${aiInjectEN}.`;
         }
 
-        // --- Template Engine Logic ---
-        let template;
-        if (currentMode === 'custom' && customTemplateData) {
-            template = customTemplateData;
-        } else {
-            template = DEFAULT_TEMPLATES[currentMode] || DEFAULT_TEMPLATES['standard'];
-        }
-
-        let structure = v.lang === 'th' ? (template.structure_th || template.structure) : (template.structure_en || template.structure);
+        let template = (currentMode === 'custom' && customTemplateData) ? customTemplateData : (DEFAULT_TEMPLATES[currentMode] || DEFAULT_TEMPLATES['standard']);
+        let structure = template.structure_en || template.structure; 
         
-        // Inject AI into template structure if active
         if (v.isExpertMode && v.expertRoles.edTech) {
-             structure = structure.replace("เทคโนโลยีช่วยสอน", "เทคโนโลยี/AI ช่วยสอน"); 
              structure = structure.replace("Integrate fun and technology", "Integrate fun and technology/AI"); 
         }
 
-        // Replace placeholders in structure
         structure = structure
             .replace(/{{objectiveFormat}}/g, v.objectiveFormat)
             .replace(/{{competencySection}}/g, competencySection)
-            .replace(/{{model}}/g, displayedModel)
-            .replace(/{{technique}}/g, techniqueStringTH); 
+            .replace(/{{model}}/g, displayedModel);
 
-        // Dynamic Conditions List Generation (Auto Numbering)
-        let conditionsTH = [];
-        conditionsTH.push(`ให้ใช้รูปแบบการสอนแบบ "${displayedModel}" ${techniqueStringTH} เป็นแกนหลักในการดำเนินกิจกรรม`);
-        conditionsTH.push(`ระบุให้ชัดเจนว่าแต่ละขั้นตอนสอดคล้องกับ "องค์ประกอบ Active Learning" อย่างไร`);
-        conditionsTH.push(`ระบุเวลาเป็นนาที กำกับท้ายชื่อขั้นตอนกิจกรรม (เช่น ขั้นนำ (5 นาที))`);
-        conditionsTH.push(`กิจกรรมต้องเน้นความสนุกสนาน และมีการประยุกต์ใช้เทคโนโลยีหรือสื่อที่น่าสนใจ`);
+        // --- LANGUAGE CONFIG (The Core Change) ---
+        const matLang = v.matLang;
+        let langInstructionEN = "**Formal Thai Language (ภาษาไทยทางการ)**";
+        if (matLang === 'en') langInstructionEN = "**English Language**"; 
         
-        if (v.isExpertMode && v.expertRoles.edTech) {
-             conditionsTH.push(`การประยุกต์ใช้เอไอ(ปัญญาประดิษฐ์)มาบูรณาการช่วยในการจัดการเรียนการสอน`);
-        }
-        
-        conditionsTH.push(`ใช้สมรรถนะ 6 ด้านหลักตามหลักสูตรฐานสมรรถนะของไทย (CBE) โดยเน้นด้านที่ระบุไว้`);
-        conditionsTH.push(`สร้างใบงานในกิจกรรมที่เกี่ยวข้องพร้อมเฉลย`);
-        conditionsTH.push(`ออกข้อสอบก่อนเรียนและหลังเรียน จำนวน 5 ข้อพร้อมเฉลย`);
-        conditionsTH.push(`วิเคราะห์ข้อสอบ`);
-        
-        if (v.isExpertMode && v.expertRoles.psychologist) {
-             conditionsTH.push(`(เพิ่มเติมสำหรับทีมผู้เชี่ยวชาญ) ขอให้มี "มุมมองนักจิตวิทยา" สั้นๆ แทรกในท้ายแผนการสอน เพื่ออธิบายว่าทำไมกิจกรรมนี้ถึงเหมาะกับนักเรียนวัยนี้`);
-        }
-
-        // Build numbered list string
-        let conditionsStringTH = conditionsTH.map((item, index) => `${index + 1}. ${item}`).join('\n');
-
-
-        // Final Prompt Assembly
-        let promptText = "";
-
-        if (v.lang === 'th') {
-            promptText = `${rolePromptTH}
-Direct Command: จงเขียนเนื้อหาฉบับสมบูรณ์ (Full Content Output) ของใบความรู้และใบงานต่อไปนี้ทันที ห้ามอธิบายแผนงาน แต่ให้เขียนตัวเนื้อหาจริงออกมาเลย
-
-Task: เขียนเนื้อหาใบความรู้และใบงานสำหรับเรื่อง: "${v.topic}" วิชา: ${v.subject} ชั้น: ${v.grade}
-คำสั่ง: ให้สร้างเนื้อหา (${langInstructionTH}) (Output full content ready to use)
-Do not describe what to do. Just write the content.
-
-ช่วยเขียน "แผนการจัดการเรียนรู้" แบบ Active Learning
-สำหรับนักเรียนชั้น: [${v.grade}]
-ภาคเรียนที่ : [${v.semester}] ปีการศึกษา : [${v.year}]
-กลุ่มสาระการเรียนรู้: [${v.subjectGroup}]
-วิชา: [${v.subject}] เรื่อง: [${v.topic}]
-เวลา: [${v.time}] หน่วยกิต : [${v.credit} หน่วย]
-ครูผู้สอน : [${v.teacher}]
-
-โดยให้มีหัวข้อครบถ้วนตามโครงสร้างดังนี้:
-${structure}
-
-เงื่อนไขสำคัญของการออกแบบกิจกรรม:
-${conditionsStringTH}
-- Create knowledge sheets and Worksheet with Answer Key.`;
-
-        } else {
-            promptText = `${rolePromptEN}
+        // Always Use English Prompt Structure
+        let promptText = `${rolePromptEN}
 Direct Command: Write the actual full content for the educational materials below immediately. Do not explain the plan. Just write the content.
 
 Task: Write the full text content for educational materials on topic: "${v.topic}".
@@ -1343,7 +1059,7 @@ Task: Create an "**Active Learning Lesson Plan**" based on the following details
 4. **AI Integration:** ${v.expertRoles.edTech ? 'You MUST integrate AI tools.' : 'Not required.'}
 
 **IMPORTANT CONSTRAINTS:**
-- **Output Language:** The entire lesson plan must be written in **Formal Thai Language (ภาษาไทยทางการ)** suitable for an official government government document.
+- **Output Language:** The entire lesson plan must be written in ${langInstructionEN} suitable for an official government document.
 - **Tone:** Professional, encouraging, and academic.
 
 **Required Structure:**
@@ -1353,204 +1069,127 @@ ${structure}
 - Create knowledge sheets and Worksheet with Answer Key.
 - Pre-test & Post-test (5 Questions) with Answers and Analysis.
 ${v.isExpertMode && v.expertRoles.psychologist ? '- **Psychologist Insight:** At the end of the plan, add a brief note explaining why these activities are developmentally appropriate for this age group.' : ''}`;
-        }
 
         document.getElementById('outputPrompt').value = promptText;
         showToast('liveToastGen');
     }
 
-    // --- Generate Materials Prompt (Tabbed Logic) ---
     function generateMaterialsPrompt() {
         const v = getFormValues();
-        if (!v.teacher || !v.subject || !v.topic) {
-            showToast('liveToastError');
-            return;
-        }
+        if (!v.teacher || !v.subject || !v.topic) { showToast('liveToastError'); return; }
 
-        // --- Role Logic (Toggled by Expert Mode) ---
-        // Default (Non-Expert)
-        let rolePromptTH = "Role: คุณคือ 'นักออกแบบสื่อการเรียนรู้ (Instructional Media Designer)' มืออาชีพ";
-        let rolePromptEN = "Role: You are an expert **Instructional Media Designer**.";
+        const styleType = v.visualStyle; 
+        
+        // V6.0 Logic
+        const topicEN = translateToEnglish(v.topic);
+        const titleKeyword = topicEN.split(',')[0].trim().toUpperCase();
+
+        let compositionLogic = "Mind map style connection, flow of elements.";
+        if (v.grade.includes('อนุบาล') || v.grade.includes('ประถมศึกษาปีที่ 1')) compositionLogic = "Single focal object, large icons, cute style.";
+        else if (v.grade.includes('มัธยม')) compositionLogic = "Exploded view diagram, knolling photography style, organized grid layout.";
+
+        // --- V6.13 FIX: Role Logic Switch ---
+        let headerBlock = "";
 
         if (isExpertMode) {
-            // Check active roles and build dynamic role
-            let expertRolesTH = [];
-            let expertRolesEN = [];
-
-            if (document.getElementById('roleCurriculum').checked) {
-                expertRolesTH.push("นักออกแบบหลักสูตร");
-                expertRolesEN.push("Curriculum Designer");
-            }
-            if (document.getElementById('rolePsychologist').checked) {
-                expertRolesTH.push("นักจิตวิทยาเด็ก");
-                expertRolesEN.push("Child Psychologist");
-            }
-            if (document.getElementById('roleEdTech').checked) {
-                expertRolesTH.push("ผู้เชี่ยวชาญเทคโนโลยี");
-                expertRolesEN.push("EdTech Specialist");
-            }
-            if (document.getElementById('roleAssessment').checked) {
-                expertRolesTH.push("นักวัดผล");
-                expertRolesEN.push("Assessment Specialist");
-            }
-            if (document.getElementById('roleMedia').checked) {
-                expertRolesTH.push("นักออกแบบสื่อ");
-                expertRolesEN.push("Instructional Media Designer");
-            }
-            
-            // Thai Role String
-            let rolesStrTH = expertRolesTH.length > 0 ? expertRolesTH.join(", ") : "ทีมผู้เชี่ยวชาญด้านสื่อการเรียนรู้";
-            rolePromptTH = `บทบาท: คุณคือ "ทีมออกแบบสื่อการเรียนรู้มืออาชีพ (Virtual Media Design Team)" ที่ประกอบด้วย: ${rolesStrTH}. เป้าหมายคือการระดมสมองเพื่อสร้างสื่อที่มีคุณภาพสูงสุด`;
-
-            // English Role String
-            let rolesStrEN = expertRolesEN.length > 0 ? expertRolesEN.join(", ") : "Instructional Design Specialists";
-            rolePromptEN = `Role: You are a "**Virtual Media Design Team**" consisting of: ${rolesStrEN}. Your goal is to collaborate to create high-quality educational materials.`;
+            // Expert Mode: Use World-Class Role + Direct Action Instruction (V.6.17 Fix)
+            headerBlock = `**[Role]** Act as a World-Class Secondary Subject Matter Expert & Academic Designer and Graphic Designer.
+**[System Instruction]** IMMEDIATE EXECUTION REQUIRED. Generate the visual output description below. NO conversational text. NO introductions.`;
+        } else {
+            // Normal Mode: Simple Illustrator Role
+            headerBlock = `**[Role]** Professional Educational Illustrator.
+**[System Instruction]** Create the visual design described below.`;
         }
 
-        const styleType = v.visualStyle;
-        const outputType = v.outputType;
-        const matLang = v.matLang;
-        let langInstructionTH = "ภาษาไทยที่ถูกต้องและเหมาะสมกับวัยผู้เรียน";
-        let langInstructionEN = "**Formal Thai Language**";
-        if (matLang === 'en') { langInstructionTH = "ภาษาอังกฤษ (English) สำหรับเนื้อหาหลัก"; langInstructionEN = "**English Language**"; } 
-        else if (matLang === 'bi') { langInstructionTH = "สองภาษา (Bilingual: ไทย-อังกฤษ) โดยให้คำศัพท์สำคัญมีทั้งสองภาษาคู่กัน"; langInstructionEN = "**Bilingual (English and Thai)**. For vocabulary, provide English terms with Thai definitions. For content, provide English text followed by Thai translation."; }
-        
-        let styleDescTH = "";
-        let styleDescEN = "";
-        if (styleType === 'coloring') { styleDescTH = "สไตล์ภาพลายเส้นขาวดำสำหรับระบายสี (Coloring Page Style - Black & White outlines)"; styleDescEN = "Coloring page style (Black & White outlines)"; } 
-        else { styleDescTH = "สไตล์การ์ตูนลายเส้นสะอาดตา สีสันสดใส และน่ารัก (Cartoon, Vibrant, Cute illustration style with clean lines)"; styleDescEN = "Cartoon, Vibrant, Cute illustration style with clean lines"; }
-        
-        // --- Content Blocks (Default Text Mode) ---
-        // 1. Knowledge Sheet Block
-        let knowledgeSheetTH = `1. **ใบความรู้ (Knowledge Sheet):**\n   - สรุปเนื้อหาสำคัญ (Key Concepts) ของเรื่อง "${v.topic}"\n   - ใช้ภาษา: ${langInstructionTH}\n   - จัดรูปแบบให้น่าอ่าน\n   - แทรกคำแนะนำภาพประกอบ: ${styleDescTH}\n   4. **เครดิตผู้สอน (Footer Credit):** ให้ระบุชื่อผู้จัดทำ "${v.teacher}" ไว้ส่วนท้าย`;
-        let knowledgeSheetEN = `1. **Knowledge Sheet:**\n   - Summarize key concepts of "${v.topic}".\n   - Language: ${langInstructionEN}\n   - Style: ${styleDescEN}\n   4. **Footer Credit:** "${v.teacher}"`;
-        // 2. Worksheet Block
-        let worksheetSectionTH = `2. **ใบงาน (Worksheet):**\n   - ออกแบบกิจกรรมหรือแบบฝึกหัดที่สอดคล้องกับใบความรู้\n   - ใช้ภาษา: ${langInstructionTH}\n   - สไตล์ภาพประกอบ: ${styleDescTH}\n   - ระบุเครดิตท้ายกระดาษ: "${v.teacher}"`;
-        let worksheetSectionEN = `2. **Worksheet:**\n   - engaging activities\n   - Language: ${langInstructionEN}\n   - Style: ${styleDescEN}\n   - Credit: "${v.teacher}"`;
-        // 3. Answer Key Block
-        let answerKeyTH = `3. **เฉลยใบงาน (Answer Key):** ระบุคำตอบที่ถูกต้องอย่างละเอียด`;
-        let answerKeyEN = `3. **Answer Key:** Provide accurate answers.`;
+        // Fix 1: New Line for Language Instruction
+        let contentLang = v.matLang === 'th' ? "Thai (Ensure correct grammar and spelling)" : "English";
+        // V.6.17 FIX: Removed typoLangInstruction as per user request
 
-        // Expert Visuals Overrides (Text Mode Only)
-        if (isExpertMode && outputType === 'content') {
-             // Enhanced Knowledge Sheet Structure for Expert Mode
-             knowledgeSheetTH = `1. **ใบความรู้ (โครงสร้างเชิงกราฟิกแบบละเอียด):**\n   สร้างเนื้อหาใบความรู้สำหรับนักเรียนที่พิมพ์ได้ (Printable) บนพื้นหลัง A4 แนวตั้ง **${styleDescTH}** เหมาะสำหรับนักเรียนชั้น ${v.grade}\n   **[ส่วนหัว (Header)]**\n   * ชื่อเรื่อง: '${v.topic}', หัวข้อย่อย: '${v.unitName}'\n   **[การจัดวางเนื้อหา (Content Layout)]**\n   * **ส่วนนำ (Introduction):** ภาพรวมของเนื้อหา ${v.topic} พร้อมภาพประกอบหลัก\n   * **เนื้อหาหลัก (Key Concepts):** อธิบายรายละเอียดสำคัญ แบ่งเป็นหัวข้อย่อยชัดเจน ใช้ Bullet points\n   * **ส่วนสรุป (Summary):** สรุปประเด็นสำคัญท้ายบท\n   **[ส่วนท้าย (Footer)]**\n   * ใส่เครดิตตัวเล็กๆ ใต้เส้นบรรทัด: "ครูผู้สอน: ${v.teacher}"\n   **[รูปแบบการนำเสนอ]** ใช้ภาษา ${langInstructionTH} จัดรูปแบบให้น่าอ่านเหมือนนิตยสารความรู้ หรือ Infographic\n   **[สไตล์ตัวอักษร]** Use Clean, Modern, Sans-Serif, Professional Google Fonts supporting Thai (e.g. style of "Mitr" or "Prompt").`;
-             knowledgeSheetEN = `1. **Knowledge Sheet (Visual Structure Specification):**\n   Create content for a printable knowledge sheet on an A4 portrait background. **${styleDescEN}**, aimed at ${v.grade}.\n   **[Header]** Title: ${v.topic}, Subtitle: ${v.unitName}.\n   **[Content Layout]** Introduction, Key Concepts with Bullet points, Summary.\n   **[Footer]** Add credit: "Teacher: ${v.teacher}"\n   **[Text Note]** Language: ${langInstructionEN}. Format like an infographic/magazine.\n   **[Typography Style]** Use Clean, Modern, Sans-Serif, Professional Google Fonts supporting Thai.`;
-
-             worksheetSectionTH = `2. **ใบงาน (โครงสร้างเชิงกราฟิกแบบละเอียด):**\n   สร้างใบงานกิจกรรมสำหรับนักเรียนที่พิมพ์ได้ (Printable) บนพื้นหลัง A4 แนวตั้ง **${styleDescTH}** เหมาะสำหรับนักเรียนชั้น ${v.grade}\n   **[ส่วนหัว (Header)]**\n   * ชื่อเรื่อง: ${v.topic}, หัวข้อย่อย: ${v.unitName}\n   **[การจัดวาง: บน & ล่าง]**\n   * **ส่วนบน (Top Section - สีหัวข้อ: สีที่เข้ากันได้กับธีม ${v.topic}):**\n       * ชื่อหัวข้อ: หัวข้อย่อยที่เกี่ยวข้องกับ ${v.topic}\n       * **[งานสร้างสรรค์]** สร้างกิจกรรม (เช่น จับคู่พร้อมกล่องคำตอบว่าง, เติมคำในช่องว่าง)\n   **[ส่วนท้าย (Footer)]**\n   * ใส่เครดิตตัวเล็กๆ ใต้เส้นบรรทัด: "ครูผู้สอน: ${v.teacher}"\n   **[หมายเหตุข้อความ]** ใช้ภาษา ${langInstructionTH}\n   **[สไตล์ตัวอักษร]** Use Clean, Modern, Sans-Serif, Professional Google Fonts supporting Thai (e.g. style of "Mitr" or "Prompt").`;
-             worksheetSectionEN = `2. **Worksheet (Visual Structure Specification):**\n   A printable student activity worksheet on an A4 portrait background. **${styleDescEN}**, aimed at ${v.grade}.\n   **[Header]** Title: ${v.topic}, Subtitle: ${v.unitName}.\n   **[Footer]** Add credit: "Teacher: ${v.teacher}"\n   **[Text Note]** Language: ${langInstructionEN}.\n   **[Typography Style]** Use Clean, Modern, Sans-Serif, Professional Google Fonts supporting Thai.`;
+        // Fix 2: Stronger Style Logic
+        let stylePromptEN = "";
+        let taskDesc = "";
+        let colorConstraint = "";
+        
+        if (styleType === 'coloring') {
+            stylePromptEN = "Black and white line art, clear heavy outlines, high contrast, monochrome, colorless, coloring book style for kids, white background, no shading, no greyscale";
+            taskDesc = "A printable black and white coloring page worksheet";
+            colorConstraint = "**[Color Palette]** BLACK AND WHITE ONLY. STRICTLY NO COLORS.";
+        } else {
+            stylePromptEN = "Cartoon, Vibrant, Cute, Flat vector illustration";
+            taskDesc = "A high-quality, printable Portrait Knowledge Sheet";
+            colorConstraint = "";
         }
+        
+        let negativePrompt = (styleType === 'coloring')
+            ? "colors, shading, gradients, greyscale, filled colors, realistic photo, complex background, dark background, 3d render"
+            : "black and white, sketch, pencil drawing, messy, rough lines, dark and gloomy, blurry";
 
-        // Image Gen Logic
-        if (outputType === 'image') {
-            // Image Mode: IF EXPERT ON, prepend the Role
-            let contextHeader = "";
-            if (isExpertMode) {
-                if (v.lang === 'th') {
-                    contextHeader = `${rolePromptTH}\nTask: สร้างรูปภาพสื่อการเรียนรู้ตามคำสั่งด้านล่างนี้:\n\n`;
-                } else {
-                    contextHeader = `${rolePromptEN}\nTask: Generate educational images based on the following prompts:\n\n`;
-                }
-            }
-            
-            // Knowledge Sheet Prompt (UPDATED V.5.2.5 - Fixed Quotes)
-            let knowPrompt = `"A rich educational infographic knowledge sheet on an A4 portrait background. ${styleDescEN}, aimed at ${v.grade} students.
+        let promptKnow, promptWork;
 
-**[Header]** Title: ${v.topic}, Subtitle: ${v.unitName}. (Do NOT render single quotes around the title text)
+        // IMAGE MODE (English Native) - Always Force Image Mode (V6.8)
+        
+        // Construct Header Variable (Topic + Unit)
+        let topicFull = v.topic;
+        if(v.unitName) topicFull = `${v.unitName}: ${v.topic}`;
 
-**[Visual Specification]**
-- Layout Strategy: Dynamic & Adaptive. Organize content logic based on ${v.topic} and ${v.unitName} for maximum readability.
-- Perspective: Flat lay, top-down view (perfectly aligned for printing).
+        let subHeaderLine = v.unitName ? `- Sub-Header: "${v.unitName}"` : "";
+
+        // V.6.17 FIX: Restore [Text Note] for Knowledge Sheet
+        promptKnow = `
+${headerBlock}
+**[Task]** ${taskDesc} on the topic: "${v.topic}" for Grade Level: ${v.grade}.
 
 **[Content Strategy]**
-- Language: ${matLang === 'en' ? 'English' : (matLang === 'bi' ? 'Bilingual (English/Thai)' : 'Thai')}.
-- Main Header: ${v.topic}
-- Summarize ${v.topic} or ${v.unitName} into key concepts using bullet points.
+- Language: ${contentLang}.
+- Main Header: "${v.topic}"
+${subHeaderLine}
+- Summarize "${v.topic}" into key concepts using bullet points.
 - Use icons and visual cues to explain complex data.
+
 - Learning Level: Bloom's Taxonomy - Auto (AI Decides based on Grade).
 - Tone of Voice: Auto (AI Decides based on Context).
-
-**[Visual Content]** Create detailed, colorful diagrams and illustrations that explain the concept of ${v.topic}. Use clear icons, flowcharts, or characters to visually demonstrate the key ideas. The visuals should be the main focus.
-
-**[Layout]** Arrange information logically in distinct sections.
-- Top: Introduction with a central image.
-- Middle: Detailed process or components with smaller icons.
-- Bottom: Summary or interesting facts.
-
-**[Style]** Engaging, informative, distinct from a worksheet. This sheet is for **reading and learning**. 
-
-**[Footer]** Simple decorative bottom border. Include a distinct credit line in small text: "Created by ${v.teacher}". CRITICAL: Do NOT include any student input fields (No Name/Class lines).
-
-**[Text Note]** Include headings and structure text blocks clearly. Use abstract lines, simple geometric blocks, or unreadable scribbles to represent text areas. **DO NOT generate actual readable text or 'Lorem Ipsum'.**
-**[Typography Style]** Use Clean, Modern, Sans-Serif, Professional Google Fonts supporting Thai (e.g. style of "Mitr" or "Prompt"). Automatically select a font style that matches the mood of ${v.topic} and is legible for ${v.grade} students.
-
-CRITICAL: Do NOT include single quotes (' ') in the visible title text."`;
-
-            // Worksheet Prompt (UPDATED V.5.2.5 - Fixed Quotes)
-            let workPrompt = `"A printable student activity worksheet on an A4 portrait background. ${styleDescEN}, aimed at ${v.grade} students.
-
-**[Header]** Title: ${v.topic}, Subtitle: ${v.unitName}. (Do NOT render single quotes around the title text)
 
 **[Visual Specification]**
-- Layout Strategy: Dynamic & Adaptive. Organize content logic based on ${v.topic} and ${v.unitName} for maximum readability.
+- Dimensions: A4 Portrait (Aspect Ratio 210:297).
+- Layout Strategy: Dynamic & Adaptive. Organize content logic based on "${v.topic}" for maximum readability.
+- Art Style: ${stylePromptEN}.
 - Perspective: Flat lay, top-down view (perfectly aligned for printing).
-- Learning Level: Bloom's Taxonomy - Auto (AI Decides based on Grade).
-- Tone of Voice: Auto (AI Decides based on Context).
+- Typography: Use Clean, Modern, Sans-Serif, Professional Google Fonts supporting Thai (e.g. style of "Krub" Google Font).
+${colorConstraint}
+
+**[Text Note]** Include headings and structure text blocks clearly. Use abstract lines, simple geometric blocks, or unreadable scribbles to represent text areas. **DO NOT generate actual readable text paragraphs.**
+
+**[Constraints & Negative Prompt]**
+DO NOT include: distorted text, blurred elements, watermark, low resolution, 3d text effects that make reading difficult. 
+CRITICAL: Do NOT print layout labels like [TOP], [HEADER], [IMAGE] on the final output. The design must be ready-to-use.
+`.trim();
+
+        // *** V6.9 FIX: Use User Custom Template for Worksheet ***
+        promptWork = `
+${headerBlock}
+**[Task]** ${taskDesc} on an A4 portrait background. ${stylePromptEN}, aimed at ${v.grade} students.
+
+**[Header]** Title: '${v.topic}', Subtitle: '${v.unitName}'.
 
 **[Layout: Top & Bottom]**
-Top Section (Header Color: a harmonious color automatically selected to match the topic ${v.topic}): Title a sub-topic related to ${v.topic}, containing:
-**[Creative Task]** Create an activity (matching with empty answer boxes, fill-in-blanks) related to ${v.topic}.
-Bottom Section (Header Color: a complementary color to the first section): Title another sub-topic related to ${v.topic}, containing:
-**[Creative Task]** Create an activity (questions, drawing space) related to ${v.topic}.
+Top Section (Header Color: a harmonious color automatically selected to match the topic '${v.topic}'): Title a sub-topic related to '${v.topic}', containing:
+**[Creative Task]** Create an activity (matching with empty answer boxes, fill-in-blanks) related to '${v.topic}'.
+Bottom Section (Header Color: a complementary color to the first section): Title another sub-topic related to '${v.topic}', containing:
+**[Creative Task]** Create an activity (questions, drawing space) related to '${v.topic}'.
 
-**[Footer]** Bottom section with writeable lines for: 'Name: __________', 'Class: ...........', 'No: ...'. Below that, add a small credit line: "Teacher: ${v.teacher}".
+**[Footer]** Bottom section with writeable lines for: 'Name: __________', 'Class: ...........', 'No: ...'. Use dotted lines for the Class field to allow writing.
 
-**[Worksheet Requirement]** Ensure clear areas for student interaction. CRITICAL: Randomize/Shuffle items in columns so they are NOT aligned. Keep the activity UNSOLVED.
-STRICTLY PROHIBITED: Do not draw any lines, arrows, dashed lines, or connectors between items.
+**[Worksheet Requirement]** Ensure clear areas for student interaction. CRITICAL: Randomize/Shuffle items in columns so they are NOT aligned. Keep the activity UNSOLVED. 
+STRICTLY PROHIBITED: Do not draw any lines, arrows, dashed lines, or connectors between items. 
 Instead of lines, provide empty answer boxes next to the left-column items for students to write letters/numbers. The gap between columns must be completely blank. Do NOT fill in answers.
 
-**CRITICAL: Leave all answer areas completely blank. Do not write 'Placeholder', 'Lorem Ipsum' or any text. Use empty rectangular boxes or clear horizontal lines for writing areas. The sheet must be ready for students to write on manually.**
-**[Typography Style]** Use Clean, Modern, Sans-Serif, Professional Google Fonts supporting Thai (e.g. style of "Mitr" or "Prompt"). Automatically select a font style that matches the mood of ${v.topic} and is legible for ${v.grade} students.
+**[Text Note]** Do NOT render complex text. Use placeholders.
+**[Typography Style]** Typography style automatically matched to the topic and target audience for maximum readability. Ensure the text aesthetic is legible and appropriate for the grade level.
+${colorConstraint}
 
-CRITICAL: Do NOT include single quotes (' ') in the visible title text."`;
-
-            knowledgeSheetTH = contextHeader + knowPrompt;
-            knowledgeSheetEN = contextHeader + knowPrompt;
-
-            worksheetSectionTH = contextHeader + workPrompt;
-            worksheetSectionEN = contextHeader + workPrompt;
-
-            answerKeyTH = ""; 
-            answerKeyEN = "";
-        }
-
-        let promptAll, promptKnow, promptWork;
-        if (v.lang === 'th') {
-            let contextHeader;
-            
-            if (outputType === 'image') {
-                promptKnow = `${knowledgeSheetTH}`;
-                promptWork = `${worksheetSectionTH}`;
-            } else {
-                // Content Mode: Role play as Teacher/Creator
-                contextHeader = `${rolePromptTH}\nDirect Command: จงเขียนเนื้อหาฉบับสมบูรณ์ (Full Content Output) ของใบความรู้และใบงานต่อไปนี้ทันที ห้ามอธิบายแผนงาน แต่ให้เขียนตัวเนื้อหาจริงออกมาเลย\n\nTask: เขียนเนื้อหาใบความรู้และใบงานสำหรับเรื่อง: "${v.topic}" วิชา: ${v.subject} ชั้น: ${v.grade}\nคำสั่ง: ให้สร้างเนื้อหา (${langInstructionTH}) (Output full content ready to use)\nDo not describe what to do. Just write the content.\n\n`;
-                // SPLIT TASKS LOGIC (V5.4.1)
-                promptKnow = `${contextHeader}Task: เขียนเนื้อหา "ใบความรู้ (Knowledge Sheet)" สำหรับเรื่อง "${v.topic}"\n**สิ่งที่ต้องสร้าง:**\n${knowledgeSheetTH}\n\nเพิ่มเติม: เน้นการสรุปที่กระชับ อ่านง่าย และสวยงาม`;
-                promptWork = `${contextHeader}Task: เขียนเนื้อหา "ใบงาน (Worksheet)" สำหรับเรื่อง "${v.topic}"\n**สิ่งที่ต้องสร้าง:**\n${worksheetSectionTH}\n\n${answerKeyTH}\n\nเพิ่มเติม: เน้นกิจกรรมที่ท้าทายความคิดและการลงมือทำ`;
-            }
-
-        } else {
-            let contextHeader;
-            
-            if (outputType === 'image') {
-                promptKnow = `${knowledgeSheetEN}`;
-                promptWork = `${worksheetSectionEN}`;
-            } else {
-                contextHeader = `${rolePromptEN}\nDirect Command: Write the actual full content for the educational materials below immediately. Do not explain the plan. Just write the content.\n\nTask: Write the full text content for educational materials on topic: "${v.topic}".\nSubject: ${v.subject}, Grade Level: ${v.grade}.\nOutput Language: ${langInstructionEN} (Ready to use).\n\n`;
-                promptKnow = `${contextHeader}Task: Create content for a "Knowledge Sheet"\n**Requirements:**\n${knowledgeSheetEN}\n\nStyle: Clear, concise, and visually appealing summary.`;
-                promptWork = `${contextHeader}Task: Create content for a "Student Worksheet"\n**Requirements:**\n${worksheetSectionEN}\n\n${answerKeyEN}\n\nStyle: Engaging activities requiring critical thinking and hands-on practice.`;
-            }
-        }
+**[Negative Prompt]**
+${negativePrompt}, filled answers, solved problems, messy lines, text paragraphs, complex background.
+`.trim();
 
         document.getElementById('outputMaterialsKnow').value = promptKnow;
         document.getElementById('outputMaterialsWork').value = promptWork;
@@ -1559,42 +1198,18 @@ CRITICAL: Do NOT include single quotes (' ') in the visible title text."`;
 
     async function copyToClipboard(elementId, btnId) {
         const textarea = document.getElementById(elementId);
-        const text = textarea.value;
         const btn = document.getElementById(btnId);
         const originalHtml = btn.innerHTML;
-        if (!text) return;
-        
-        try {
-             await navigator.clipboard.writeText(text);
-             btn.innerHTML = '<i class="fas fa-check"></i> เรียบร้อย';
-             btn.classList.remove('btn-outline-dark', 'btn-outline-success');
-             btn.classList.add('btn-success');
-             showToast('liveToastCopy');
-        } catch (err) {
-             // Fallback
-             textarea.select();
-             document.execCommand('copy');
-             btn.innerHTML = '<i class="fas fa-check"></i> เรียบร้อย';
-             btn.classList.add('btn-success');
-        }
-        
-        setTimeout(() => {
-            btn.innerHTML = originalHtml;
-            btn.classList.remove('btn-success');
-            if (btnId.includes('copyKnow') || btnId.includes('copyWork') || btnId.includes('copyAll')) {
-                 btn.classList.add('btn-outline-success');
-            } else {
-                 btn.classList.add('btn-outline-dark');
-            }
-        }, 2000);
+        if (btn.classList.contains('btn-success') || !textarea.value) return;
+        try { await navigator.clipboard.writeText(textarea.value); btn.classList.add('btn-success'); showToast('liveToastCopy'); } 
+        catch (err) { textarea.select(); document.execCommand('copy'); btn.classList.add('btn-success'); showToast('liveToastCopy'); }
+        setTimeout(() => { btn.innerHTML = originalHtml; btn.classList.remove('btn-success'); }, 2000);
     }
 
-    // Init Standard Mode Style
-    setMode('rasisalai'); // Set default to Rasisalai and update UI
-    toggleImageAdvice(); // Init advice visibility
+    setMode('rasisalai'); 
+    // toggleImageAdvice removed
 </script>
 
-<!-- Bootstrap 5 JS Bundle -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
