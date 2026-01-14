@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบสร้าง Prompt แผนการจัดการเรียนรู้ Expert Edition (V.3.25)</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts (Prompt & Sarabun) -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600&family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* Responsive adjustments */
+        html, body { overflow-x: hidden; }
+        body {
+            font-family: 'Prompt', sans-serif;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .container { max-width: 100%; padding-left: 15px; padding-right: 15px; }
+        @media (min-width: 992px) { .container { max-width: 960px; } }
+        
+        .main-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .card-header-custom {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-bottom: none;
+        }
+        .form-label { font-weight: 600; color: #2d3436; font-size: 0.95rem; }
+        .section-title {
+            color: #764ba2;
+            font-weight: 700;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            border-left: 4px solid #764ba2;
+            padding-left: 10px;
+            font-size: 1.1rem;
+        }
+        .text-danger {
+            color: #dc3545 !important;
+        }
+        .btn-generate {
+            background: linear-gradient(45deg, #FF8008, #FFC837);
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 12px 20px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 128, 8, 0.3);
+        }
+        .btn-generate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 128, 8, 0.4);
+            color: white;
+        }
+        .btn-materials {
+            background: linear-gradient(45deg, #11998e, #38ef7d);
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 12px 20px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(56, 239, 125, 0.3);
+        }
+        .btn-materials:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(56, 239, 125, 0.4);
+            color: white;
+        }
+        .output-area {
+            background-color: #f8f9fa;
+            border: 2px dashed #a29bfe;
+            border-radius: 10px;
+            padding: 15px;
+            font-family: 'Sarabun', sans-serif;
+            font-size: 0.95rem;
+            color: #333;
+            min-height: 250px;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+        .output-area-materials {
+            background-color: #f0fff4; /* Light green tint */
+            border: 2px dashed #38ef7d;
+            border-radius: 10px;
+            padding: 15px;
+            font-family: 'Sarabun', sans-serif;
+            font-size: 0.95rem;
+            color: #333;
+            min-height: 200px;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+        
+        /* Nav Pills (Top Mode) */
+        .nav-pills.top-mode {
+            background: rgba(255,255,255,0.2);
+            border-radius: 50px;
+            padding: 4px;
+            display: inline-flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .nav-pills.top-mode .nav-link.active {
+            background-color: #fff;
+            color: #764ba2;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .nav-pills.top-mode .nav-link {
+            color: rgba(255,255,255,0.9);
+            font-weight: 500;
+            border-radius: 50px;
+            padding: 6px 15px;
+            font-size: 0.9rem;
+        }
+
+        /* Material Tabs */
+        .nav-tabs .nav-link {
+            color: #495057;
+            font-weight: 600;
+        }
+        .nav-tabs .nav-link.active {
+            color: #11998e;
+            border-bottom: 3px solid #11998e;
+        }
+        
+        /* Highlight Box */
+        .highlight-box {
+            background-color: #f0f4ff;
+            border: 1px solid #dbeafe;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* Expert Team Section Styles */
+        .expert-box {
+            background: linear-gradient(to right, #ffffff, #fdfbfb);
+            border: 1px solid #e1e1e1;
+            border-left: 4px solid #FF8008; /* Orange accent */
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: none; /* Hidden by default */
+        }
+        .expert-toggle-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff3e0; /* Light Orange */
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            border: 1px solid #ffe0b2;
+            transition: all 0.2s;
+        }
+        .expert-toggle-wrapper:hover {
+            background-color: #ffe0b2;
+        }
+        .expert-check-label {
+            cursor: pointer;
+            user-select: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+        .expert-check-label i {
+            width: 20px;
+            color: #667eea;
+            margin-right: 5px;
+        }
+        
+        .lang-switch .btn-check:checked + .btn {
+            background-color: #764ba2; color: white; border-color: #764ba2;
+        }
+        .lang-switch .btn { border-color: #764ba2; color: #764ba2; }
+
+        @media (max-width: 576px) {
+            .card-header-custom { padding: 15px; }
+            h3 { font-size: 1.25rem; }
+            .section-title { margin-top: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="card main-card">
+                <div class="card-header-custom">
+                    <div class="row align-items-center">
+                        <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
+                            <h3 class="mb-1"><i class="fas fa-user-graduate me-2"></i>สร้างแผนการสอน AI Expert</h3>
+                            <small class="op-8">Lesson Plan Prompt Generator V.3.25 (Expert Edition Plus)</small>
+                        </div>
+                        <div class="col-md-6 text-center text-md-end">
+                            <div class="nav nav-pills top-mode" id="pills-tab" role="tablist">
+                                <button class="nav-link active mx-1" id="pills-std-tab" data-bs-toggle="pill" data-bs-target="#pills-std" type="button" role="tab" onclick="setMode('standard')">
+                                    แบบมาตรฐาน
+                                </button>
+                                <button class="nav-link mx-1" id="pills-rasi-tab" data-bs-toggle="pill" data-bs-target="#pills-rasi" type="button" role="tab" onclick="setMode('rasisalai')">
+                                    แบบ ร.ร.ราษีไศล
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-body p-3 p-md-4">
+                    <form id="promptForm">
+                        
+                        <!-- 1. รูปแบบและภาษา -->
+                        <div class="highlight-box">
+                            <div class="row align-items-center mb-3">
+                                <div class="col-md-6">
+                                    <h5 class="text-primary mb-2 mb-md-0"><i class="fas fa-layer-group me-2"></i>ตั้งค่ารูปแบบ</h5>
+                                </div>
+                                <div class="col-md-6 text-md-end">
+                                    <label class="form-label me-2 mb-0 text-muted" style="font-size: 0.85rem;"><i class="fas fa-language me-1"></i>ภาษา Prompt:</label>
+                                    <div class="btn-group lang-switch" role="group">
+                                        <input type="radio" class="btn-check" name="promptLang" id="langTH" value="th" checked>
+                                        <label class="btn btn-sm btn-outline-primary" for="langTH">ไทย</label>
+                                        
+                                        <input type="radio" class="btn-check" name="promptLang" id="langEN" value="en">
+                                        <label class="btn btn-sm btn-outline-primary" for="langEN">English</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Virtual Team Toggle -->
+                            <div class="expert-toggle-wrapper" onclick="toggleExpertMode()">
+                                <div class="d-flex align-items-center">
+                                    <div class="form-check form-switch me-2 pointer-events-none">
+                                        <input class="form-check-input" type="checkbox" id="expertModeToggle">
+                                    </div>
+                                    <span class="fw-bold text-dark"><i class="fas fa-users-cog me-2"></i>เปิดใช้โหมดทีมผู้เชี่ยวชาญ (Virtual Expert Team)</span>
+                                </div>
+                                <i class="fas fa-chevron-down" id="expertToggleIcon"></i>
+                            </div>
+
+                            <!-- Virtual Team Configuration (Hidden by default) -->
+                            <div id="expertConfigBox" class="expert-box">
+                                <p class="small text-muted mb-2">เลือกทีมผู้เชี่ยวชาญที่จะมาร่วมออกแบบแผนการสอนกับคุณ:</p>
+                                <div class="row g-2">
+                                    <div class="col-6 col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="roleCurriculum" checked disabled>
+                                            <label class="form-check-label expert-check-label" for="roleCurriculum">
+                                                <i class="fas fa-book"></i> นักหลักสูตร
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="rolePsychologist" checked>
+                                            <label class="form-check-label expert-check-label" for="rolePsychologist">
+                                                <i class="fas fa-brain"></i> จิตวิทยาเด็ก
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="roleEdTech" checked>
+                                            <label class="form-check-label expert-check-label" for="roleEdTech">
+                                                <i class="fas fa-laptop-code"></i> ผู้เชี่ยวชาญ AI
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="roleAssessment" checked>
+                                            <label class="form-check-label expert-check-label" for="roleAssessment">
+                                                <i class="fas fa-clipboard-check"></i> นักวัดผล (Rubric/Test)
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="roleMedia" checked>
+                                            <label class="form-check-label expert-check-label" for="roleMedia">
+                                                <i class="fas fa-pencil-ruler"></i> นักออกแบบสื่อ
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row g-3">
+                                <div class="col-md-4 col-sm-12">
+                                    <label for="teachingModel" class="form-label">รูปแบบการสอน</label>
+                                    <select class="form-select border-primary" id="teachingModel" onchange="toggleOtherInput('teachingModel', 'teachingModelOther')">
+                                        <option value="GPAS 5 Steps" selected>GPAS 5 Steps</option>
+                                        <option value="Thinking School">Thinking School</option>
+                                        <option value="5E (Simplified)">5E แบบย่อ (นำ-สอน-สรุป)</option>
+                                        <option value="5E Inquiry-Based">5E Inquiry-Based (5 ขั้น)</option>
+                                        <option value="Problem-Based Learning (PBL)">PBL (ปัญหาเป็นฐาน)</option>
+                                        <option value="Project-Based Learning (PjBL)">PjBL (โครงงานเป็นฐาน)</option>
+                                        <option value="STEM Education">STEM Education</option>
+                                        <option value="CIPPA Model">CIPPA Model</option>
+                                        <option value="other">อื่นๆ (ระบุเอง)</option>
+                                    </select>
+                                    <input type="text" class="form-control mt-2 d-none border-primary" id="teachingModelOther" placeholder="ระบุรูปแบบการสอน...">
+                                </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <label for="teachingTechnique" class="form-label">เทคนิคเสริม</label>
+                                    <select class="form-select border-warning" id="teachingTechnique" onchange="toggleOtherInput('teachingTechnique', 'teachingTechniqueOther')">
+                                        <option value="none" selected>ไม่ระบุ (Active Learning)</option>
+                                        <option value="Gamification">Gamification (เกม)</option>
+                                        <option value="Unplugged Coding">Unplugged Coding</option>
+                                        <option value="Flipped Classroom">Flipped Classroom</option>
+                                        <option value="Think-Pair-Share">Think-Pair-Share</option>
+                                        <option value="Jigsaw">Jigsaw (จิ๊กซอว์)</option>
+                                        <option value="Role Playing">Role Playing (บทบาทสมมติ)</option>
+                                        <option value="Storytelling">Storytelling (เล่าเรื่อง)</option>
+                                        <option value="Design Thinking">Design Thinking</option>
+                                        <option value="other">อื่นๆ (ระบุเอง)</option>
+                                    </select>
+                                    <input type="text" class="form-control mt-2 d-none border-warning" id="teachingTechniqueOther" placeholder="ระบุเทคนิคเสริม...">
+                                </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <label for="objectiveFormat" class="form-label text-success">จุดประสงค์</label>
+                                    <select class="form-select border-success" id="objectiveFormat" onchange="toggleOtherInput('objectiveFormat', 'objectiveFormatOther')">
+                                        <option value="K-P-A" selected>K-P-A</option>
+                                        <option value="K-S-A">K-S-A</option>
+                                        <option value="K-P-A-S">K-P-A-S</option>
+                                        <option value="other">อื่นๆ (ระบุเอง)</option>
+                                    </select>
+                                    <input type="text" class="form-control mt-2 d-none border-success" id="objectiveFormatOther" placeholder="ระบุรูปแบบจุดประสงค์...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. ข้อมูลรายวิชา -->
+                        <div class="section-title">ข้อมูลรายวิชาและผู้สอน</div>
+                        <div class="row g-3">
+                            <div class="col-md-6 col-sm-12">
+                                <label for="teacherName" class="form-label">ชื่อครูผู้สอน <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="teacherName" placeholder="เช่น นายชัยวัฒน์ ..." required>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <label for="subject" class="form-label">วิชา <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="subject" placeholder="เช่น วิทยาการคำนวณ" required>
+                            </div>
+                            
+                            <div class="col-md-3 col-6">
+                                <label for="subjectCode" class="form-label">รหัสวิชา</label>
+                                <input type="text" class="form-control" id="subjectCode" placeholder="ว21101">
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <label for="grade" class="form-label">ชั้น</label>
+                                <input type="text" class="form-control" id="grade" placeholder="ม.1">
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <label for="semester" class="form-label">ภาคเรียน</label>
+                                <input type="text" class="form-control" id="semester" placeholder="1">
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <label for="year" class="form-label">ปีการศึกษา</label>
+                                <input type="text" class="form-control" id="year" placeholder="2569">
+                            </div>
+
+                            <div class="col-md-6 col-sm-12">
+                                <label for="unitName" class="form-label">หน่วยการเรียนรู้</label>
+                                <input type="text" class="form-control" id="unitName" placeholder="ชื่อหน่วย...">
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <label for="topic" class="form-label">เรื่องที่สอน <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="topic" placeholder="เรื่อง..." required>
+                            </div>
+
+                            <div class="col-md-4 col-sm-12">
+                                <label for="time" class="form-label">เวลา</label>
+                                <input type="text" class="form-control" id="time" placeholder="เช่น 50 นาที">
+                            </div>
+                             <div class="col-md-4 col-6">
+                                <label for="credit" class="form-label">หน่วยกิต</label>
+                                <input type="text" class="form-control" id="credit" placeholder="1.0">
+                            </div>
+                            <div class="col-md-4 col-6">
+                                <label for="teachDate" class="form-label">วันที่สอน</label>
+                                <input type="text" class="form-control" id="teachDate" placeholder="ว/ด/ป">
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button type="button" class="btn btn-generate btn-lg w-100" onclick="generatePrompt()">
+                                <i class="fas fa-wand-magic-sparkles me-2"></i> สร้าง Prompt แผนการสอน (หลัก)
+                            </button>
+                        </div>
+                    </form>
+
+                    <hr class="my-4">
+
+                    <!-- Output Section 1: Main Lesson Plan -->
+                    <div class="mt-3 position-relative">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h6 class="form-label text-muted mb-0"><i class="fas fa-code me-1"></i> ผลลัพธ์ Prompt แผนการสอน (คัดลอกไปใช้)</h6>
+                            <button id="copyBtn" class="btn btn-sm btn-outline-dark" onclick="copyToClipboard('outputPrompt', 'copyBtn')">
+                                <i class="far fa-copy"></i> คัดลอก
+                            </button>
+                        </div>
+                        <textarea class="form-control output-area" id="outputPrompt" rows="10" readonly></textarea>
+                    </div>
+
+                    <!-- Output Section 2: Materials Generator (New with Tabs) -->
+                    <div class="mt-4 pt-3 border-top">
+                        <div class="row mb-3">
+                            <div class="col-md-12 mb-2">
+                                <h5 class="text-success mb-1"><i class="fas fa-file-alt me-2"></i>สร้าง Prompt ใบงาน & ใบความรู้ (เสริม)</h5>
+                                <small class="text-muted">สำหรับสร้างสื่อการสอนแยกต่างหาก เลือกประเภทได้ตามต้องการ</small>
+                            </div>
+                            
+                            <!-- Visual Style Selection -->
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label text-muted small fw-bold"><i class="fas fa-paint-brush me-1"></i> สไตล์กราฟิก (Visual Style):</label>
+                                <div class="d-flex flex-wrap gap-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="visualStyle" id="styleCartoon" value="cartoon" checked>
+                                        <label class="form-check-label" for="styleCartoon">
+                                            <i class="fas fa-shapes text-info me-1"></i> การ์ตูนน่ารัก (Cartoon)
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="visualStyle" id="styleColoring" value="coloring">
+                                        <label class="form-check-label" for="styleColoring">
+                                            <i class="fas fa-palette text-secondary me-1"></i> ภาพระบายสี (Coloring)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Output Type Selection (NEW) -->
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label text-muted small fw-bold"><i class="fas fa-output me-1"></i> ประเภทผลลัพธ์ (Output Type):</label>
+                                <div class="d-flex flex-wrap gap-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="outputType" id="outputTypeContent" value="content" checked>
+                                        <label class="form-check-label" for="outputTypeContent">
+                                            <i class="fas fa-file-alt text-success me-1"></i> 📝 สร้างเนื้อหา (Text)
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="outputType" id="outputTypeImage" value="image">
+                                        <label class="form-check-label" for="outputTypeImage">
+                                            <i class="fas fa-image text-danger me-1"></i> 🎨 สร้างรูปภาพ (Image Gen)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 text-md-end mt-2">
+                                <button type="button" class="btn btn-materials w-100" onclick="generateMaterialsPrompt()">
+                                    <i class="fas fa-print me-2"></i> สร้าง Prompt สื่อการสอน
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Tabs Navigation -->
+                        <ul class="nav nav-tabs mb-3" id="materialTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="tab-know" data-bs-toggle="tab" data-bs-target="#content-know" type="button" role="tab"><i class="fas fa-book-open me-1"></i> ใบความรู้</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="tab-work" data-bs-toggle="tab" data-bs-target="#content-work" type="button" role="tab"><i class="fas fa-pencil-alt me-1"></i> ใบงาน</button>
+                            </li>
+                        </ul>
+
+                        <!-- Tabs Content -->
+                        <div class="tab-content" id="materialTabsContent">
+                            <!-- Knowledge Sheet Tab -->
+                            <div class="tab-pane fade show active" id="content-know" role="tabpanel">
+                                <div class="position-relative">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h6 class="form-label text-muted mb-0">ผลลัพธ์: เฉพาะใบความรู้</h6>
+                                        <button id="copyKnowBtn" class="btn btn-sm btn-outline-success" onclick="copyToClipboard('outputMaterialsKnow', 'copyKnowBtn')">
+                                            <i class="far fa-copy"></i> คัดลอก
+                                        </button>
+                                    </div>
+                                    <textarea class="form-control output-area-materials" id="outputMaterialsKnow" rows="8" readonly placeholder="กดปุ่ม 'สร้าง Prompt สื่อการสอน' เพื่อแสดงผลลัพธ์..."></textarea>
+                                </div>
+                            </div>
+                            <!-- Worksheet Tab -->
+                            <div class="tab-pane fade" id="content-work" role="tabpanel">
+                                <div class="position-relative">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h6 class="form-label text-muted mb-0">ผลลัพธ์: เฉพาะใบงาน + เฉลย</h6>
+                                        <button id="copyWorkBtn" class="btn btn-sm btn-outline-success" onclick="copyToClipboard('outputMaterialsWork', 'copyWorkBtn')">
+                                            <i class="far fa-copy"></i> คัดลอก
+                                        </button>
+                                    </div>
+                                    <textarea class="form-control output-area-materials" id="outputMaterialsWork" rows="8" readonly placeholder="กดปุ่ม 'สร้าง Prompt สื่อการสอน' เพื่อแสดงผลลัพธ์..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Warning Message -->
+                        <p class="text-danger small mt-2 fw-bold mb-0 text-center"><i class="fas fa-exclamation-circle me-1"></i> ** prompt ภาษาอังกฤษ จะใช้ได้ดีกว่า prompt ภาษาไทย **</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1055;">
+    <!-- Toast: Generated -->
+    <div id="liveToastGen" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                <i class="fas fa-magic me-2"></i> สร้าง Prompt เรียบร้อยแล้ว!
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+    <!-- Toast: Copied -->
+    <div id="liveToastCopy" class="toast align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                <i class="fas fa-clipboard-check me-2"></i> คัดลอกลงคลิปบอร์ดแล้ว
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+     <!-- Toast: Error (Validation) -->
+    <div id="liveToastError" class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                <i class="fas fa-exclamation-circle me-2"></i> กรุณากรอกข้อมูลจำเป็นให้ครบถ้วน (ชื่อครู, วิชา, เรื่อง)
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentMode = 'standard';
+    let isExpertMode = false;
+
+    // Toast Helper
+    function showToast(elementId) {
+        const toastEl = document.getElementById(elementId);
+        if (toastEl) {
+            const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+            toast.show();
+        }
+    }
+
+    function setMode(mode) {
+        currentMode = mode;
+        const pills = {
+            std: document.getElementById('pills-std-tab'),
+            rasi: document.getElementById('pills-rasi-tab')
+        };
+
+        if(mode === 'rasisalai') {
+            pills.rasi.classList.add('bg-white', 'text-primary', 'shadow-sm');
+            pills.rasi.style.color = "#764ba2";
+            pills.std.classList.remove('bg-white', 'text-primary', 'shadow-sm');
+            pills.std.style.color = "rgba(255,255,255,0.9)";
+        } else {
+            pills.std.classList.add('bg-white', 'text-primary', 'shadow-sm');
+            pills.std.style.color = "#764ba2";
+            pills.rasi.classList.remove('bg-white', 'text-primary', 'shadow-sm');
+            pills.rasi.style.color = "rgba(255,255,255,0.9)";
+        }
+    }
+
+    function toggleExpertMode() {
+        isExpertMode = !isExpertMode;
+        const toggle = document.getElementById('expertModeToggle');
+        const box = document.getElementById('expertConfigBox');
+        const icon = document.getElementById('expertToggleIcon');
+        
+        toggle.checked = isExpertMode;
+        
+        if (isExpertMode) {
+            box.style.display = 'block';
+            icon.classList.remove('fa-chevron-down');
+            icon.classList.add('fa-chevron-up');
+        } else {
+            box.style.display = 'none';
+            icon.classList.remove('fa-chevron-up');
+            icon.classList.add('fa-chevron-down');
+        }
+    }
+    
+    // Allow clicking the checkbox directly without triggering the parent div's onclick twice
+    document.getElementById('expertModeToggle').addEventListener('click', function(e) {
+        e.stopPropagation();
+        toggleExpertMode();
+    });
+
+    // --- Custom Other Input Logic ---
+    function toggleOtherInput(selectId, inputId) {
+        const select = document.getElementById(selectId);
+        const input = document.getElementById(inputId);
+        if (select.value === 'other') {
+            input.classList.remove('d-none');
+            input.focus();
+        } else {
+            input.classList.add('d-none');
+        }
+    }
+
+    // Helper to get value from select or custom input
+    function getSelectOrOther(selectId, inputId) {
+        const selectVal = document.getElementById(selectId).value;
+        if (selectVal === 'other') {
+             return document.getElementById(inputId).value || '';
+        }
+        return selectVal;
+    }
+
+    function getFormValues() {
+        const getVal = (id) => document.getElementById(id).value;
+        return {
+            teacher: getVal('teacherName'),
+            subject: getVal('subject'),
+            topic: getVal('topic'),
+            subjectCode: getVal('subjectCode') || '[รหัสวิชา]',
+            grade: getVal('grade') || '[ชั้นปี]',
+            semester: getVal('semester') || '[ภาคเรียน]',
+            year: getVal('year') || '[ปีการศึกษา]',
+            unitName: getVal('unitName') || 'Unit 1',
+            time: getVal('time') || '[เวลา]',
+            credit: getVal('credit') || '-',
+            teachDate: getVal('teachDate') || '-',
+            lang: document.querySelector('input[name="promptLang"]:checked').value,
+            model: getSelectOrOther('teachingModel', 'teachingModelOther'),
+            technique: getSelectOrOther('teachingTechnique', 'teachingTechniqueOther'),
+            objectiveFormat: getSelectOrOther('objectiveFormat', 'objectiveFormatOther')
+        };
+    }
+
+    function generatePrompt() {
+        const v = getFormValues();
+        
+        // Validation
+        if (!v.teacher || !v.subject || !v.topic) {
+            showToast('liveToastError');
+            return;
+        }
+        
+        let techniqueStringTH = v.technique === 'none' ? 'โดยเน้นกระบวนการ Active Learning' : `ผสมผสานกับเทคนิค "${v.technique}"`;
+        let techniqueValueEN = v.technique === 'none' ? 'Active Learning strategies' : `"${v.technique}" technique`;
+
+        // --- Expert Team Logic ---
+        let rolePromptTH = "คุณคือครูผู้เชี่ยวชาญด้านการออกแบบการเรียนรู้และเทคโนโลยีการศึกษา และการใช้ปัญญาประดิษฐ์ช่วยในการจัดการเรียนการสอน";
+        let rolePromptEN = "Role: You are an expert teacher specializing in instructional design, educational technology, and **AI-integrated teaching**.";
+
+        if (isExpertMode) {
+            // Check active roles
+            const usePsych = document.getElementById('rolePsychologist').checked;
+            const useEdTech = document.getElementById('roleEdTech').checked;
+            const useAssessment = document.getElementById('roleAssessment').checked;
+            const useMedia = document.getElementById('roleMedia').checked;
+
+            // Thai Expert Role Construction
+            let teamMembersTH = "1. นักออกแบบหลักสูตร (Curriculum Specialist)";
+            if (usePsych) teamMembersTH += ", 2. นักจิตวิทยาเด็ก (Child Psychologist) เพื่อให้คำแนะนำกิจกรรมที่เหมาะกับพัฒนาการตามวัย";
+            if (useEdTech) teamMembersTH += ", 3. ผู้เชี่ยวชาญด้านเทคโนโลยี (EdTech & AI Specialist)";
+            if (useAssessment) teamMembersTH += ", 4. ผู้เชี่ยวชาญด้านการวัดผลและประเมินผล (Assessment & Rubric Specialist) ที่จะรับผิดชอบการออกแบบเกณฑ์การให้คะแนนและข้อสอบอย่างละเอียด";
+            if (useMedia) teamMembersTH += ", 5. นักออกแบบสื่อการเรียนรู้ (Instructional Media Designer) เพื่อออกแบบใบงาน ใบความรู้ และสื่อที่น่าสนใจ";
+
+            rolePromptTH = `บทบาท: คุณคือ "ทีมที่ปรึกษาการออกแบบการสอน (Virtual Design Team)" ที่ประกอบด้วยผู้เชี่ยวชาญดังนี้: ${teamMembersTH}. เป้าหมายคือการระดมสมองเพื่อสร้างแผนการจัดการเรียนรู้ที่มีคุณภาพสูงที่สุด`;
+
+            // English Expert Role Construction
+            let teamMembersEN = "1. Curriculum Specialist";
+            if (usePsych) teamMembersEN += ", 2. Child Psychologist (to ensure age-appropriate activities)";
+            if (useEdTech) teamMembersEN += ", 3. EdTech & AI Specialist";
+            if (useAssessment) teamMembersEN += ", 4. Assessment Specialist (responsible for creating precise Rubrics and Tests)";
+            if (useMedia) teamMembersEN += ", 5. Instructional Media Designer (to design engaging worksheets and knowledge sheets)";
+
+            rolePromptEN = `Role: Act as a "**Virtual Instructional Design Team**" consisting of: ${teamMembersEN}. Your goal is to collaborate to create a high-quality lesson plan.`;
+        }
+
+        let promptText = "";
+
+        if (currentMode === 'standard') {
+            if (v.lang === 'th') {
+                promptText = `${rolePromptTH}
+ช่วยเขียน "แผนการจัดการเรียนรู้" แบบ Active Learning
+สำหรับนักเรียนชั้น: [${v.grade}]
+ภาคเรียนที่ : [${v.semester}] ปีการศึกษา : [${v.year}]
+วิชา: [${v.subject}] เรื่อง: [${v.topic}]
+เวลา: [${v.time}] หน่วยกิต : [${v.credit} หน่วย]
+ครูผู้สอน : [${v.teacher}]
+
+โดยให้มีหัวข้อครบถ้วนตามโครงสร้างดังนี้:
+1. มาตรฐานการเรียนรู้/ตัวชี้วัด
+2. สาระสำคัญ
+3. จุดประสงค์การเรียนรู้ (${v.objectiveFormat})
+4. สาระการเรียนรู้
+5. สมรรถนะสำคัญของผู้เรียน
+6. คุณลักษณะอันพึงประสงค์
+7. ภาระชิ้นงาน/ชิ้นงาน (ระบุงานเดี่ยวและงานกลุ่ม)
+8. กิจกรรมการจัดการเรียนรู้
+9. สื่อการเรียนรู้/แหล่งการเรียนรู้
+10. การวัดและประเมินผล (สร้างตาราง Rubric ให้คะแนน งานเดี่ยว 10 คะแนน และงานกลุ่ม 20 คะแนน)
+
+เงื่อนไขสำคัญของการออกแบบกิจกรรม (ข้อ 8):
+1. ให้ใช้รูปแบบการสอนแบบ "${v.model}" ${techniqueStringTH} เป็นแกนหลักในการดำเนินกิจกรรม
+2. ระบุให้ชัดเจนว่าแต่ละขั้นตอนสอดคล้องกับ "องค์ประกอบ Active Learning" อย่างไร
+3. ระบุเวลาเป็นนาที กำกับท้ายชื่อขั้นตอนกิจกรรม (เช่น ขั้นนำ (5 นาที))
+4. กิจกรรมต้องเน้นความสนุกสนาน และมีการประยุกต์ใช้เทคโนโลยีหรือสื่อที่น่าสนใจ
+5. การประยุกต์ใช้เอไอ(ปัญญาประดิษฐ์)มาบูรณาการช่วยในการจัดการเรียนการสอน
+6. ใช้สมรรถนะ 6 ด้านหลักตามหลักสูตรฐานสมรรถนะของไทย (CBE)
+7. สร้างใบงานในกิจกรรมที่เกี่ยวข้องพร้อมเฉลย
+8. ออกข้อสอบก่อนเรียนและหลังเรียน จำนวน 5 ข้อพร้อมเฉลย
+9. วิเคราะห์ข้อสอบ
+${isExpertMode && document.getElementById('rolePsychologist').checked ? '10. (เพิ่มเติมสำหรับทีมผู้เชี่ยวชาญ) ขอให้มี "มุมมองนักจิตวิทยา" สั้นๆ แทรกในท้ายแผนการสอน เพื่ออธิบายว่าทำไมกิจกรรมนี้ถึงเหมาะกับนักเรียนวัยนี้' : ''}
+- Create knowledge sheets and Worksheet with Answer Key.`;
+            } else {
+                promptText = `${rolePromptEN}
+Task: Create an "**Active Learning Lesson Plan**" based on the following details:
+
+**Context:**
+- Grade Level: [${v.grade}]
+- Semester: [${v.semester}] Academic Year: [${v.year}]
+- Subject: [${v.subject}] Topic: [${v.topic}]
+- Time Duration: [${v.time}] Credit: [${v.credit}]
+- Instructor: [${v.teacher}]
+
+**Instructional Design Requirements:**
+1. **Model:** Use the "**${v.model}**" framework.
+2. **Technique:** Enhance the lesson using **${techniqueValueEN}**.
+3. **Objective Format:** Use **${v.objectiveFormat}** model.
+4. **AI Integration:** You MUST integrate AI tools (like ChatGPT, Gemini, Canva, etc.) into the teaching/learning process effectively.
+
+**IMPORTANT CONSTRAINTS:**
+- **Output Language:** The entire lesson plan must be written in **Formal Thai Language (ภาษาไทยทางการ)** suitable for an official government document.
+- **Tone:** Professional, encouraging, and academic.
+
+**Required Structure (Please use these Thai headers):**
+1. มาตรฐานการเรียนรู้/ตัวชี้วัด (Standards/Indicators)
+2. สาระสำคัญ (Concept)
+3. จุดประสงค์การเรียนรู้ (${v.objectiveFormat} Learning Objectives)
+4. สาระการเรียนรู้ (Content)
+5. สมรรถนะสำคัญของผู้เรียน (Core Competencies - CBE 6 Aspects)
+6. คุณลักษณะอันพึงประสงค์ (Desirable Characteristics)
+7. ภาระชิ้นงาน/ชิ้นงาน (Tasks/Assignments - Individual & Group)
+8. กิจกรรมการจัดการเรียนรู้ (Learning Activities - Detail the ${v.model} steps, specify Active Learning elements, and allocate time in minutes e.g. (5 mins))
+9. สื่อการเรียนรู้/แหล่งการเรียนรู้ (Media/Resources)
+10. การวัดและประเมินผล (Evaluation - Include Rubrics for Individual 10pts / Group 20pts)
+
+**Additional Requests:**
+- Create knowledge sheets and Worksheet with Answer Key.
+- Create Pre-test & Post-test (5 Questions) with Answers and Analysis.
+${isExpertMode && document.getElementById('rolePsychologist').checked ? '- **Psychologist Insight:** At the end of the plan, add a brief note explaining why these activities are developmentally appropriate for this age group.' : ''}`;
+            }
+        } else {
+            // RASISALAI MODE
+            if (v.lang === 'th') {
+                 promptText = `${rolePromptTH}
+ช่วยเขียน "แผนการจัดการเรียนรู้" ตามแบบฟอร์มของโรงเรียนราษีไศล
+โดยมีข้อมูลพื้นฐานดังนี้:
+รายวิชา: [${v.subject}] รหัสวิชา: [${v.subjectCode}]
+ชั้น: [${v.grade}]
+หน่วยการเรียนรู้ที่/ชื่อหน่วย: [${v.unitName}]
+เรื่อง: [${v.topic}]
+เวลา: [${v.time}]
+ครูผู้สอน: [${v.teacher}]
+สอนวันที่: [${v.teachDate}]
+
+คำสั่ง: ให้เขียนแผนการจัดการเรียนรู้โดยมีหัวข้อครบถ้วนตามโครงสร้างแบบฟอร์มโรงเรียนราษีไศล ดังนี้:
+
+1. มาตรฐานการเรียนรู้/ตัวชี้วัด
+   1.1 ตัวชี้วัดระหว่างทาง (ระบุให้สอดคล้องกับเนื้อหา)
+   1.2 ตัวชี้วัดปลายทาง (ระบุให้สอดคล้องกับเนื้อหา)
+
+2. สาระสำคัญ (เขียน Concept หลักของเรื่อง)
+
+3. จุดประสงค์การเรียนรู้ (เขียนแยกเป็น ${v.objectiveFormat} หรือตามความเหมาะสม)
+
+4. สาระการเรียนรู้ (ระบุเนื้อหาหลัก)
+
+5. คุณลักษณะอันพึงประสงค์ (ระบุข้อที่สอดคล้อง)
+
+6. สมรรถนะสำคัญของผู้เรียน (เลือกให้สอดคล้องจาก 6 ด้านหลัก: 1.การจัดการตนเอง, 2.การคิดขั้นสูง, 3.การสื่อสาร, 4.การรวมพลังทำงานเป็นทีม, 5.การเป็นพลเมืองที่เข้มแข็ง, 6.การอยู่ร่วมกับธรรมชาติและวิทยาการอย่างยั่งยืน)
+
+7. กิจกรรมการเรียนรู้:
+   - ออกแบบกิจกรรมโดยใช้กระบวนการ "${v.model}" ${techniqueStringTH}
+   - ระบุองค์ประกอบ **Active Learning** ในแต่ละขั้นตอนให้ชัดเจน
+   - ระบุเวลาเป็นนาที กำกับท้ายชื่อขั้นตอน (เช่น (10 นาที))
+   - เน้นความสนุกสนานและการใช้เทคโนโลยี/AI ช่วยสอน
+
+8. การวัดและการประเมินผล:
+   ให้สร้างเป็นตาราง 4 ช่อง ดังนี้:
+   - ช่องที่ 1: จุดประสงค์การเรียนรู้
+   - ช่องที่ 2: วิธีการวัด
+   - ช่องที่ 3: เครื่องมือ
+   - ช่องที่ 4: เกณฑ์การผ่าน
+
+9. สื่อ/แหล่งการเรียนรู้
+
+เพิ่มเติม:
+- ขอใบงานพร้อมเฉลย
+- ขอแบบทดสอบก่อน-หลังเรียน 5 ข้อ พร้อมเฉลยและวิเคราะห์ข้อสอบ
+- ขอเกณฑ์ Rubric สำหรับประเมินชิ้นงาน
+- Create knowledge sheets and Worksheet with Answer Key.`;
+            } else {
+                promptText = `${rolePromptEN}
+Task: Create a "**Lesson Plan**" strictly following the **Rasisalai School Format**.
+
+**Basic Information:**
+- Subject: [${v.subject}] Code: [${v.subjectCode}]
+- Class: [${v.grade}]
+- Unit: [${v.unitName}] Topic: [${v.topic}]
+- Time: [${v.time}]
+- Teacher: [${v.teacher}]
+- Date: [${v.teachDate}]
+
+**Instructional Design Requirements:**
+1. **Model:** Use "**${v.model}**" as the core framework.
+2. **Technique:** Integrate **${techniqueValueEN}**.
+3. **AI:** Incorporate AI tools to assist learning where appropriate.
+
+**IMPORTANT CONSTRAINTS:**
+- **Output Language:** The entire lesson plan must be written in **Formal Thai (ภาษาไทยทางการ)**.
+- **Format:** You must strictly follow the section numbering below.
+
+**Required Structure (Use these Thai headers):**
+1. มาตรฐานการเรียนรู้/ตัวชี้วัด (Standards/Indicators)
+   1.1 ตัวชี้วัดระหว่างทาง (Formative Indicators)
+   1.2 ตัวชี้วัดปลายทาง (Summative Indicators)
+2. สาระสำคัญ (Key Concept)
+3. จุดประสงค์การเรียนรู้ (Learning Objectives ${v.objectiveFormat})
+4. สาระการเรียนรู้ (Content)
+5. คุณลักษณะอันพึงประสงค์ (Desirable Characteristics)
+6. สมรรถนะสำคัญของผู้เรียน (Core Competencies - Select relevant ones from the 6 Thai CBE aspects)
+7. กิจกรรมการเรียนรู้ (Learning Activities):
+   - Design steps using **${v.model}**.
+   - Explicitly mention **Active Learning** elements in each step.
+   - Allocate specific time in minutes for each step (e.g. (10 mins)).
+   - Integrate fun and technology/AI.
+8. การวัดและการประเมินผล (Measurement & Evaluation):
+   - Create a 4-column table: [จุดประสงค์การเรียนรู้, วิธีการวัด, เครื่องมือ, เกณฑ์การผ่าน]
+9. สื่อ/แหล่งการเรียนรู้ (Media/Resources)
+
+**Additional Requests:**
+- Create knowledge sheets and Worksheet with Answer Key.
+- Pre-test & Post-test (5 Questions) with Answers and Analysis.
+- Rubrics for evaluation.`;
+            }
+        }
+
+        document.getElementById('outputPrompt').value = promptText;
+        showToast('liveToastGen');
+    }
+
+    // --- Generate Materials Prompt (Tabbed Logic) ---
+    function generateMaterialsPrompt() {
+        const v = getFormValues();
+        if (!v.teacher || !v.subject || !v.topic) {
+            showToast('liveToastError');
+            return;
+        }
+
+        // --- Role Logic (Toggled by Expert Mode) ---
+        // Default (Non-Expert)
+        let rolePromptTH = "Role: คุณคือ 'นักออกแบบสื่อการเรียนรู้ (Instructional Media Designer)' มืออาชีพ";
+        let rolePromptEN = "Role: You are an expert **Instructional Media Designer**.";
+
+        if (isExpertMode) {
+            // Check active roles and build dynamic role
+            let expertRolesTH = [];
+            let expertRolesEN = [];
+
+            if (document.getElementById('roleCurriculum').checked) {
+                expertRolesTH.push("นักออกแบบหลักสูตร");
+                expertRolesEN.push("Curriculum Designer");
+            }
+            if (document.getElementById('rolePsychologist').checked) {
+                expertRolesTH.push("นักจิตวิทยาเด็ก");
+                expertRolesEN.push("Child Psychologist");
+            }
+            if (document.getElementById('roleEdTech').checked) {
+                expertRolesTH.push("ผู้เชี่ยวชาญเทคโนโลยี");
+                expertRolesEN.push("EdTech Specialist");
+            }
+            if (document.getElementById('roleAssessment').checked) {
+                expertRolesTH.push("นักวัดผล");
+                expertRolesEN.push("Assessment Specialist");
+            }
+            if (document.getElementById('roleMedia').checked) {
+                expertRolesTH.push("นักออกแบบสื่อ");
+                expertRolesEN.push("Instructional Media Designer");
+            }
+            
+            // Thai Role String
+            let rolesStrTH = expertRolesTH.length > 0 ? expertRolesTH.join(", ") : "ทีมผู้เชี่ยวชาญด้านสื่อการเรียนรู้";
+            rolePromptTH = `บทบาท: คุณคือ "ทีมออกแบบสื่อการเรียนรู้มืออาชีพ (Virtual Media Design Team)" ที่ประกอบด้วย: ${rolesStrTH} โดยมีเป้าหมายเพื่อสร้างสื่อที่มีคุณภาพสูงสุด`;
+
+            // English Role String
+            let rolesStrEN = expertRolesEN.length > 0 ? expertRolesEN.join(", ") : "Instructional Design Specialists";
+            rolePromptEN = `Role: You are a "**Virtual Media Design Team**" consisting of: ${rolesStrEN}. Your goal is to collaborate to create high-quality educational materials.`;
+        }
+
+        const styleType = document.querySelector('input[name="visualStyle"]:checked').value;
+        const outputType = document.querySelector('input[name="outputType"]:checked').value;
+
+        // --- Style Description ---
+        let styleDescTH = "";
+        let styleDescEN = "";
+        
+        if (styleType === 'coloring') {
+            styleDescTH = "สไตล์ภาพลายเส้นขาวดำสำหรับระบายสี (Coloring Page Style - Black & White outlines)";
+            styleDescEN = "Coloring page style (Black & White outlines)";
+        } else {
+            styleDescTH = "สไตล์การ์ตูนลายเส้นสะอาดตาและน่ารัก (Cartoon illustration style with clean lines)";
+            styleDescEN = "Cartoon illustration style with clean lines";
+        }
+
+        // --- Content Blocks (Default Text Mode) ---
+        // 1. Knowledge Sheet Block
+        let knowledgeSheetTH = `1. **ใบความรู้ (Knowledge Sheet):**
+   - สรุปเนื้อหาสำคัญ (Key Concepts) ของเรื่อง "${v.topic}"
+   - ใช้ภาษาที่เข้าใจง่าย มีการยกตัวอย่างประกอบที่ชัดเจน
+   - จัดรูปแบบให้น่าอ่าน (เช่น มีหัวข้อหลัก หัวข้อรอง bullet points)
+   - แทรกคำแนะนำว่าควรมีรูปภาพประกอบตรงไหนบ้าง (เช่น [ใส่รูปภาพวงจรไฟฟ้าตรงนี้ - ${styleDescTH}])
+   4. **เครดิตผู้สอน (Footer Credit):** ให้ระบุชื่อผู้จัดทำ "${v.teacher}" ไว้ส่วนท้ายของใบงาน/ใบความรู้`;
+
+        let knowledgeSheetEN = `1. **Knowledge Sheet:**
+   - Summarize key concepts of "${v.topic}".
+   - Use age-appropriate language and clear examples.
+   - Organize with clear headings, subheadings, and bullet points.
+   - Suggest visual placements (e.g., [Insert diagram of photosynthesis here - ${styleDescEN}]).
+   4. **Footer Credit:** Include credit line "Created by ${v.teacher}" at the bottom.`;
+
+        // 2. Worksheet Block
+        let worksheetSectionTH = `2. **ใบงาน (Worksheet):**
+   - ออกแบบกิจกรรมหรือแบบฝึกหัดที่สอดคล้องกับใบความรู้
+   - สไตล์ภาพประกอบ: ${styleDescTH}
+   - มีคำชี้แจง (Instructions) ที่ชัดเจน
+   - รูปแบบคำถามหลากหลาย (เช่น เติมคำ, จับคู่, ปรนัย, หรืออัตนัย) เพื่อท้าทายความคิด
+   - เน้นการคิดวิเคราะห์และการนำไปใช้
+   - ระบุเครดิตท้ายกระดาษ: "${v.teacher}"`;
+
+        let worksheetSectionEN = `2. **Worksheet:**
+   - Create engaging activities/exercises aligned with the knowledge sheet.
+   - Illustration Style: ${styleDescEN}
+   - Include clear instructions.
+   - Use mixed question types (Fill-in-the-blank, Matching, Critical thinking questions).
+   - Add footer credit: "${v.teacher}"`;
+
+        // 3. Answer Key Block (Only for Text Mode)
+        let answerKeyTH = `3. **เฉลยใบงาน (Answer Key):** ระบุคำตอบที่ถูกต้องอย่างละเอียด`;
+        let answerKeyEN = `3. **Answer Key:** Provide accurate and detailed answers.`;
+
+        // Expert Mode Visual Overrides (Text Mode Only)
+        if (isExpertMode && outputType === 'content') {
+            // Dynamic Role in Content Content is already set in rolePrompt
+            worksheetSectionTH = `2. **ใบงาน (โครงสร้างเชิงกราฟิกแบบละเอียด):**
+   สร้างใบงานกิจกรรมสำหรับนักเรียนที่พิมพ์ได้ (Printable) บนพื้นหลัง A4 แนวตั้ง **${styleDescTH}** เหมาะสำหรับนักเรียนชั้น ${v.grade}
+   
+   **[ส่วนหัว (Header)]**
+   * ชื่อเรื่อง: '${v.topic}', หัวข้อย่อย: '${v.unitName}'
+   
+   **[การจัดวาง: บน & ล่าง]**
+   * **ส่วนบน (Top Section - สีหัวข้อ: สีที่เข้ากันได้กับธีม '${v.topic}'):**
+       * ชื่อหัวข้อ: หัวข้อย่อยที่เกี่ยวข้องกับ '${v.topic}'
+       * **[งานสร้างสรรค์]** สร้างกิจกรรม (เช่น จับคู่พร้อมกล่องคำตอบว่าง, เติมคำในช่องว่าง) ที่เกี่ยวกับ '${v.topic}'
+   * **ส่วนล่าง (Bottom Section - สีหัวข้อ: สีคู่ตรงข้ามที่โดดเด่น):**
+       * ชื่อหัวข้อ: อีกหัวข้อย่อยที่เกี่ยวข้องกับ '${v.topic}'
+       * **[งานสร้างสรรค์]** สร้างกิจกรรม (เช่น คำถามปลายเปิด, พื้นที่วาดภาพ) ที่เกี่ยวกับ '${v.topic}'
+   
+   **[ส่วนท้าย (Footer)]**
+   * ส่วนล่างสุดมีเส้นบรรทัดสำหรับเขียน: 'ชื่อ: __________', 'ชั้น: ...........', 'เลขที่: ...' (ใช้เส้นประสำหรับช่องชั้นเรียน)
+   * ใส่เครดิตตัวเล็กๆ ใต้เส้นบรรทัด: "ครูผู้สอน: ${v.teacher}"
+   
+   **[ข้อกำหนดของใบงาน (Worksheet Requirement)]**
+   * จัดเตรียมพื้นที่ว่างให้ชัดเจนสำหรับการเขียนคำตอบของนักเรียน
+   * **สำคัญมาก (CRITICAL):** สุ่ม/สลับรายการในคอลัมน์เพื่อไม่ให้ตรงกัน
+   * **ข้อห้ามเด็ดขาด (STRICTLY PROHIBITED):** ห้ามวาดเส้นโยง, ลูกศร, หรือเส้นประเชื่อมระหว่างข้อ ให้ใช้ "กล่องสี่เหลี่ยมว่าง" ข้างรายการเพื่อให้เติมตัวเลข/ตัวอักษรแทน ช่องว่างระหว่างคอลัมน์ต้องโล่งสนิท ห้ามเฉลยคำตอบลงในใบงาน
+   
+   **[หมายเหตุข้อความ]** ใช้ภาษาไทยสำหรับเนื้อหา ไม่ต้องแสดงข้อความที่ซับซ้อนเกินไป
+   **[สไตล์ตัวอักษร]** Use Clean, Modern, Sans-Serif, Professional Google Fonts supporting Thai (e.g. style of "Mitr" or "Prompt"). Automatically select a font style that matches the mood of '${v.topic}' and is legible for ${v.grade} students.`;
+
+            worksheetSectionEN = `2. **Worksheet (Visual Structure Specification):**
+   A printable student activity worksheet on an A4 portrait background. **${styleDescEN}**, aimed at ${v.grade} students.
+   
+   **[Header]** Title: '${v.topic}', Subtitle: '${v.unitName}'.
+   
+   **[Layout: Top & Bottom]**
+   * **Top Section (Header Color: a harmonious color selected to match '${v.topic}'):**
+       * Title: A sub-topic related to '${v.topic}'.
+       * **[Creative Task]** Create an activity (matching with empty answer boxes, fill-in-blanks) related to '${v.topic}'.
+   * **Bottom Section (Header Color: a complementary color):**
+       * Title: Another sub-topic related to '${v.topic}'.
+       * **[Creative Task]** Create an activity (questions, drawing space) related to '${v.topic}'.
+   
+   **[Footer]**
+   * Bottom section with writeable lines for: 'Name: __________', 'Class: ...........', 'No: ...'. Use dotted lines for the Class field.
+   * Add a small credit line below: "Teacher: ${v.teacher}"
+   
+   **[Worksheet Requirement]**
+   * Ensure clear areas for student interaction.
+   * **CRITICAL:** Randomize/Shuffle items in columns so they are NOT aligned. Keep the activity **UNSOLVED**.
+   * **STRICTLY PROHIBITED:** Do not draw any lines, arrows, dashed lines, or connectors between items. Instead, provide empty answer boxes next to items.
+   * The gap between columns must be completely blank. Do NOT fill in answers.
+   
+   **[Text Note]** Use Thai language for content. Do NOT render complex text unnecessarily.
+   **[Typography Style]** Use Clean, Modern, Sans-Serif, Professional Google Fonts supporting Thai (e.g. style of "Mitr" or "Prompt"). Automatically select a font style that matches the mood of '${v.topic}' and is legible for ${v.grade} students.`;
+        }
+
+        // --- Logic: Output Type = IMAGE GEN ---
+        if (outputType === 'image') {
+            // Image Mode: IF EXPERT ON, prepend the Role
+            let contextHeader = "";
+            if (isExpertMode) {
+                if (v.lang === 'th') {
+                    contextHeader = `${rolePromptTH}\nTask: สร้างรูปภาพสื่อการเรียนรู้ตามคำสั่งด้านล่างนี้:\n\n`;
+                } else {
+                    contextHeader = `${rolePromptEN}\nTask: Generate educational images based on the following prompts:\n\n`;
+                }
+            }
+            
+            // Knowledge Sheet Prompt (UPDATED V.3.17 + 3.19 Credit)
+            let knowPrompt = `"A rich educational infographic knowledge sheet on an A4 portrait background. ${styleDescEN}, aimed at ${v.grade} students.
+
+**[Header]** Title: '${v.topic}', Subtitle: '${v.unitName}'.
+
+**[Visual Content]** Create detailed, colorful diagrams and illustrations that explain the concept of '${v.topic}'. Use clear icons, flowcharts, or characters to visually demonstrate the key ideas. The visuals should be the main focus.
+
+**[Layout]** Arrange information logically in distinct sections.
+- Top: Introduction with a central image.
+- Middle: Detailed process or components with smaller icons.
+- Bottom: Summary or interesting facts.
+
+**[Style]** Engaging, informative, distinct from a worksheet. This sheet is for **reading and learning**. 
+
+**[Footer]** Simple decorative bottom border. Include a distinct credit line in small text: "Created by ${v.teacher}". CRITICAL: Do NOT include any student input fields (No Name/Class lines).
+
+**[Text Note]** Include headings and structure text blocks clearly. Actual text can be simulated (lorem ipsum) or simple labels, but the layout must look like a readable guide.
+**[Typography Style]** Use Clean, Modern, Sans-Serif, Professional Google Fonts supporting Thai (e.g. style of "Mitr" or "Prompt"). Automatically select a font style that matches the mood of '${v.topic}' and is legible for ${v.grade} students."`;
+
+            // Worksheet Prompt
+            let workPrompt = `"A printable student activity worksheet on an A4 portrait background. ${styleDescEN}, aimed at ${v.grade} students.
+
+**[Header]** Title: '${v.topic}', Subtitle: '${v.unitName}'.
+
+**[Layout: Top & Bottom]**
+Top Section (Header Color: a harmonious color automatically selected to match the topic '${v.topic}'): Title a sub-topic related to '${v.topic}', containing:
+**[Creative Task]** Create an activity (matching with empty answer boxes, fill-in-blanks) related to '${v.topic}'.
+Bottom Section (Header Color: a complementary color to the first section): Title another sub-topic related to '${v.topic}', containing:
+**[Creative Task]** Create an activity (questions, drawing space) related to '${v.topic}'.
+
+**[Footer]** Bottom section with writeable lines for: 'Name: __________', 'Class: ...........', 'No: ...'. Below that, add a small credit line: "Teacher: ${v.teacher}".
+
+**[Worksheet Requirement]** Ensure clear areas for student interaction. CRITICAL: Randomize/Shuffle items in columns so they are NOT aligned. Keep the activity UNSOLVED.
+STRICTLY PROHIBITED: Do not draw any lines, arrows, dashed lines, or connectors between items.
+Instead of lines, provide empty answer boxes next to the left-column items for students to write letters/numbers. The gap between columns must be completely blank. Do NOT fill in answers.
+
+**CRITICAL: Leave all answer areas completely blank. Do not write 'Placeholder' or any text. Use empty rectangular boxes or clear horizontal lines for writing areas. The sheet must be ready for students to write on manually.**
+**[Typography Style]** Use Clean, Modern, Sans-Serif, Professional Google Fonts supporting Thai (e.g. style of "Mitr" or "Prompt"). Automatically select a font style that matches the mood of '${v.topic}' and is legible for ${v.grade} students."`;
+
+            knowledgeSheetTH = contextHeader + knowPrompt;
+            knowledgeSheetEN = contextHeader + knowPrompt;
+
+            worksheetSectionTH = contextHeader + workPrompt;
+            worksheetSectionEN = contextHeader + workPrompt;
+
+            answerKeyTH = ""; 
+            answerKeyEN = "";
+        }
+
+        // --- Construct Final Prompts ---
+        let promptKnow, promptWork;
+
+        if (v.lang === 'th') {
+            let contextHeader;
+            
+            if (outputType === 'image') {
+                promptKnow = `${knowledgeSheetTH}`;
+                promptWork = `${worksheetSectionTH}`;
+            } else {
+                // Content Mode: Role play as Teacher/Creator with Dynamic Role
+                contextHeader = `${rolePromptTH}\nTask: เขียนเนื้อหาใบความรู้และใบงานสำหรับเรื่อง: "${v.topic}" วิชา: ${v.subject} ชั้น: ${v.grade}\nคำสั่ง: ให้สร้างเนื้อหาภาษาไทยที่ถูกต้องและเหมาะสมกับวัย (Output full content ready to use)\n\n`;
+                promptKnow = `${contextHeader}**สิ่งที่ต้องสร้าง:**\n${knowledgeSheetTH}\n\nเพิ่มเติม: เน้นการสรุปที่กระชับ อ่านง่าย และสวยงาม`;
+                promptWork = `${contextHeader}**สิ่งที่ต้องสร้าง:**\n${worksheetSectionTH}\n\n${answerKeyTH}\n\nเพิ่มเติม: เน้นกิจกรรมที่ท้าทายความคิดและการลงมือทำ`;
+            }
+
+        } else {
+            let contextHeader;
+            
+            if (outputType === 'image') {
+                promptKnow = `${knowledgeSheetEN}`;
+                promptWork = `${worksheetSectionEN}`;
+            } else {
+                contextHeader = `${rolePromptEN}\nTask: Write the full text content for educational materials on topic: "${v.topic}".\nSubject: ${v.subject}, Grade Level: ${v.grade}.\nOutput Language: **Formal Thai** (Ready to use).\n\n`;
+                promptKnow = `${contextHeader}**Requirements:**\n${knowledgeSheetEN}\n\nStyle: Clear, concise, and visually appealing summary.`;
+                promptWork = `${contextHeader}**Requirements:**\n${worksheetSectionEN}\n\n${answerKeyEN}\n\nStyle: Engaging activities requiring critical thinking and hands-on practice.`;
+            }
+        }
+
+        // Populate Textareas
+        document.getElementById('outputMaterialsKnow').value = promptKnow;
+        document.getElementById('outputMaterialsWork').value = promptWork;
+        
+        showToast('liveToastGen');
+    }
+
+    // ----------------------------------------------------
+    // Robust Copy Function (Belt and Braces approach)
+    // ----------------------------------------------------
+    async function copyToClipboard(elementId, btnId) {
+        const textarea = document.getElementById(elementId);
+        const text = textarea.value;
+        const btn = document.getElementById(btnId);
+        const originalHtml = btn.innerHTML;
+
+        if (!text) return; // Do nothing if empty
+
+        // UI Feedback Helper
+        const showSuccess = () => {
+            btn.innerHTML = '<i class="fas fa-check"></i> เรียบร้อย';
+            btn.classList.remove(btnId.includes('copy') ? 'btn-outline-success' : 'btn-outline-dark'); // Hacky check for button style
+            if(btn.classList.contains('btn-outline-dark')) btn.classList.remove('btn-outline-dark');
+            
+            btn.classList.add('btn-success');
+            showToast('liveToastCopy'); 
+            setTimeout(() => {
+                btn.innerHTML = originalHtml;
+                btn.classList.remove('btn-success');
+                // Restore original class roughly
+                if (btnId.includes('copyKnow') || btnId.includes('copyWork')) {
+                     btn.classList.add('btn-outline-success');
+                } else {
+                     btn.classList.add('btn-outline-dark');
+                }
+            }, 2000);
+        };
+
+        const showError = () => {
+            btn.innerHTML = '<i class="fas fa-times"></i> ผิดพลาด';
+            btn.classList.add('btn-danger');
+            setTimeout(() => {
+                btn.innerHTML = originalHtml;
+                btn.classList.remove('btn-danger');
+            }, 2000);
+        };
+
+        // 1. Try Modern Async API first
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            try {
+                await navigator.clipboard.writeText(text);
+                showSuccess();
+                return; 
+            } catch (err) {
+                console.warn('Clipboard API failed, trying fallback...', err);
+            }
+        }
+
+        // 2. Fallback: document.execCommand('copy')
+        try {
+            textarea.select();
+            textarea.setSelectionRange(0, 99999); 
+            const successful = document.execCommand('copy');
+            if (successful) {
+                showSuccess();
+            } else {
+                console.error('execCommand returned false');
+                showError();
+                alert('ไม่สามารถคัดลอกอัตโนมัติได้ กรุณากด Ctrl+C');
+            }
+        } catch (err) {
+            console.error('Fallback copy failed', err);
+            showError();
+            alert('ไม่สามารถคัดลอกได้ กรุณากดคัดลอกด้วยตนเอง');
+        }
+    }
+
+    // Init Standard Mode Style
+    setMode('standard');
+</script>
+
+<!-- Bootstrap 5 JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
