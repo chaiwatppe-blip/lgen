@@ -1,25 +1,2018 @@
-**[Role]** Professional Educational Illustrator.
-**[System Instruction]** Create the visual design described below.
-**[Task]** A Storybook style educational scene on an A4 portrait background. Storybook Illustration, whimsical, painted texture, warm lighting, magical atmosphere, aimed at มัธยมศึกษาปีที่ 2 students.
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบสร้าง Prompt แผนการจัดการเรียนรู้ Expert Edition (V.8.29 Content Focus)</title>
+    <!-- Bootstrap 5.3.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts (Prompt & Sarabun) -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* Responsive adjustments */
+        html, body { overflow-x: hidden; }
+        body {
+            font-family: 'Prompt', sans-serif;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .container { max-width: 100%; padding-left: 15px; padding-right: 15px; }
+        @media (min-width: 992px) { .container { max-width: 960px; } }
+        
+        .main-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .card-header-custom {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-bottom: none;
+        }
+        .form-label { font-weight: 600; color: #2d3436; font-size: 0.95rem; }
+        .section-title {
+            color: #764ba2;
+            font-weight: 700;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            border-left: 4px solid #764ba2;
+            padding-left: 10px;
+            font-size: 1.1rem;
+        }
+        .text-danger {
+            color: #dc3545 !important;
+        }
+        /* Buttons */
+        .btn-generate {
+            background: linear-gradient(45deg, #FF8008, #FFC837);
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 12px 20px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 128, 8, 0.3);
+        }
+        .btn-generate:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(45deg, #FF4500, #FF8C00) !important;
+            box-shadow: 0 8px 25px rgba(255, 69, 0, 0.5);
+            color: white;
+        }
+        .btn-materials {
+            background: linear-gradient(45deg, #11998e, #38ef7d);
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 12px 20px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(56, 239, 125, 0.3);
+        }
+        .btn-materials:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(45deg, #008080, #20B2AA) !important;
+            box-shadow: 0 8px 25px rgba(0, 128, 128, 0.5);
+            color: white;
+        }
+        .btn-io {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            color: #495057;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        .btn-io:hover {
+            background-color: #e2e6ea;
+            border-color: #adb5bd;
+            color: #212529;
+        }
+        .btn-template {
+            background-color: #e3f2fd;
+            border: 1px solid #90caf9;
+            color: #1976d2;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        .btn-template:hover {
+             background-color: #bbdefb;
+             border-color: #64b5f6;
+             color: #0d47a1;
+        }
 
-**[Header]** Title: "เทคโนโลยีเปลี่ยนโลก", Subtitle: "แนวคิดเชิงคำนวณ".
+        .output-area {
+            background-color: #f8f9fa;
+            border: 2px dashed #a29bfe;
+            border-radius: 10px;
+            padding: 15px;
+            font-family: 'Sarabun', sans-serif;
+            font-size: 0.95rem;
+            color: #333;
+            min-height: 250px;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+        .output-area-materials {
+            background-color: #f0fff4; /* Light green tint */
+            border: 2px dashed #38ef7d;
+            border-radius: 10px;
+            padding: 15px;
+            font-family: 'Sarabun', sans-serif;
+            font-size: 0.95rem;
+            color: #333;
+            min-height: 200px;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+        
+        /* Nav Pills (Top Mode) */
+        .nav-pills.top-mode {
+            background: rgba(0,0,0,0.2);
+            border-radius: 50px;
+            padding: 4px;
+            display: inline-flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .nav-pills.top-mode .nav-link {
+            color: rgba(255,255,255,0.7);
+            font-weight: 500;
+            border-radius: 50px;
+            padding: 6px 15px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .nav-pills.top-mode .nav-link:hover {
+            color: #fff;
+            background-color: rgba(255,255,255,0.2);
+        }
+        .nav-pills.top-mode .nav-link.active {
+            background-color: #fff;
+            color: #764ba2 !important; 
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            opacity: 1;
+        }
 
-**[Layout: Top & Bottom]**
-Top Section (Header Color: a harmonious color automatically selected to match the topic 'เทคโนโลยีเปลี่ยนโลก'): Title a sub-topic related to 'เทคโนโลยีเปลี่ยนโลก', containing:
-**[Creative Task]** Create an activity (matching with empty answer boxes, fill-in-blanks) related to 'เทคโนโลยีเปลี่ยนโลก'.
-Bottom Section (Header Color: a complementary color to the first section): Title another sub-topic related to 'เทคโนโลยีเปลี่ยนโลก', containing:
-**[Creative Task]** Create an activity (questions, drawing space) related to 'เทคโนโลยีเปลี่ยนโลก'.
+        /* Material Tabs */
+        .nav-tabs .nav-link {
+            color: #495057;
+            font-weight: 600;
+        }
+        .nav-tabs .nav-link.active {
+            color: #11998e;
+            border-bottom: 3px solid #11998e;
+        }
+        
+        /* Highlight Box */
+        .highlight-box {
+            background-color: #f0f4ff;
+            border: 1px solid #dbeafe;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
 
-**[Footer]** Bottom section with writeable lines for: 'Name: __________', 'Class: ...........', 'No: ...'. Also include a credit: "ครูผู้สอน: chaiwat promma".
+        /* Layout Toggle Box */
+        .layout-toggle-box {
+            background: linear-gradient(145deg, #fffde7, #ffffff);
+            border: 2px dashed #fbc02d;
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .layout-toggle-box:hover {
+            border-color: #f57f17;
+            box-shadow: 0 5px 15px rgba(251, 192, 45, 0.15);
+            transform: translateY(-1px);
+        }
+
+        /* Smart Color Toggle Box */
+        .color-toggle-box {
+            background: linear-gradient(145deg, #e3f2fd, #ffffff);
+            border: 2px dashed #2196f3;
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .color-toggle-box:hover {
+            border-color: #1976d2;
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.15);
+            transform: translateY(-1px);
+        }
+
+        /* Expert Team Section Styles */
+        .expert-box {
+            background: linear-gradient(to right, #ffffff, #fdfbfb);
+            border: 1px solid #e1e1e1;
+            border-left: 4px solid #FF8008; /* Orange accent */
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: none; /* Hidden by default */
+        }
+        .expert-toggle-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff3e0; /* Light Orange */
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            border: 1px solid #ffe0b2;
+            transition: all 0.2s;
+        }
+        .expert-toggle-wrapper:hover {
+            background-color: #ffe0b2;
+        }
+        .expert-check-label {
+            cursor: pointer;
+            user-select: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+        .expert-check-label i {
+            width: 20px;
+            color: #667eea;
+            margin-right: 5px;
+        }
+
+        /* Advanced Toggle Wrapper */
+        .advanced-tools-toggle {
+            font-size: 0.85rem;
+            color: #6c757d;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-bottom: 10px;
+        }
+        .advanced-tools-toggle:hover {
+            color: #495057;
+        }
+        
+        @media (max-width: 576px) {
+            .card-header-custom { padding: 15px; }
+            h3 { font-size: 1.25rem; }
+            .section-title { margin-top: 20px; }
+            .btn-io, .btn-template { font-size: 0.75rem; padding: 5px 8px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="card main-card">
+                <div class="card-header-custom">
+                    <div class="row align-items-center">
+                        <div class="col-md-5 text-center text-md-start mb-2 mb-md-0">
+                            <h3 class="mb-1"><i class="fas fa-user-graduate me-2"></i>ระบบสร้าง Prompt แผนการจัดการเรียนรู้ Expert Edition</h3>
+                            <small class="op-8">V.8.29 Content Focus | Dev. By Chaiwat Promma</small>
+                        </div>
+                        <div class="col-md-7 text-center text-md-end">
+                            <div class="d-flex justify-content-center justify-content-md-end align-items-center">
+                                <div class="nav nav-pills top-mode" id="pills-tab" role="tablist">
+                                    <button class="nav-link mx-1" id="pills-std-tab" data-bs-toggle="pill" data-bs-target="#pills-std" type="button" role="tab" onclick="setMode('standard')">
+                                        แบบมาตรฐาน
+                                    </button>
+                                    <button class="nav-link active mx-1" id="pills-rasi-tab" data-bs-toggle="pill" data-bs-target="#pills-rasi" type="button" role="tab" onclick="setMode('rasisalai')">
+                                        แบบ ร.ร.ราษีไศล
+                                    </button>
+                                    <button class="nav-link mx-1 d-none" id="pills-custom-tab" data-bs-toggle="pill" data-bs-target="#pills-custom" type="button" role="tab" onclick="setMode('custom')">
+                                        <i class="fas fa-star me-1"></i> แบบกำหนดเอง
+                                    </button>
+                                </div>
+                                <button class="btn btn-outline-light btn-sm ms-2 rounded-circle" data-bs-toggle="modal" data-bs-target="#helpModal" title="คู่มือการใช้งาน"><i class="fas fa-question"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-body p-3 p-md-4">
+
+                    <!-- Marquee Warning -->
+                    <div class="alert alert-warning border-0 shadow-sm mb-3 p-2" role="alert">
+                        <marquee scrollamount="8" onmouseover="this.stop();" onmouseout="this.start();">
+                            <span class="fw-bold text-danger">⚠ AI เป็นเพียงเครื่องมือช่วยอำนวยความสะดวก ผู้สอนควรตรวจสอบเนื้อหาความถูกต้องทางวิชาการ ⚠</span>
+                        </marquee>
+                    </div>
+                    
+                    <!-- Advanced Tools Toggle -->
+                    <div class="advanced-tools-toggle">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="advancedModeToggle" onchange="toggleAdvancedTools()">
+                            <label class="form-check-label" for="advancedModeToggle"><i class="fas fa-cogs me-1"></i> เครื่องมือขั้นสูง (Import/Export)</label>
+                        </div>
+                    </div>
+
+                    <!-- Top Toolbar -->
+                    <div id="advancedToolbar" class="d-none flex-wrap justify-content-end gap-2 mb-3 bg-light p-2 rounded border">
+                         <div class="btn-group" role="group">
+                            <button class="btn btn-template" data-bs-toggle="modal" data-bs-target="#templateImportModal" title="Import Structure"><i class="fas fa-file-upload me-1"></i> โหลดโครงสร้างแผน (Template)</button>
+                            <button class="btn btn-template" onclick="exportTemplate()" title="Export Structure"><i class="fas fa-file-download me-1"></i> บันทึกโครงสร้าง</button>
+                        </div>
+                        <div class="vr"></div>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-io" data-bs-toggle="modal" data-bs-target="#importModal" title="Import Data"><i class="fas fa-folder-open me-1"></i> โหลดข้อมูล (Data)</button>
+                            <button class="btn btn-io" onclick="exportData()" title="Export Data"><i class="fas fa-download me-1"></i> บันทึกข้อมูล</button>
+                        </div>
+                    </div>
+
+                    <form id="promptForm">
+                        
+                        <!-- 1. รูปแบบและภาษา -->
+                        <div class="highlight-box">
+                            <div class="row align-items-center mb-3">
+                                <div class="col-md-12">
+                                    <h5 class="text-primary mb-2 mb-md-0"><i class="fas fa-layer-group me-2"></i>ตั้งค่ารูปแบบ</h5>
+                                </div>
+                            </div>
+                            
+                            <!-- Virtual Team Toggle -->
+                            <div class="expert-toggle-wrapper" onclick="toggleExpertMode()">
+                                <div class="d-flex align-items-center">
+                                    <div class="form-check form-switch me-2 pointer-events-none">
+                                        <input class="form-check-input" type="checkbox" id="expertModeToggle">
+                                    </div>
+                                    <span class="fw-bold text-dark"><i class="fas fa-users-cog me-2"></i>เปิดใช้โหมดทีมผู้เชี่ยวชาญ (Virtual Expert Team)</span>
+                                </div>
+                                <i class="fas fa-chevron-down" id="expertToggleIcon"></i>
+                            </div>
+
+                            <!-- Virtual Team Configuration -->
+                            <div id="expertConfigBox" class="expert-box">
+                                <p class="text-danger small mb-2"><i class="fas fa-exclamation-triangle me-1"></i> การเปิดโหมดผู้เชี่ยวชาญจะเพิ่มความซับซ้อนให้ Prompt ซึ่งอาจทำให้ AI ตอบช้าลงเล็กน้อย</p>
+                                <p class="small text-muted mb-2">เลือกทีมผู้เชี่ยวชาญที่จะมาร่วมออกแบบแผนการสอนกับคุณ:</p>
+                                <div class="row g-2">
+                                    <div class="col-6 col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="roleCurriculum" checked disabled>
+                                            <label class="form-check-label expert-check-label" for="roleCurriculum">
+                                                <i class="fas fa-book"></i> นักหลักสูตร
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="rolePsychologist" checked>
+                                            <label class="form-check-label expert-check-label" for="rolePsychologist">
+                                                <i class="fas fa-brain"></i> จิตวิทยาเด็ก
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="roleEdTech">
+                                            <label class="form-check-label expert-check-label" for="roleEdTech">
+                                                <i class="fas fa-laptop-code"></i> ผู้เชี่ยวชาญ AI <span class="text-muted small ms-1">(เพิ่มคำสั่ง AI)</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="roleAssessment" checked>
+                                            <label class="form-check-label expert-check-label" for="roleAssessment">
+                                                <i class="fas fa-clipboard-check"></i> นักวัดผล (Rubric/Test)
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="roleMedia" checked>
+                                            <label class="form-check-label expert-check-label" for="roleMedia">
+                                                <i class="fas fa-pencil-ruler"></i> นักออกแบบสื่อ
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row g-3">
+                                <div class="col-md-4 col-sm-12">
+                                    <label for="teachingModel" class="form-label">รูปแบบการสอน</label>
+                                    <select class="form-select border-primary" id="teachingModel" onchange="toggleOtherInput('teachingModel', 'teachingModelOther')">
+                                        <option value="GPAS 5 Steps" selected>GPAS 5 Steps</option>
+                                        <option value="Thinking School">Thinking School</option>
+                                        <option value="5E (Simplified)">5E แบบย่อ (นำ-สอน-สรุป)</option>
+                                        <option value="5E Inquiry-Based">5E Inquiry-Based (5 ขั้น)</option>
+                                        <option value="Problem-Based Learning (PBL)">PBL (ปัญหาเป็นฐาน)</option>
+                                        <option value="Project-Based Learning (PjBL)">PjBL (โครงงานเป็นฐาน)</option>
+                                        <option value="STEM Education">STEM Education</option>
+                                        <option value="CIPPA Model">CIPPA Model</option>
+                                        <option value="other">อื่นๆ (ระบุเอง)</option>
+                                    </select>
+                                    <input type="text" class="form-control mt-2 d-none border-primary" id="teachingModelOther" placeholder="ระบุรูปแบบการสอน...">
+                                </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <label for="teachingTechnique" class="form-label">เทคนิคเสริม</label>
+                                    <select class="form-select border-warning" id="teachingTechnique" onchange="toggleOtherInput('teachingTechnique', 'teachingTechniqueOther')">
+                                        <option value="Active Learning" selected>Active Learning (พื้นฐาน)</option>
+                                        <option value="Gamification">Gamification (เกม)</option>
+                                        <option value="Unplugged Coding">Unplugged Coding</option>
+                                        <option value="Flipped Classroom">Flipped Classroom</option>
+                                        <option value="Think-Pair-Share">Think-Pair-Share</option>
+                                        <option value="Jigsaw">Jigsaw (จิ๊กซอว์)</option>
+                                        <option value="Role Playing">Role Playing (บทบาทสมมติ)</option>
+                                        <option value="Storytelling">Storytelling (เล่าเรื่อง)</option>
+                                        <option value="Design Thinking">Design Thinking</option>
+                                        <option value="other">อื่นๆ (ระบุเอง)</option>
+                                    </select>
+                                    <input type="text" class="form-control mt-2 d-none border-warning" id="teachingTechniqueOther" placeholder="ระบุเทคนิคเสริม...">
+                                </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <label for="objectiveFormat" class="form-label text-success">จุดประสงค์</label>
+                                    <select class="form-select border-success" id="objectiveFormat" onchange="toggleOtherInput('objectiveFormat', 'objectiveFormatOther')">
+                                        <option value="K-P-A" selected>K-P-A</option>
+                                        <option value="K-S-A">K-S-A</option>
+                                        <option value="K-P-A-S">K-P-A-S</option>
+                                        <option value="other">อื่นๆ (ระบุเอง)</option>
+                                    </select>
+                                    <input type="text" class="form-control mt-2 d-none border-success" id="objectiveFormatOther" placeholder="ระบุรูปแบบจุดประสงค์...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. ข้อมูลรายวิชา -->
+                        <div class="section-title">ข้อมูลรายวิชาและผู้สอน</div>
+                        <div class="row g-3">
+                            <div class="col-md-12 col-sm-12">
+                                <label for="subjectGroup" class="form-label">กลุ่มสาระการเรียนรู้</label>
+                                <select class="form-select" id="subjectGroup">
+                                    <option value="วิทยาศาสตร์และเทคโนโลยี" selected>วิทยาศาสตร์และเทคโนโลยี</option>
+                                    <option value="คณิตศาสตร์">คณิตศาสตร์</option>
+                                    <option value="ภาษาไทย">ภาษาไทย</option>
+                                    <option value="ภาษาต่างประเทศ">ภาษาต่างประเทศ</option>
+                                    <option value="สังคมศึกษา ศาสนา และวัฒนธรรม">สังคมศึกษา ศาสนา และวัฒนธรรม</option>
+                                    <option value="สุขศึกษาและพลศึกษา">สุขศึกษาและพลศึกษา</option>
+                                    <option value="ศิลปะ">ศิลปะ</option>
+                                    <option value="การงานอาชีพ">การงานอาชีพ</option>
+                                    <option value="กิจกรรมพัฒนาผู้เรียน">กิจกรรมพัฒนาผู้เรียน</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6 col-sm-12">
+                                <label for="teacherName" class="form-label">ชื่อครูผู้สอน <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="teacherName" placeholder="เช่น นายชัยวัฒน์ ..." required>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <label for="subject" class="form-label">วิชา <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="subject" placeholder="เช่น วิทยาการคำนวณ" required>
+                            </div>
+                            
+                            <div class="col-md-3 col-6">
+                                <label for="subjectCode" class="form-label">รหัสวิชา</label>
+                                <input type="text" class="form-control" id="subjectCode" placeholder="ว21101">
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <label for="grade" class="form-label">ชั้น</label>
+                                <select class="form-select" id="grade">
+                                    <optgroup label="ระดับอนุบาล">
+                                        <option value="อนุบาล 1">อนุบาล 1</option>
+                                        <option value="อนุบาล 2">อนุบาล 2</option>
+                                        <option value="อนุบาล 3">อนุบาล 3</option>
+                                    </optgroup>
+                                    <optgroup label="ระดับประถมศึกษา">
+                                        <option value="ประถมศึกษาปีที่ 1">ประถมศึกษาปีที่ 1</option>
+                                        <option value="ประถมศึกษาปีที่ 2">ประถมศึกษาปีที่ 2</option>
+                                        <option value="ประถมศึกษาปีที่ 3">ประถมศึกษาปีที่ 3</option>
+                                        <option value="ประถมศึกษาปีที่ 4">ประถมศึกษาปีที่ 4</option>
+                                        <option value="ประถมศึกษาปีที่ 5">ประถมศึกษาปีที่ 5</option>
+                                        <option value="ประถมศึกษาปีที่ 6">ประถมศึกษาปีที่ 6</option>
+                                    </optgroup>
+                                    <optgroup label="ระดับมัธยมศึกษา">
+                                        <option value="มัธยมศึกษาปีที่ 1" selected>มัธยมศึกษาปีที่ 1</option>
+                                        <option value="มัธยมศึกษาปีที่ 2">มัธยมศึกษาปีที่ 2</option>
+                                        <option value="มัธยมศึกษาปีที่ 3">มัธยมศึกษาปีที่ 3</option>
+                                        <option value="มัธยมศึกษาปีที่ 4">มัธยมศึกษาปีที่ 4</option>
+                                        <option value="มัธยมศึกษาปีที่ 5">มัธยมศึกษาปีที่ 5</option>
+                                        <option value="มัธยมศึกษาปีที่ 6">มัธยมศึกษาปีที่ 6</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <label for="semester" class="form-label">ภาคเรียน</label>
+                                <input type="text" class="form-control" id="semester" placeholder="1">
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <label for="year" class="form-label">ปีการศึกษา</label>
+                                <input type="text" class="form-control" id="year" placeholder="2569">
+                            </div>
+
+                            <div class="col-md-6 col-sm-12">
+                                <label for="unitName" class="form-label">หน่วยการเรียนรู้</label>
+                                <input type="text" class="form-control" id="unitName" placeholder="ชื่อหน่วย...">
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <label for="topic" class="form-label">เรื่องที่สอน <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="topic" placeholder="เรื่อง..." required>
+                            </div>
+
+                            <!-- [New] Specific Content Textarea -->
+                            <div class="col-md-12">
+                                <label for="specificContent" class="form-label">เนื้อหาเฉพาะเจาะจง / หัวข้อย่อย / โจทย์ (Optional)</label>
+                                <textarea class="form-control" id="specificContent" rows="3" placeholder="ระบุเนื้อหาที่ต้องการเน้น, โจทย์ปัญหา, หรือรายละเอียดเพิ่มเติม..."></textarea>
+                            </div>
+
+                            <div class="col-md-4 col-sm-12">
+                                <label for="time" class="form-label">เวลา</label>
+                                <input type="text" class="form-control" id="time" placeholder="เช่น 50 นาที">
+                            </div>
+                             <div class="col-md-4 col-6">
+                                <label for="credit" class="form-label">หน่วยกิต</label>
+                                <input type="text" class="form-control" id="credit" placeholder="1.0">
+                            </div>
+                            <div class="col-md-4 col-6">
+                                <label for="teachDate" class="form-label">วันที่สอน</label>
+                                <input type="text" class="form-control" id="teachDate" placeholder="ว/ด/ป">
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button type="button" class="btn btn-generate btn-lg w-100" onclick="generatePrompt()">
+                                <i class="fas fa-wand-magic-sparkles me-2"></i> สร้าง Prompt แผนการสอน (หลัก)
+                            </button>
+                        </div>
+                    </form>
+
+                    <hr class="my-4">
+
+                    <!-- Output Section 1: Main Lesson Plan -->
+                    <div class="mt-3 position-relative">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h6 class="form-label text-muted mb-0"><i class="fas fa-code me-1"></i> ผลลัพธ์ Prompt แผนการสอน (คัดลอกไปใช้)</h6>
+                            <button id="copyBtn" class="btn btn-sm btn-outline-dark" onclick="copyToClipboard('outputPrompt', 'copyBtn')">
+                                <i class="far fa-copy"></i> คัดลอก
+                            </button>
+                        </div>
+                        <textarea class="form-control output-area" id="outputPrompt" rows="10" readonly></textarea>
+                    </div>
+
+                    <!-- Output Section 2: Materials Generator (New with Tabs) -->
+                    <div class="mt-4 pt-3 border-top">
+                        <div class="row mb-3">
+                            <div class="col-md-12 mb-2">
+                                <h5 class="text-success mb-1"><i class="fas fa-file-alt me-2"></i>สร้าง Prompt ใบงาน & ใบความรู้ (เสริม)</h5>
+                                <small class="text-muted">สำหรับสร้างสื่อการสอนแยกต่างหาก เลือกประเภทได้ตามต้องการ</small>
+                            </div>
+                            
+                            <!-- Visual Style Selection (UPDATED) -->
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label text-muted small fw-bold"><i class="fas fa-palette me-1"></i> เลือกสไตล์กราฟิก (Visual Style):</label>
+                                <select class="form-select border-warning" id="visualStyleSelector" onchange="updateColorToggleVisibility()">
+                                    <!-- Options will be populated by JS -->
+                                </select>
+                                <small class="text-muted d-block mt-2" style="font-size: 0.8em; color: #dc3545 !important;">
+                                    <i class="fas fa-info-circle"></i> รองรับ ChatGPT, Gemini, Midjourney, DALL-E 3
+                                </small>
+                            </div>
+
+                             <!-- Layout Mode Selection (Improved UI V8.0) -->
+                            <div class="col-md-12 mb-3">
+                                <div class="layout-toggle-box">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div>
+                                            <h6 class="fw-bold mb-1 text-dark" style="font-size: 0.95rem;">
+                                                <i class="fas fa-columns me-2 text-warning"></i>รูปแบบการจัดวาง (Layout Mode)
+                                            </h6>
+                                            <small class="text-muted d-block" style="line-height: 1.4;">
+                                                <span class="text-danger fw-bold"><i class="fas fa-exclamation-circle me-1"></i>สำหรับใบงานเท่านั้น</span><br>
+                                                <i class="fas fa-check-circle text-success me-1"></i><strong>ปิด:</strong> บังคับบน-ล่าง (Strict - เสถียรสุด)<br>
+                                                <i class="fas fa-magic text-primary me-1"></i><strong>เปิด:</strong> ให้ AI ออกแบบอิสระ (Free - ยืดหยุ่น)
+                                            </small>
+                                        </div>
+                                        <div class="form-check form-switch ps-0">
+                                            <input class="form-check-input float-none ms-0" type="checkbox" id="layoutModeToggle" style="width: 3.5em; height: 1.8em; cursor: pointer; margin-left: 0;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Smart Color Toggle (New V8.2) -->
+                            <div class="col-md-12 mb-3 d-none" id="colorToggleContainer">
+                                <div class="color-toggle-box">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div>
+                                            <h6 class="fw-bold mb-1 text-dark" style="font-size: 0.95rem;">
+                                                <i class="fas fa-palette me-2 text-primary"></i>เปิดใช้สีสันในใบความรู้ (Color Mode for Knowledge Sheet)
+                                            </h6>
+                                            <small class="text-muted d-block" style="line-height: 1.4;">
+                                                <i class="fas fa-info-circle text-info me-1"></i><strong>สำหรับใบความรู้เท่านั้น</strong> (ใบงานจะยังคงเป็นขาวดำเพื่อระบายสี)
+                                            </small>
+                                        </div>
+                                        <div class="form-check form-switch ps-0">
+                                            <input class="form-check-input float-none ms-0" type="checkbox" id="smartColorToggle" style="width: 3.5em; height: 1.8em; cursor: pointer; margin-left: 0;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Color Selection (New V7.2) -->
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label text-muted small fw-bold"><i class="fas fa-fill-drip me-1"></i> สีหลัก (Primary Color):</label>
+                                <select class="form-select border-warning" id="primaryColorSelector">
+                                    <!-- Populated via JS -->
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label text-muted small fw-bold"><i class="fas fa-fill me-1"></i> สีรอง (Secondary Color):</label>
+                                <select class="form-select border-warning" id="secondaryColorSelector">
+                                    <!-- Populated via JS -->
+                                </select>
+                            </div>
+
+                            <!-- Font Selection (New V7.4) -->
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label text-muted small fw-bold"><i class="fas fa-font me-1"></i> เลือกฟอนต์ (Typography):</label>
+                                <select class="form-select border-warning" id="fontSelector">
+                                    <!-- Populated via JS -->
+                                </select>
+                            </div>
+
+                            <!-- Content Strategy Selection (New V7.6) -->
+                            <div class="col-md-12 mb-3">
+                                <div class="row g-2">
+                                    <div class="col-md-6">
+                                        <label class="form-label text-muted small fw-bold"><i class="fas fa-layer-group me-1"></i> ระดับการเรียนรู้ (Bloom's Taxonomy):</label>
+                                        <select class="form-select border-info" id="bloomSelector">
+                                            <!-- JS Populated -->
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label text-muted small fw-bold"><i class="fas fa-theater-masks me-1"></i> โทนภาษา/บรรยากาศ (Tone):</label>
+                                        <select class="form-select border-info" id="toneSelector">
+                                            <!-- JS Populated -->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Material Language Selection -->
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label text-muted small fw-bold"><i class="fas fa-language me-1"></i> ภาษาของสื่อ (Output Lang):</label>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <div class="form-check me-2">
+                                        <input class="form-check-input" type="radio" name="matLang" id="matLangTH" value="th" checked>
+                                        <label class="form-check-label" for="matLangTH">ไทย 🇹🇭</label>
+                                    </div>
+                                    <div class="form-check me-2">
+                                        <input class="form-check-input" type="radio" name="matLang" id="matLangEN" value="en">
+                                        <label class="form-check-label" for="matLangEN">อังกฤษ 🇬🇧</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 text-md-end mt-2">
+                                <button type="button" class="btn btn-materials w-100" onclick="generateMaterialsPrompt()">
+                                    <i class="fas fa-print me-2"></i> สร้าง Prompt สื่อการสอน
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Tabs Navigation -->
+                        <ul class="nav nav-tabs mb-3" id="materialTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="tab-know" data-bs-toggle="tab" data-bs-target="#content-know" type="button" role="tab"><i class="fas fa-book-open me-1"></i> ใบความรู้</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="tab-work" data-bs-toggle="tab" data-bs-target="#content-work" type="button" role="tab"><i class="fas fa-pencil-alt me-1"></i> ใบงาน</button>
+                            </li>
+                        </ul>
+
+                        <!-- Tabs Content -->
+                        <div class="tab-content" id="materialTabsContent">
+                            <!-- Knowledge Sheet Tab -->
+                            <div class="tab-pane fade show active" id="content-know" role="tabpanel">
+                                <div class="position-relative">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h6 class="form-label text-muted mb-0">ผลลัพธ์: เฉพาะใบความรู้</h6>
+                                        <button id="copyKnowBtn" class="btn btn-sm btn-outline-success" onclick="copyToClipboard('outputMaterialsKnow', 'copyKnowBtn')">
+                                            <i class="far fa-copy"></i> คัดลอก
+                                        </button>
+                                    </div>
+                                    <textarea class="form-control output-area-materials" id="outputMaterialsKnow" rows="8" readonly placeholder="กดปุ่ม 'สร้าง Prompt สื่อการสอน' เพื่อแสดงผลลัพธ์..."></textarea>
+                                </div>
+                            </div>
+                            <!-- Worksheet Tab -->
+                            <div class="tab-pane fade" id="content-work" role="tabpanel">
+                                <div class="position-relative">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h6 class="form-label text-muted mb-0">ผลลัพธ์: เฉพาะใบงาน + เฉลย</h6>
+                                        <button id="copyWorkBtn" class="btn btn-sm btn-outline-success" onclick="copyToClipboard('outputMaterialsWork', 'copyWorkBtn')">
+                                            <i class="far fa-copy"></i> คัดลอก
+                                        </button>
+                                    </div>
+                                    <textarea class="form-control output-area-materials" id="outputMaterialsWork" rows="8" readonly placeholder="กดปุ่ม 'สร้าง Prompt สื่อการสอน' เพื่อแสดงผลลัพธ์..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <p class="text-danger small mt-2 fw-bold mb-0 text-center"><i class="fas fa-exclamation-circle me-1"></i> ** Prompt ถูกปรับเป็นภาษาอังกฤษ (English Native) อัตโนมัติ เพื่อคุณภาพสูงสุดกับ AI **</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Import/Export Modals & Toasts (Standard Layout) -->
+<div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="helpModalLabel"><i class="fas fa-info-circle me-2"></i>คู่มือการใช้งาน</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-info border-0 bg-light-info">
+                    <p class="mb-0 small"><i class="fas fa-info-circle me-2"></i>ระบบสร้าง Prompt อัจฉริยะสำหรับครูยุคใหม่ ช่วยลดเวลาเตรียมการสอนและสร้างสื่อการสอนที่สวยงามด้วย AI</p>
+                </div>
+                
+                <h6 class="fw-bold text-primary mt-3"><i class="fas fa-magic me-2"></i>วิธีการใช้งานเบื้องต้น</h6>
+                <ol class="small text-muted">
+                    <li>กรอกข้อมูลรายวิชาและหัวข้อที่ต้องการสอนให้ครบถ้วน</li>
+                    <li>เลือกรูปแบบการสอน (Model) และเทคนิคเสริม (Technique)</li>
+                    <li>กดปุ่ม <strong>"สร้าง Prompt แผนการสอน"</strong></li>
+                    <li>คัดลอกข้อความผลลัพธ์ไปวางใน ChatGPT, Gemini หรือ Claude</li>
+                </ol>
+
+                <h6 class="fw-bold text-success mt-3"><i class="fas fa-users-cog me-2"></i>โหมดผู้เชี่ยวชาญ (Expert Mode)</h6>
+                <p class="small text-muted mb-2">เมื่อเปิดใช้งาน AI จะจำลองบทบาทเป็นทีมผู้เชี่ยวชาญ 5 ด้าน เพื่อช่วยออกแบบแผนการสอนที่ลึกซึ้งยิ่งขึ้น:</p>
+                <ul class="small text-muted mb-2">
+                    <li><strong>นักหลักสูตร:</strong> ดูแลความสอดคล้องกับมาตรฐาน</li>
+                    <li><strong>จิตวิทยาเด็ก:</strong> ให้คำแนะนำกิจกรรมที่เหมาะสมกับวัย</li>
+                    <li><strong>ผู้เชี่ยวชาญ AI:</strong> แนะนำเครื่องมือ AI มาช่วยสอน</li>
+                    <li><strong>นักวัดผล:</strong> ออกแบบเกณฑ์การให้คะแนน (Rubric)</li>
+                    <li><strong>นักออกแบบสื่อ:</strong> ช่วยดีไซน์สื่อการสอน</li>
+                </ul>
+
+                <h6 class="fw-bold text-warning mt-3"><i class="fas fa-palette me-2"></i>Visual Styles (สำหรับสื่อการสอน)</h6>
+                <p class="small text-muted">เลือกสไตล์ภาพที่ต้องการก่อนกดสร้าง Prompt สื่อการสอน:</p>
+                <ul class="small text-muted">
+                    <li><strong>Infographic:</strong> ภาพกราฟิกสวยงาม สื่อสารชัดเจน (ค่าเริ่มต้น)</li>
+                    <li><strong>Coloring Page:</strong> ภาพลายเส้นขาวดำ สำหรับให้นักเรียนระบายสี</li>
+                    <li><strong>Mixed Media:</strong> ศิลปะตัดแปะ สร้างสรรค์</li>
+                    <li><strong>Watercolor:</strong> สไตล์สีน้ำ อ่อนโยน</li>
+                </ul>
+
+                <h6 class="fw-bold text-secondary mt-3"><i class="fas fa-save me-2"></i>การจัดการข้อมูล (Import/Export)</h6>
+                <p class="small text-muted mb-2">ท่านสามารถกดปุ่ม "เครื่องมือขั้นสูง" เพื่อเรียกใช้ฟังก์ชัน:</p>
+                <ul class="small text-muted">
+                    <li><strong>โหลดโครงสร้างแผน (Template):</strong> นำเข้าไฟล์โครงสร้าง Prompt ที่ปรับแต่งเอง (JSON) เพื่อใช้รูปแบบแผนการสอนเฉพาะทาง</li>
+                    <li><strong>โหลดข้อมูล (Data):</strong> นำเข้าข้อมูลรายวิชาและผู้สอนที่เคยบันทึกไว้ เพื่อไม่ต้องกรอกใหม่ซ้ำๆ</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">รับทราบ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="importModalLabel"><i class="fas fa-folder-open me-2"></i>นำเข้าข้อมูล (Load JSON)</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="file" class="form-control" id="jsonFile" accept=".json">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                <button type="button" class="btn btn-primary" onclick="importData()">นำเข้าข้อมูล</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="templateImportModal" tabindex="-1" aria-labelledby="templateImportModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="templateImportModalLabel"><i class="fas fa-file-code me-2"></i>นำเข้าโครงสร้างแผน</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <textarea class="form-control mb-3" id="templateJsonText" rows="6" placeholder='{ "name": "My Plan", "structure_th": "..." }'></textarea>
+                <input type="file" class="form-control" id="templateJsonFile" accept=".json" onchange="loadTemplateFromFile()">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                <button type="button" class="btn btn-primary" onclick="applyCustomTemplate()">ใช้โครงสร้างนี้</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1055;">
+    <div id="liveToastGen" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex"><div class="toast-body"><i class="fas fa-magic me-2"></i> สร้าง Prompt เรียบร้อยแล้ว!</div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button></div>
+    </div>
+    <div id="liveToastCopy" class="toast align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex"><div class="toast-body"><i class="fas fa-clipboard-check me-2"></i> คัดลอกแล้ว</div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button></div>
+    </div>
+    <div id="liveToastSave" class="toast align-items-center text-white bg-info border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex"><div class="toast-body"><i class="fas fa-save me-2"></i> บันทึกแล้ว</div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button></div>
+    </div>
+    <div id="liveToastError" class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex"><div class="toast-body"><i class="fas fa-exclamation-circle me-2"></i> กรุณากรอกข้อมูลให้ครบ</div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button></div>
+    </div>
+    <div id="liveToastImportSuccess" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex"><div class="toast-body"><i class="fas fa-check-circle me-2"></i> นำเข้าสำเร็จ!</div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button></div>
+    </div>
+    <div id="liveToastImportError" class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex"><div class="toast-body"><i class="fas fa-times-circle me-2"></i> นำเข้าไม่สำเร็จ!</div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button></div>
+    </div>
+</div>
+
+<script>
+    let currentMode = 'rasisalai'; 
+    let isExpertMode = false;
+    let customTemplateData = null; 
+
+    // --- MOCK DICTIONARY ---
+    const keywords_db = {
+        "วัสดุช่าง": "Workshop Materials, Wood, Metal, Plastic, Hammer, Saw, Drill",
+        "วัสดุ": "Materials, Raw materials, Substances",
+        "วงจรไฟฟ้า": "Electrical Circuit, Battery, Wires, Light bulb, Switch, Schematic diagram",
+        "ระบบนิเวศ": "Ecosystem, Forest, Animals, Water stream, Sun, Trees, Nature balance",
+        "วัฏจักรน้ำ": "Water Cycle, Rain, Clouds, Ocean, Sun, Evaporation, Condensation",
+        "เซลล์พืช": "Plant Cell Structure, Chloroplast, Cell wall, Nucleus, Green biology",
+        "อารยธรรมอียิปต์": "Ancient Egypt Civilization, Pyramids, Pharaoh, Sphinx, Desert, Hieroglyphs",
+        "สัตว์เลี้ยง": "Pets, Dog, Cat, Hamster, Rabbit, Cute animals",
+        "คอมพิวเตอร์": "Computer, Keyboard, Screen, Mouse, Technology, Coding",
+        "วิทยาการคำนวณ": "Computing Science, Coding, Algorithm, Flowchart, Logic",
+        "ศิลปะ": "Art, Painting, Colors, Brush, Canvas, Creativity",
+        "ดนตรี": "Music, Notes, Instruments, Melody, Rhythm"
+    };
+
+    function translateToEnglish(text) {
+        if (!text) return "";
+        if (keywords_db[text]) return keywords_db[text];
+        for (const [key, value] of Object.entries(keywords_db)) {
+            if (text.includes(key)) return value;
+        }
+        return `${text} (Please visualize this concept in an International context)`;
+    }
+    
+    // --- COLORS CONFIG (V.7.2) ---
+    const COLORS = [
+        { value: "Auto (AI Decides)", label: "อัตโนมัติ (Auto)" },
+        { value: "Pastel Tones", label: "โทนพาสเทล (Pastel)" },
+        { value: "Earth Tones", label: "เอิร์ธโทน (Earth Tones)" },
+        { value: "Vibrant Primary", label: "สีสันสดใส แม่สี (Vibrant)" },
+        { value: "Black & White (Line Art)", label: "ขาวดำ ลายเส้น (B&W)" },
+        { value: "Blue & White", label: "น้ำเงิน-ขาว (Blue & White)" },
+        { value: "Warm Colors (Orange/Red)", label: "โทนร้อน ส้ม-แดง (Warm)" },
+        { value: "Cool Colors (Blue/Green)", label: "โทนเย็น ฟ้า-เขียว (Cool)" },
+        { value: "Neon Colors", label: "สีนีออน (Neon)" },
+        { value: "Monochrome", label: "สีเดียวไล่เฉด (Monochrome)" },
+        { value: "Rainbow", label: "สีรุ้ง (Rainbow)" },
+        { value: "Gold & Navy", label: "ทอง-กรมท่า (Gold & Navy)" },
+        { value: "Pink & Purple", label: "ชมพู-ม่วง (Pink & Purple)" },
+        { value: "Green & Brown (Nature)", label: "เขียว-น้ำตาล ธรรมชาติ (Nature)" },
+        { value: "Gray & Yellow", label: "เทา-เหลือง (Gray & Yellow)" },
+        { value: "Teal & Coral", label: "เขียวอมฟ้า-ส้ม (Teal & Coral)" },
+        { value: "Cream & Coffee", label: "ครีม-กาแฟ (Cream & Coffee)" },
+        { value: "Slate & Mint", label: "เทา-มิ้นต์ (Slate & Mint)" },
+        { value: "Indigo & White", label: "คราม-ขาว (Indigo & White)" }
+    ];
+
+    function populateColorDropdowns() {
+        const primarySelect = document.getElementById('primaryColorSelector');
+        const secondarySelect = document.getElementById('secondaryColorSelector');
+        
+        if (!primarySelect || !secondarySelect) return;
+
+        COLORS.forEach(color => {
+            const option1 = new Option(color.label, color.value);
+            const option2 = new Option(color.label, color.value);
+            primarySelect.add(option1);
+            secondarySelect.add(option2);
+        });
+        
+        // Set default to Auto
+        primarySelect.value = "Auto (AI Decides)";
+        secondarySelect.value = "Auto (AI Decides)";
+    }
+
+    // --- FONTS CONFIG (V.7.4) ---
+    const FONTS = [
+        { name: "Auto (Match Grade)", desc: "อัตโนมัติ (ตามระดับชั้น)" },
+        { name: "Sarabun", desc: "Formal, Sans-serif (TH)" },
+        { name: "Chakra Petch", desc: "Square, Sci-fi (TH)" },
+        { name: "Mali", desc: "Handwriting, Cute (TH)" },
+        { name: "Prompt", desc: "Modern, Geometric (TH)" },
+        { name: "Kanit", desc: "Modern, Bold (TH)" },
+        { name: "Thasadith", desc: "Humanist, Friendly (TH)" },
+        { name: "Charm", desc: "Cursive, Elegant (TH)" },
+        { name: "Itim", desc: "Rounded, Informal (TH)" },
+        { name: "Pattaya", desc: "Display, Bold (TH)" },
+        { name: "Sriracha", desc: "Handwritten, Marker (TH)" },
+        { name: "Krub", desc: "Professional, Clean (TH)" },
+        { name: "Niramit", desc: "Traditional Loop (TH)" },
+        { name: "Kodchasan", desc: "Casual, Rounded (TH)" },
+        { name: "Bai Jamjuree", desc: "Modern, Boxy (TH)" },
+        { name: "Chonburi", desc: "Retro, Curvy (TH)" },
+        { name: "Mitr", desc: "Friendly, Sans (TH)" },
+        { name: "Athiti", desc: "Thin, High Contrast (TH)" },
+        { name: "Pridi", desc: "Slab Serif, Strong (TH)" },
+        { name: "Maitree", desc: "Serif, Elegant (TH)" },
+        { name: "Taviraj", desc: "Classic, Loop (TH)" },
+        { name: "Trirong", desc: "Serif, Traditional (TH)" }
+    ];
+
+    function populateFontDropdown() {
+        const select = document.getElementById('fontSelector');
+        if (!select) return;
+        
+        select.innerHTML = '';
+        FONTS.forEach(font => {
+            const option = new Option(`${font.name} - ${font.desc}`, font.name);
+            select.add(option);
+        });
+        select.value = "Auto (Match Grade)";
+    }
+
+    function getTypographyPrompt(grade, fontName) {
+        if (!fontName || fontName.startsWith("Auto")) {
+            // Auto Logic based on Grade
+            if (grade.includes("อนุบาล")) {
+                 return 'Typography: Use Rounded, Bubble, Easy-to-read, Handwritten-style Google Fonts supporting Thai (e.g. style of "Mali" Google Font).';
+            } else {
+                 // Primary & Secondary (Prathom & Mattayom)
+                 return 'Typography: Use Clean, Modern, Sans-Serif, Professional Google Fonts supporting Thai (e.g. style of "Mitr" Google Font).';
+            }
+        } else {
+            // Specific Font Selection
+            return `Typography: Use the specific Google Font "${fontName}" (or a visual equivalent supporting Thai).`;
+        }
+    }
+
+    // --- BLOOMS & TONES CONFIG (V.7.6) ---
+    const BLOOMS = [
+        { value: "Auto (AI Decides)", label: "อัตโนมัติ (Auto)" },
+        { value: "Remembering", label: "จำ (Remembering)" },
+        { value: "Understanding", label: "เข้าใจ (Understanding)" },
+        { value: "Applying", label: "ประยุกต์ใช้ (Applying)" },
+        { value: "Analyzing", label: "วิเคราะห์ (Analyzing)" },
+        { value: "Evaluating", label: "ประเมินค่า (Evaluating)" },
+        { value: "Creating", label: "สร้างสรรค์ (Creating)" }
+    ];
+
+    const TONES = [
+        { value: "Auto (AI Decides)", label: "อัตโนมัติ (Auto)" },
+        { value: "Encouraging & Warm", label: "อบอุ่น ให้กำลังใจ (Encouraging)" },
+        { value: "Professional & Academic", label: "วิชาการ เป็นทางการ (Professional)" },
+        { value: "Playful & Fun", label: "สนุกสนาน ขี้เล่น (Playful)" },
+        { value: "Serious & Direct", label: "จริงจัง ตรงไปตรงมา (Serious)" },
+        { value: "Inspirational", label: "สร้างแรงบันดาลใจ (Inspirational)" },
+        { value: "Storytelling", label: "การเล่าเรื่อง (Storytelling)" }
+    ];
+
+    function populateContentDropdowns() {
+        const bloomSelect = document.getElementById('bloomSelector');
+        const toneSelect = document.getElementById('toneSelector');
+        
+        if (bloomSelect) {
+            bloomSelect.innerHTML = '';
+            BLOOMS.forEach(item => {
+                bloomSelect.add(new Option(item.label, item.value));
+            });
+            bloomSelect.value = "Auto (AI Decides)";
+        }
+
+        if (toneSelect) {
+            toneSelect.innerHTML = '';
+            TONES.forEach(item => {
+                toneSelect.add(new Option(item.label, item.value));
+            });
+            toneSelect.value = "Auto (AI Decides)";
+        }
+    }
+
+    // --- VISUAL STYLE CONFIG (V.7.9 Expanded & Grouped) ---
+    const VISUAL_STYLES = {
+        // --- 1. Standard & Clean (กลุ่มมาตรฐาน/ทางการ) ---
+        'infographic': {
+            name: 'Infographic (Vector)',
+            prompt: 'Infographic, Clean, Flat vector illustration, clean lines, vibrant colors, educational infographic style, organized layout, modern design',
+            negative: 'black and white, sketch, pencil drawing, messy, rough lines, dark and gloomy, blurry, 3d render',
+            layout: 'Grid-based, structured, clear hierarchy, distinct sections',
+            taskDesc: 'A high-quality, printable Portrait Knowledge Sheet'
+        },
+        'vector_flat': {
+            name: 'Vector Flat (เวกเตอร์เรียบง่าย)',
+            prompt: 'Vector Illustration, Flat Design, minimalism, solid colors, no gradients, clean shapes',
+            negative: '3d, texture, shadow, sketch',
+            layout: 'Minimalist grid, clean whitespace',
+            taskDesc: 'A clean Vector Flat illustration'
+        },
+        'abstract': {
+            name: 'Abstract Modern (นามธรรม)',
+            prompt: 'Abstract Shapes, Modern, geometric forms, fluid lines, corporate art style, clean, minimalist',
+            negative: 'realistic, detailed characters, clutter',
+            layout: 'Balanced abstract composition',
+            taskDesc: 'An Abstract Modern style visual'
+        },
+        'scientific': {
+            name: 'Scientific Realistic (วิทย์สมจริง)',
+            prompt: 'Scientific Illustration, Realistic, highly detailed, anatomical accuracy, botanical style, textbook quality',
+            negative: 'cartoon, abstract, simplified, cute',
+            layout: 'Encyclopedia layout, labeled diagrams',
+            taskDesc: 'A detailed Scientific Illustration'
+        },
+
+        // --- 2. Technical & Diagrams (กลุ่มเทคนิค/แผนผัง) ---
+        'isometric': {
+            name: '3D Isometric (ไอโซเมตริก)',
+            prompt: 'Isometric, Detailed, 3D Isometric view, low poly style, clean 3d render, soft lighting, cute toy-like models',
+            negative: '2d, flat, hand drawn, sketch, messy',
+            layout: 'Isometric grid, floating islands composition',
+            taskDesc: 'A 3D Isometric educational diagram'
+        },
+        'blueprint': {
+            name: 'Technical Blueprint (พิมพ์เขียว)',
+            prompt: 'Technical Blueprint, white lines on blue grid background, schematic, engineering aesthetic',
+            negative: 'colors, organic shapes, artistic, sketch',
+            layout: 'Grid-based, technical schematic layout',
+            taskDesc: 'A Technical Blueprint style diagram'
+        },
+        'isometric_blueprint': {
+            name: 'Isometric Blueprint (พิมพ์เขียว 3D)',
+            prompt: 'Technical blueprint style with 3D Isometric view, white lines on blue grid, schematic yet 3D depth, engineering diagram',
+            negative: 'flat 2d, organic shapes, artistic painting, sketch',
+            layout: 'Isometric grid with technical labels',
+            taskDesc: 'A 3D Isometric Blueprint diagram'
+        },
+        'low_poly': {
+            name: 'Low Poly (โลว์โพลี)',
+            prompt: 'Low Poly, Geometric, faceted shapes, sharp edges, 3d game asset style, minimalist',
+            negative: 'curved, smooth, high detail, realistic texture',
+            layout: 'Geometric arrangement',
+            taskDesc: 'A Low Poly style visual aid'
+        },
+
+        // --- 3. Hand-Drawn & Artistic (กลุ่มงานวาด/ศิลปะ) ---
+        'watercolor': {
+            name: 'Watercolor (สีน้ำ)',
+            prompt: 'Watercolor Painting, Soft, Soft watercolor painting, pastel tones, fluid artistic strokes, gentle texture, paper grain, dreamy atmosphere',
+            negative: 'vector, sharp lines, digital glitch, neon colors, harsh contrast',
+            layout: 'Organic flow, soft edges, centered composition with breathing room',
+            taskDesc: 'A beautiful Watercolor style knowledge sheet'
+        },
+        'watercolor_expressive_2': {
+            name: 'Watercolor Expressive (Fashion Inspired)',
+            prompt: 'charming watercolor illustration, loose expressive brushstrokes, visible paint texture, ink outlines, subtle color splashes, warm inviting color palette, classic fashion illustration style, honest soft realism, minimalist lightly sketched background, subject-focused composition',
+            negative: 'flat color, digital painting, hyper realistic, photorealistic, heavy shading, dark tone, cluttered background, hard edges, 3D render',
+            layout: 'subject-centered composition, minimal background, soft negative space, elegant visual balance',
+            taskDesc: 'Expressive watercolor illustration with visible brushstrokes and a fashion-inspired aesthetic, suitable for editorial and educational use'
+        },
+        'doodle': {
+            name: 'Doodle / Sketch (วาดเล่น)',
+            prompt: 'Doodle, Hand Drawn, Sketch, pencil or pen on paper style, casual, artistic, rough lines',
+            negative: '3d, vector, polished, digital',
+            layout: 'Freehand notebook style',
+            taskDesc: 'A Hand-drawn Doodle style sheet'
+        },
+        'chalkboard': {
+            name: 'Chalkboard Art (กระดานดำ)',
+            prompt: 'Chalkboard Art, white chalk texture on rough black slate background, hand-drawn educational diagrams',
+            negative: 'digital colors, vector, glossy, white background',
+            layout: 'Freehand diagram layout, centered',
+            taskDesc: 'A Chalkboard style educational summary'
+        },
+        'storybook': {
+            name: 'Storybook (นิทาน)',
+            prompt: 'Storybook Illustration, whimsical, painted texture, warm lighting, magical atmosphere',
+            negative: 'technical, vector, infographic, cold',
+            layout: 'Full page illustration with text areas',
+            taskDesc: 'A Storybook style educational scene'
+        },
+        'vintage': {
+            name: 'Vintage / Retro (วินเทจ)',
+            prompt: 'Vintage, Retro Educational, old textbook illustration, muted colors, paper texture, old print effect',
+            negative: 'modern, neon, 3d, digital vector',
+            layout: 'Classic academic layout, bordered',
+            taskDesc: 'A Vintage style educational poster'
+        },
+
+        // --- 4. Cartoon & Cute (กลุ่มการ์ตูน/น่ารัก) ---
+        'cartoon_vibrant': {
+            name: 'Cartoon Vibrant (การ์ตูนสดใส)',
+            prompt: 'Cartoon, Vibrant, Cute, standard modern cartoon style, clean colors, friendly',
+            negative: 'realistic, gritty, dark, black and white',
+            layout: 'Standard cartoon composition',
+            taskDesc: 'A vibrant Cartoon style sheet'
+        },
+        'chibi': {
+            name: 'Chibi Cartoon (จิบิ)',
+            prompt: 'Chibi Cartoon, big heads small bodies, cute, kawaii, simple flat colors, thick outlines',
+            negative: 'realistic, scary, dark, 3d render',
+            layout: 'Playful arrangement, floating elements',
+            taskDesc: 'A cute Chibi style worksheet'
+        },
+        'kawaii': {
+            name: 'Kawaii Japanese (คาวาอี้)',
+            prompt: 'Kawaii, Japanese Style, pastel colors, cute sparkles, rounded shapes, soft aesthetic',
+            negative: 'serious, dark, sharp edges, realistic',
+            layout: 'Cute and crowded, scrapbook style',
+            taskDesc: 'A Kawaii style educational sheet'
+        },
+        'children_knolling': {
+            name: 'Children Knolling (จัดวางสิ่งของน่ารัก)',
+            prompt: 'Childrens book illustration, Knolling layout of educational items, pastel color palette, soft lighting, high detail, cute and friendly style, organized arrangement, top-down view, clean background, whimsical elements',
+            negative: 'dark, gloomy, messy, cluttered, disorganized, harsh shadows, scary, realistic, photography, text, words, labels, watermark',
+            layout: 'Knolling layout with organized items',
+            taskDesc: 'A charming knolling illustration of educational items in a children\'s book style'
+        },
+        'sticker_art': {
+            name: 'Sticker Art Die-cut (สติกเกอร์)',
+            prompt: 'Die-cut sticker style, white border outline around elements, vibrant colors, vector illustration, isolated on plain background, cute and pop',
+            negative: 'background, scenery, complex, realistic, 3d render',
+            layout: 'Collection of isolated elements',
+            taskDesc: 'A Sticker Art style collection'
+        },
+        'pixel': {
+            name: 'Pixel Art (พิกเซล)',
+            prompt: 'Pixel Art, 8-bit, 16-bit pixel art style, retro game aesthetic, blocky details, vibrant palette, dithering',
+            negative: 'vector, smooth lines, high resolution, realistic, blur, 3d',
+            layout: 'Grid-aligned, retro game interface style',
+            taskDesc: 'A Pixel Art style educational sheet'
+        },
+        'children_edu_flat': {
+            name: 'Children Educational Flat',
+            prompt: 'children educational illustration, flat cartoon style, soft pastel colors, cute friendly characters, clean outlines, rounded shapes, 2D, school life, learning activities, warm playful mood, scrapbook notebook style, polaroid frames, stationery background',
+            negative: 'realistic, photorealistic, dark lighting, high contrast, complex details, sharp edges, anime, 3D render, adult style',
+            layout: 'scrapbook notebook layout, layered framed images, balanced spacing',
+            taskDesc: 'Child-friendly educational illustration for textbooks and worksheets'
+        },
+
+        // --- 5. 3D & Render (กลุ่ม 3 มิติ) ---
+        'pixar': {
+            name: '3D Pixar Style (พิกซาร์)',
+            prompt: '3D Pixar, 3D render, cute characters, vibrant lighting, soft edges, high fidelity, 3d animation movie aesthetic',
+            negative: '2d, flat, sketch, rough, low poly',
+            layout: 'Cinematic composition, depth of field',
+            taskDesc: 'A 3D Pixar-style educational poster'
+        },
+        'chibi_3d': {
+            name: 'Chibi 3D (จิบิ 3D)',
+            prompt: 'Chibi 3D Cartoon, 3D render, cute, glossy, toy-like texture',
+            negative: '2d, flat, sketch, rough',
+            layout: 'Playful 3D scene arrangement',
+            taskDesc: 'A 3D Chibi style visual aid'
+        },
+        'clay': {
+            name: 'Clay / Claymation (ดินน้ำมัน)',
+            prompt: '3D Render, Blender Style, Clay, Claymation Style, plasticine texture, fingerprints, stop-motion aesthetic, soft lighting',
+            negative: 'digital, vector, flat, sharp edges',
+            layout: 'Diorama style, scene-based',
+            taskDesc: 'A Claymation style learning material'
+        },
+
+        // --- 6. Creative & Mixed (กลุ่มสร้างสรรค์/ผสมผสาน) ---
+        'collage': { 
+            name: 'Mixed Media Collage (ศิลปะผสมผสาน)',
+            prompt: 'Collage, Mixed Media, Mixed media collage art, paper cutouts texture, combining vintage and modern elements, artistic layering, scrapbook aesthetic, hand-made feel',
+            negative: '3d render, glossy, clean vector, minimalism, sterile, flat digital art',
+            layout: 'Asymmetrical balance, overlapping layers, dynamic composition, freeform arrangement',
+            taskDesc: 'A creative Mixed Media Collage educational poster'
+        },
+        'pop_art': {
+            name: 'Pop Art (ป๊อปอาร์ต)',
+            prompt: 'Pop Art, Bold, halftone dots, vibrant primary colors, comic book aesthetic, Roy Lichtenstein style',
+            negative: 'soft, watercolor, realistic, 3d',
+            layout: 'Comic panel layout, dynamic angles',
+            taskDesc: 'A Pop Art style educational sheet'
+        },
+        'cyberpunk': {
+            name: 'Cyberpunk (ไซเบอร์พังค์)',
+            prompt: 'Cyberpunk, Neon, futuristic, glowing lines, dark background, high tech interface',
+            negative: 'vintage, natural, pastel, rustic',
+            layout: 'Holographic interface layout',
+            taskDesc: 'A Cyberpunk style educational diagram'
+        },
+        'doodle_infographic': {
+            name: 'Infographic Doodle (อินโฟฯ ลายมือ)',
+            prompt: 'Infographic layout but in Hand Drawn Doodle style, sketch lines, marker texture, casual font, notebook paper background, educational summary',
+            negative: '3d, glossy, vector, clean lines, digital art',
+            layout: 'Notebook style layout, handwritten vibe',
+            taskDesc: 'A Hand-drawn Infographic summary'
+        },
+        'paper_craft': {
+            name: 'Paper Cutout / Craft (ตัดแปะ)',
+            prompt: 'Paper Cutout, Craft, layered paper texture, depth shadows, craft aesthetic, handmade feel',
+            negative: 'flat, vector, digital painting',
+            layout: 'Layered composition, depth-based hierarchy',
+            taskDesc: 'A Paper Craft style visual aid'
+        },
+
+        // --- 7. Activity/Worksheet (กลุ่มกิจกรรม) ---
+        'coloring': {
+            name: 'Coloring Page (ระบายสี)',
+            prompt: 'Line Art, Minimalist, Coloring Book, Black and white line art, clear heavy outlines, high contrast, monochrome, colorless, coloring book style for kids, white background',
+            prompt_color: 'Vibrant flat vector illustration, clean lines, bright colors, educational style, white background',
+            negative: 'colors, shading, gradients, greyscale, filled colors, realistic photo, complex background, dark background, 3d render',
+            layout: 'Open space, large elements, distinct boundaries for coloring',
+            taskDesc: 'A printable black and white coloring page worksheet'
+        },
+        'chibi_coloring': {
+            name: 'Chibi Coloring (จิบิระบายสี)',
+            prompt: 'Chibi cartoon style, black and white line art, thick outlines, cute character, no shading, white background, simple details for kids',
+            prompt_color: 'Chibi cartoon style, vibrant colors, soft shading, cute character, glossy finish, white background',
+            negative: 'colors, shading, gradients, greyscale, filled colors, realistic photo, complex background, dark background, 3d render',
+            layout: 'Single central character focus, clear boundaries',
+            taskDesc: 'A cute Chibi Coloring Page'
+        },
+        'edu_coloring_sketchnote_infographic': {
+            name: 'Educational Coloring Sketchnote Infographic (การศึกษา)',
+            prompt: 'hand-drawn educational coloring infographic, sketchnote style, visual note illustration, clean pen line art, simple friendly icons, black and white, no color, no shading, clear outlines, coloring page style, notebook lined paper background, step-by-step explainer layout, clear educational storytelling',
+            prompt_color: 'hand-drawn educational coloring infographic, sketchnote style, visual note illustration, clean pen line art, simple friendly icons, soft flat colors, warm accent color palette, highlighted headers, subtle color blocks, notebook lined paper background, step-by-step explainer layout, clear educational storytelling',
+            negative: 'photorealistic, digital painting, glossy finish, heavy shading, dark tone, cluttered layout, complex textures, gradient, 3D render, anime style',
+            layout: 'vertical infographic layout, sectioned content blocks, clear headings and dividers, icon-supported explanations, notebook-style structure',
+            taskDesc: 'Educational sketchnote-style coloring infographic suitable for coloring worksheets (black & white) and colored learning materials'
+        },
+
+        // --- 8. Anime Coloring (สไตล์อนิเมะ) ---
+        'coloring_anime_action': {
+            name: 'Anime Coloring - Action (DBZ Style)',
+            prompt: 'Anime-inspired coloring page, manga style line art, dynamic action pose, spiky hair style, energetic movement, bold clean black outlines, simple shapes, no shading, no color, white background, child-friendly anime proportions',
+            prompt_color: 'Anime style action illustration, professional cel shading, vibrant colors, high quality, dynamic lighting',
+            negative: 'color, grayscale, shading, gradient, realistic, photorealistic, detailed textures, background clutter, dark tone, horror, 3d render',
+            layout: 'Centered character composition, action-focused pose, clear open space for coloring, printable worksheet layout',
+            taskDesc: 'Anime-inspired action-style coloring page for children'
+        },
+        'coloring_anime_cute': {
+            name: 'Anime Coloring - Cute (Doraemon Style)',
+            prompt: 'Anime-inspired coloring page, cute manga style, round character shapes, simple facial features, friendly expression, bold clean black outlines, minimal details, no shading, no color, white background, child-friendly proportions',
+            prompt_color: 'Anime style cute illustration, soft pastel colors, friendly atmosphere, professional coloring',
+            negative: 'color, grayscale, shading, gradient, realistic, photorealistic, complex details, dark tone, scary elements, adult style, 3d render',
+            layout: 'Centered character composition, calm and simple pose, large open areas for coloring, clean printable layout',
+            taskDesc: 'Cute anime-inspired coloring page for children'
+        },
+        'coloring_anime_adventure': {
+            name: 'Anime Coloring - Adventure (OP Style)',
+            prompt: 'Anime-inspired coloring page, adventure manga style, expressive anime face, exaggerated emotions, playful pose, bold clean black outlines, clear line art, no shading, no color, white background, child-friendly proportions',
+            prompt_color: 'Anime adventure style illustration, vivid colors, detailed background, professional digital art',
+            negative: 'color, grayscale, shading, gradient, realistic, photorealistic, complex textures, dark fantasy, horror, adult theme, 3d render',
+            layout: 'Centered character composition, expressive pose, open white space for coloring, worksheet-friendly layout',
+            taskDesc: 'Adventure-style anime-inspired coloring page for children'
+        },
+
+        // --- 9. Coloring Page for Teen (สไตล์มังงะวัยรุ่น) ---
+        'manga_modern_clean': {
+            name: 'Modern Clean Manga (มังงะเส้นสะอาด)',
+            prompt: 'Modern manga style, clean line art, thin sharp outlines, balanced teen proportions, minimal details, black and white illustration, no shading, no color, calm and stylish look',
+            prompt_color: 'Modern manga style illustration, full color, clean lines, stylish coloring, webtoon style',
+            negative: 'color, grayscale shading, gradient, realistic, photorealistic, chibi, exaggerated cartoon, dark seinen style, 3d render',
+            layout: 'Centered composition, clean white background, clear space around character, print-friendly layout',
+            taskDesc: 'Teen-friendly modern manga illustration with clean lines'
+        },
+        'manga_expressive_adventure': {
+            name: 'Expressive Adventure Manga (มังงะแอ็กชัน)',
+            prompt: 'Expressive manga style, adventure anime-inspired, dynamic pose, exaggerated facial expressions, energetic movement, bold clean line art, black and white illustration, no shading, no color',
+            prompt_color: 'Expressive manga illustration, dramatic lighting, full color, detailed shading',
+            negative: 'color, grayscale, shading, realistic, photorealistic, horror, dark fantasy, overly detailed background, 3d render',
+            layout: 'Action-focused composition, dynamic pose centered, open white space for coloring, worksheet-friendly layout',
+            taskDesc: 'Expressive adventure-style manga illustration for teenagers'
+        },
+        'manga_cute_minimal': {
+            name: 'Cute Minimal Manga (มังงะน่ารักเรียบง่าย)',
+            prompt: 'Cute minimal manga style, simple round shapes, friendly facial features, soft proportions, bold clean outlines, black and white line art, no shading, no color',
+            prompt_color: 'Cute minimal manga illustration, soft colors, simple shading, clean look',
+            negative: 'color, gradient, realistic, photorealistic, complex details, scary elements, adult style, 3d render',
+            layout: 'Simple centered composition, large open areas for coloring, clean printable layout',
+            taskDesc: 'Cute and minimal manga-style illustration for younger teens'
+        }
+    };
+
+    function populateStyleDropdown() {
+        const select = document.getElementById('visualStyleSelector');
+        if (!select) return;
+        
+        // Clear existing options
+        select.innerHTML = '';
+        
+        for (const [key, config] of Object.entries(VISUAL_STYLES)) {
+            const option = new Option(config.name, key);
+            select.add(option);
+        }
+        
+        // Set default
+        select.value = 'infographic';
+    }
+
+    function getLayoutPrompt(grade, styleKey) {
+        // Base layout from style config
+        // Fix: Add fallback in case styleKey is invalid or undefined
+        const style = VISUAL_STYLES[styleKey] || VISUAL_STYLES['infographic'];
+        let baseLayout = style.layout;
+        let gradeLogic = "";
+
+        // Adjust based on grade
+        if (grade && (grade.includes('อนุบาล') || grade.includes('ป.1') || grade.includes('ป.2'))) {
+            gradeLogic = "Single focal point, large clear elements, cute style, very simple composition (Kids Friendly)";
+        } else if (grade && grade.includes('มัธยม')) {
+             gradeLogic = "Complex information flow, detailed arrangement, knolling photography style, organized grid";
+        } else {
+             gradeLogic = "Balanced composition, mind map connection, flow of elements";
+        }
+        
+        return `${baseLayout}, ${gradeLogic}`;
+    }
+
+
+    const DEFAULT_TEMPLATES = {
+        'standard': {
+            name: 'Standard',
+            structure_th: `1. มาตรฐานการเรียนรู้/ตัวชี้วัด\n2. สาระสำคัญ\n3. จุดประสงค์การเรียนรู้ ({{objectiveFormat}})\n4. สาระการเรียนรู้\n5. สมรรถนะสำคัญของผู้เรียน {{competencySection}}\n6. คุณลักษณะอันพึงประสงค์\n7. ภาระชิ้นงาน/ชิ้นงาน (ระบุงานเดี่ยวและงานกลุ่ม)\n8. กิจกรรมการจัดการเรียนรู้\n9. สื่อการเรียนรู้/แหล่งการเรียนรู้\n10. การวัดและประเมินผล (สร้างตาราง Rubric ให้คะแนน งานเดี่ยว 10 คะแนน และงานกลุ่ม 20 คะแนน)`,
+            structure_en: `1. Standards/Indicators (มาตรฐานการเรียนรู้/ตัวชี้วัด)\n2. Key Concept (สาระสำคัญ)\n3. Learning Objectives (จุดประสงค์การเรียนรู้) ({{objectiveFormat}})\n4. Content (สาระการเรียนรู้)\n5. Core Competencies (สมรรถนะสำคัญของผู้เรียน) {{competencySection}}\n6. Desirable Characteristics (คุณลักษณะอันพึงประสงค์)\n7. Tasks/Assignments (ภาระงาน/ชิ้นงาน)\n8. Learning Activities (กิจกรรมการเรียนรู้)\n9. Media/Resources (สื่อ/แหล่งการเรียนรู้)\n10. Measurement & Evaluation (การวัดและประเมินผล)`
+        },
+        'rasisalai': {
+            name: 'Rasisalai',
+            structure_th: `1. มาตรฐานการเรียนรู้/ตัวชี้วัด\n   1.1 ตัวชี้วัดระหว่างทาง (ระบุให้สอดคล้องกับเนื้อหา)\n   1.2 ตัวชี้วัดปลายทาง (ระบุให้สอดคล้องกับเนื้อหา)\n2. สาระสำคัญ (เขียน Concept หลักของเรื่อง)\n3. จุดประสงค์การเรียนรู้ (เขียนแยกเป็น {{objectiveFormat}} หรือตามความเหมาะสม)\n4. สาระการเรียนรู้ (ระบุเนื้อหาหลัก)\n5. คุณลักษณะอันพึงประสงค์ (ระบุข้อที่สอดคล้อง)\n6. สมรรถนะสำคัญของผู้เรียน {{competencySection}}\n7. กิจกรรมการเรียนรู้:\n   - ออกแบบกิจกรรมโดยใช้กระบวนการ "{{model}}" {{technique}}\n   - ระบุองค์ประกอบ **Active Learning** ในแต่ละขั้นตอนให้ชัดเจน\n   - ระบุเวลาเป็นนาที กำกับท้ายชื่อขั้นตอน (เช่น (10 นาที))\n   - เน้นความสนุกสนานและการใช้เทคโนโลยีช่วยสอน\n8. การวัดและการประเมินผล:\n   ให้สร้างเป็นตาราง 4 ช่อง ดังนี้:\n   - ช่องที่ 1: จุดประสงค์การเรียนรู้\n   - ช่องที่ 2: วิธีการวัด\n   - ช่องที่ 3: เครื่องมือ\n   - ช่องที่ 4: เกณฑ์การผ่าน\n9. สื่อ/แหล่งการเรียนรู้`,
+            structure_en: `1. Standards/Indicators (มาตรฐานการเรียนรู้/ตัวชี้วัด)\n   1.1 Formative Indicators (ตัวชี้วัดระหว่างทาง)\n   1.2 Summative Indicators (ตัวชี้วัดปลายทาง)\n2. Key Concept (สาระสำคัญ)\n3. Learning Objectives (จุดประสงค์การเรียนรู้) ({{objectiveFormat}})\n4. Content (สาระการเรียนรู้)\n5. Desirable Characteristics (คุณลักษณะอันพึงประสงค์)\n6. Core Competencies (สมรรถนะสำคัญของผู้เรียน) {{competencySection}}\n7. Learning Activities (กิจกรรมการเรียนรู้):\n   - Design steps using **{{model}}**.\n   - Explicitly mention **Active Learning** elements in each step.\n   - Allocate specific time in minutes for each step (e.g. (10 mins)).\n   - Integrate fun and technology.\n8. Measurement & Evaluation (การวัดและประเมินผล):\n   - Create a 4-column table: [Objective (จุดประสงค์), Method (วิธีวัด), Tool (เครื่องมือ), Criteria (เกณฑ์)]\n9. Media/Resources (สื่อ/แหล่งการเรียนรู้)`
+        }
+    };
+
+    const competencyData = {
+      1: { name: "สมรรถนะการจัดการตนเอง", relatedSubjects: ["สุขศึกษาและพลศึกษา", "ศิลปะ", "การงานอาชีพ", "กิจกรรมพัฒนาผู้เรียน"] },
+      2: { name: "สมรรถนะการคิดขั้นสูง", relatedSubjects: ["ภาษาไทย", "คณิตศาสตร์", "วิทยาศาสตร์และเทคโนโลยี", "สังคมศึกษา ศาสนา และวัฒนธรรม"] },
+      3: { name: "สมรรถนะการสื่อสาร", relatedSubjects: ["ภาษาไทย", "ภาษาต่างประเทศ"] },
+      4: { name: "สมรรถนะการรวมพลังทำงานเป็นทีม", relatedSubjects: ["การงานอาชีพ", "สุขศึกษาและพลศึกษา", "กิจกรรมพัฒนาผู้เรียน"] },
+      5: { name: "สมรรถนะการเป็นพลเมืองที่เข้มแข็ง", relatedSubjects: ["สังคมศึกษา ศาสนา และวัฒนธรรม", "กิจกรรมพัฒนาผู้เรียน"] },
+      6: { name: "สมรรถนะการอยู่ร่วมกับธรรมชาติและวิทยาการอย่างยั่งยืน", relatedSubjects: ["คณิตศาสตร์", "วิทยาศาสตร์และเทคโนโลยี", "การงานอาชีพ"] }
+    };
+
+    function getCompetenciesForSubject(subjectGroup) {
+        let relevant = [];
+        for (const [key, value] of Object.entries(competencyData)) {
+            if (value.relatedSubjects.includes(subjectGroup)) {
+                relevant.push(`${value.name}`);
+            }
+        }
+        return relevant.length > 0 ? relevant.join(", ") : "";
+    }
+
+    function showToast(elementId) {
+        const toastEl = document.getElementById(elementId);
+        if (toastEl) {
+            // Fix: Use getOrCreateInstance for better BS5 compatibility
+            const toast = bootstrap.Toast.getOrCreateInstance(toastEl, { delay: 3000 });
+            toast.show();
+        }
+    }
+
+    function setMode(mode) {
+        currentMode = mode;
+        const pills = {
+            std: document.getElementById('pills-std-tab'),
+            rasi: document.getElementById('pills-rasi-tab'),
+            custom: document.getElementById('pills-custom-tab')
+        };
+        Object.values(pills).forEach(p => {
+            if(p) {
+                p.classList.remove('active', 'bg-white', 'text-primary', 'shadow-sm'); 
+                p.style.color = "";
+            }
+        });
+        const activePill = pills[mode === 'custom' ? 'custom' : (mode === 'rasisalai' ? 'rasi' : 'std')];
+        if(activePill) {
+            activePill.classList.add('active', 'bg-white', 'text-primary', 'shadow-sm');
+            activePill.style.color = "#764ba2";
+        }
+    }
+
+    function toggleAdvancedTools() {
+        const toolbar = document.getElementById('advancedToolbar');
+        const toggle = document.getElementById('advancedModeToggle');
+        if (toggle.checked) {
+            toolbar.classList.remove('d-none');
+            toolbar.classList.add('d-flex');
+        } else {
+            toolbar.classList.add('d-none');
+            toolbar.classList.remove('d-flex');
+        }
+    }
+
+    function toggleExpertMode() {
+        isExpertMode = !isExpertMode;
+        const toggle = document.getElementById('expertModeToggle');
+        const box = document.getElementById('expertConfigBox');
+        const icon = document.getElementById('expertToggleIcon');
+        
+        toggle.checked = isExpertMode;
+        
+        if (isExpertMode) {
+            box.style.display = 'block';
+            icon.classList.remove('fa-chevron-down');
+            icon.classList.add('fa-chevron-up');
+        } else {
+            box.style.display = 'none';
+            icon.classList.remove('fa-chevron-up');
+            icon.classList.add('fa-chevron-down');
+        }
+    }
+    
+    // REMOVED: toggleImageAdvice since it's now always image mode
+    
+    document.getElementById('expertModeToggle').addEventListener('click', function(e) {
+        e.stopPropagation();
+        toggleExpertMode();
+    });
+
+    function toggleOtherInput(selectId, inputId) {
+        const select = document.getElementById(selectId);
+        const input = document.getElementById(inputId);
+        if (select.value === 'other') {
+            input.classList.remove('d-none');
+            input.focus();
+        } else {
+            input.classList.add('d-none');
+        }
+    }
+
+    function getSelectOrOther(selectId, inputId) {
+        const selectVal = document.getElementById(selectId).value;
+        if (selectVal === 'other') return document.getElementById(inputId).value || '';
+        return selectVal;
+    }
+
+    function getFormValues() {
+        const getVal = (id) => document.getElementById(id).value;
+        const getCheck = (id) => document.getElementById(id) ? document.getElementById(id).checked : false;
+        
+        return {
+            teacher: getVal('teacherName'),
+            subject: getVal('subject'),
+            subjectGroup: getVal('subjectGroup'),
+            topic: getVal('topic'),
+            specificContent: getVal('specificContent') || '',
+            subjectCode: getVal('subjectCode') || '',
+            grade: getVal('grade') || 'มัธยมศึกษาปีที่ 1',
+            semester: getVal('semester') || '',
+            year: getVal('year') || '',
+            unitName: getVal('unitName') || '',
+            time: getVal('time') || '',
+            credit: getVal('credit') || '',
+            teachDate: getVal('teachDate') || '',
+            // FORCE ENGLISH PROMPT
+            lang: 'en', 
+            model: getSelectOrOther('teachingModel', 'teachingModelOther'),
+            technique: getSelectOrOther('teachingTechnique', 'teachingTechniqueOther'),
+            objectiveFormat: getSelectOrOther('objectiveFormat', 'objectiveFormatOther'),
+            
+            mode: currentMode,
+            isExpertMode: isExpertMode,
+            expertRoles: {
+                curriculum: getCheck('roleCurriculum'),
+                psychologist: getCheck('rolePsychologist'),
+                edTech: getCheck('roleEdTech'),
+                assessment: getCheck('roleAssessment'),
+                media: getCheck('roleMedia')
+            },
+            // Updated Visual Style Getter
+            visualStyle: document.getElementById('visualStyleSelector').value,
+            // V8.0 Layout Mode
+            layoutMode: document.getElementById('layoutModeToggle').checked ? 'free' : 'strict',
+            // V8.2 Smart Color Toggle
+            smartColor: document.getElementById('smartColorToggle') ? document.getElementById('smartColorToggle').checked : false,
+            // V7.2 Color Selection
+            primaryColor: document.getElementById('primaryColorSelector') ? document.getElementById('primaryColorSelector').value : "Auto (AI Decides)",
+            secondaryColor: document.getElementById('secondaryColorSelector') ? document.getElementById('secondaryColorSelector').value : "Auto (AI Decides)",
+            
+            // V7.4 Font Selection
+            fontName: document.getElementById('fontSelector') ? document.getElementById('fontSelector').value : "Auto (Match Grade)",
+
+            // V7.6 Content Strategy Selection
+            bloom: document.getElementById('bloomSelector') ? document.getElementById('bloomSelector').value : "Auto (AI Decides)",
+            tone: document.getElementById('toneSelector') ? document.getElementById('toneSelector').value : "Auto (AI Decides)",
+
+            // REMOVED outputType
+            matLang: document.querySelector('input[name="matLang"]:checked') ? document.querySelector('input[name="matLang"]:checked').value : 'th'
+        };
+    }
+
+    // --- Import/Export (Reduced for brevity but functional) ---
+    function loadTemplateFromFile() {
+        const file = document.getElementById('templateJsonFile').files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                document.getElementById('templateJsonText').value = JSON.stringify(JSON.parse(e.target.result), null, 2);
+            } catch (err) {
+                document.getElementById('templateJsonText').value = e.target.result;
+            }
+        };
+        reader.readAsText(file);
+    }
+
+    function applyCustomTemplate() {
+        const jsonText = document.getElementById('templateJsonText').value;
+        try {
+            customTemplateData = JSON.parse(jsonText);
+            if(!customTemplateData.structure_th && !customTemplateData.structure_en) throw new Error("Missing structure");
+            const customTab = document.getElementById('pills-custom-tab');
+            customTab.classList.remove('d-none');
+            customTab.click(); 
+            bootstrap.Modal.getOrCreateInstance(document.getElementById('templateImportModal')).hide();
+            showToast('liveToastImportSuccess');
+        } catch (e) { alert("Invalid Template"); }
+    }
+
+    function exportTemplate() {
+        let templateToExport = (currentMode === 'custom' && customTemplateData) ? customTemplateData : (DEFAULT_TEMPLATES[currentMode] || DEFAULT_TEMPLATES['standard']);
+        const blob = new Blob([JSON.stringify(templateToExport, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = `template_${currentMode}.json`;
+        document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+        showToast('liveToastSave');
+    }
+
+    function setFormValues(data) {
+        const setVal = (id, val) => { if(document.getElementById(id)) document.getElementById(id).value = val; };
+        setVal('teacherName', data.teacher || '');
+        setVal('subject', data.subject || '');
+        setVal('topic', data.topic || '');
+        setVal('specificContent', data.specificContent || '');
+        setVal('grade', data.grade || 'มัธยมศึกษาปีที่ 1');
+        setVal('semester', data.semester || '');
+        setVal('year', data.year || '');
+        setVal('unitName', data.unitName || '');
+        setVal('time', data.time || '');
+        setVal('credit', data.credit || '');
+        
+        // No lang setter needed (Always EN)
+
+        const setDropdown = (selectId, inputId, val) => {
+            const select = document.getElementById(selectId);
+            const input = document.getElementById(inputId);
+            const options = Array.from(select.options).map(o => o.value);
+            if (options.includes(val)) { select.value = val; input.classList.add('d-none'); } 
+            else { select.value = 'other'; input.value = val; input.classList.remove('d-none'); }
+        };
+        setDropdown('teachingModel', 'teachingModelOther', data.model);
+        setDropdown('teachingTechnique', 'teachingTechniqueOther', data.technique);
+        setDropdown('objectiveFormat', 'objectiveFormatOther', data.objectiveFormat);
+
+        if (data.expertRoles) {
+            const setCheck = (id, val) => { if(document.getElementById(id)) document.getElementById(id).checked = val; };
+            setCheck('roleCurriculum', data.expertRoles.curriculum);
+            setCheck('rolePsychologist', data.expertRoles.psychologist);
+            setCheck('roleEdTech', data.expertRoles.edTech);
+            setCheck('roleAssessment', data.expertRoles.assessment);
+            setCheck('roleMedia', data.expertRoles.media);
+        }
+        
+        // Update Visual Style Setter
+        if (data.visualStyle) {
+            let styleVal = data.visualStyle;
+            if (styleVal === 'cartoon') styleVal = 'coloring'; // Mapping Request
+            
+            const select = document.getElementById('visualStyleSelector');
+            // Check if option exists to prevent error, otherwise default or keep current
+            if ([...select.options].some(o => o.value === styleVal)) {
+                select.value = styleVal;
+            }
+        }
+        
+        // V8.0 Layout Mode Setter
+        if (data.layoutMode && document.getElementById('layoutModeToggle')) {
+            document.getElementById('layoutModeToggle').checked = (data.layoutMode === 'free');
+        }
+
+        // V7.2 Color Setter
+        if (data.primaryColor && document.getElementById('primaryColorSelector')) {
+            document.getElementById('primaryColorSelector').value = data.primaryColor;
+        }
+        if (data.secondaryColor && document.getElementById('secondaryColorSelector')) {
+            document.getElementById('secondaryColorSelector').value = data.secondaryColor;
+        }
+
+        // V7.4 Font Setter
+        if (data.fontName && document.getElementById('fontSelector')) {
+            document.getElementById('fontSelector').value = data.fontName;
+        }
+
+        // V7.6 Bloom & Tone Setter
+        if (data.bloom && document.getElementById('bloomSelector')) {
+            document.getElementById('bloomSelector').value = data.bloom;
+        }
+        if (data.tone && document.getElementById('toneSelector')) {
+            document.getElementById('toneSelector').value = data.tone;
+        }
+
+        if (data.matLang) {
+             const rad = document.querySelector(`input[name="matLang"][value="${data.matLang}"]`);
+             if(rad) rad.checked = true;
+        }
+        // Removed toggleImageAdvice() call
+        
+        // V8.2 Trigger Smart Color Logic Update after load
+        updateColorToggleVisibility();
+    }
+
+    // *** V8.2 Smart Color Logic ***
+    function updateColorToggleVisibility() {
+        const style = document.getElementById('visualStyleSelector').value;
+        const toggleContainer = document.getElementById('colorToggleContainer');
+        const toggleSwitch = document.getElementById('smartColorToggle');
+        
+        // List of styles that are strictly B&W by default but can be colored optionally
+        const colorableStyles = [
+            'coloring', 
+            'chibi_coloring', 
+            'coloring_anime_action', 
+            'coloring_anime_cute', 
+            'coloring_anime_adventure',
+            'manga_modern_clean',
+            'manga_expressive_adventure',
+            'manga_cute_minimal',
+            'edu_coloring_sketchnote_infographic'
+        ];
+
+        if (colorableStyles.includes(style)) {
+            toggleContainer.classList.remove('d-none');
+        } else {
+            toggleContainer.classList.add('d-none');
+            toggleSwitch.checked = false; // Auto-reset when hiding
+        }
+    }
+
+    // --- Main Generation Logic ---
+
+    function generatePrompt() {
+        const v = getFormValues();
+        if (!v.teacher || !v.subject || !v.topic) { showToast('liveToastError'); return; }
+        
+        let displayedModel = v.model;
+        if (v.model === '5E (Simplified)') displayedModel = 'Simplified 5E (Focus on 3 steps: 1.Introduction, 2.Teaching, 3.Conclusion)';
+
+        let techniqueValueEN = v.technique === 'Active Learning' ? 'Active Learning strategies' : `"${v.technique}" technique`;
+        let mappedCompetencies = getCompetenciesForSubject(v.subjectGroup);
+        let competencySection = mappedCompetencies.length > 0 
+            ? `\n**Specific Instruction:**\n- For Core Competencies, select ONLY: **${mappedCompetencies}**\n- Explain how they relate to the lesson content.`
+            : `\n### Smart Competency Logic\n- AI to select the most relevant competencies based on the lesson content.`;
+
+        let rolePromptEN = "Role: You are an expert teacher specializing in instructional design and educational technology.";
+        let aiInjectEN = "";
+
+        if (isExpertMode) {
+            let expertRolesEN = [];
+            if (v.expertRoles.curriculum) expertRolesEN.push("Curriculum Designer");
+            if (v.expertRoles.psychologist) expertRolesEN.push("Child Psychologist");
+            if (v.expertRoles.edTech) { 
+                expertRolesEN.push("EdTech Specialist"); 
+                aiInjectEN = " and emphasizing AI-integrated teaching methods";
+            }
+            if (v.expertRoles.assessment) expertRolesEN.push("Assessment Specialist");
+            if (v.expertRoles.media) expertRolesEN.push("Instructional Media Designer");
+            
+            let rolesStrEN = expertRolesEN.length > 0 ? expertRolesEN.join(", ") : "Instructional Design Specialists";
+            rolePromptEN = `Role: Act as a "**Virtual Instructional Design Team**" consisting of: ${rolesStrEN}. Your goal is to collaborate to create a high-quality lesson plan${aiInjectEN}.`;
+        }
+
+        let template = (currentMode === 'custom' && customTemplateData) ? customTemplateData : (DEFAULT_TEMPLATES[currentMode] || DEFAULT_TEMPLATES['standard']);
+        let structure = template.structure_en || template.structure; 
+        
+        if (v.isExpertMode && v.expertRoles.edTech) {
+             structure = structure.replace("Integrate fun and technology", "Integrate fun and technology/AI"); 
+        }
+
+        structure = structure
+            .replace(/{{objectiveFormat}}/g, v.objectiveFormat)
+            .replace(/{{competencySection}}/g, competencySection)
+            .replace(/{{model}}/g, displayedModel);
+            
+        // Append Specific Content to Content Section
+        if (v.specificContent) {
+            // Find "4. Content" or similar and append
+            // Or just add a new instruction block
+            structure += `\n\n**Specific Content Focus:**\n- Integrate the following specific details into the lesson content and activities: "${v.specificContent}"`;
+        }
+
+        // --- LANGUAGE CONFIG (The Core Change) ---
+        const matLang = v.matLang;
+        let langInstructionEN = "**Formal Thai Language (ภาษาไทยทางการ)**";
+        if (matLang === 'en') langInstructionEN = "**English Language**"; 
+        
+        // Always Use English Prompt Structure
+        let promptText = `${rolePromptEN}
+Direct Command: Write the actual full content for the educational materials below immediately. Do not explain the plan. Just write the content.
+
+Task: Write the full text content for educational materials on topic: "${v.topic}".
+Subject: ${v.subject}, Grade Level: ${v.grade}.
+Output Language: ${langInstructionEN} (Ready to use).
+
+Task: Create an "**Active Learning Lesson Plan**" based on the following details:
+
+**Context:**
+- Grade Level: [${v.grade}]
+- Semester: [${v.semester}] Academic Year: [${v.year}]
+- Subject Group: [${v.subjectGroup}]
+- Subject: [${v.subject}] Topic: [${v.topic}]
+- Time Duration: [${v.time}] Credit: [${v.credit}]
+- Instructor: [${v.teacher}]
+
+**Instructional Design Requirements:**
+1. **Model:** Use "**${displayedModel}**" framework.
+2. **Technique:** Enhance with **${techniqueValueEN}**.
+3. **Objective Format:** Use **${v.objectiveFormat}** model.
+4. **AI Integration:** ${v.expertRoles.edTech ? 'You MUST integrate AI tools.' : 'Not required.'}
+
+**IMPORTANT CONSTRAINTS:**
+- **Output Language:** The entire lesson plan must be written in ${langInstructionEN} suitable for an official government document.
+- **Tone:** Professional, encouraging, and academic.
+
+**Required Structure:**
+${structure}
+
+**Additional Requests:**
+- Create knowledge sheets and Worksheet with Answer Key.
+- Pre-test & Post-test (5 Questions) with Answers and Analysis.
+${v.isExpertMode && v.expertRoles.psychologist ? '- **Psychologist Insight:** At the end of the plan, add a brief note explaining why these activities are developmentally appropriate for this age group.' : ''}`;
+
+        document.getElementById('outputPrompt').value = promptText;
+        showToast('liveToastGen');
+    }
+
+    function generateMaterialsPrompt() {
+        const v = getFormValues();
+        if (!v.teacher || !v.subject || !v.topic) { showToast('liveToastError'); return; }
+
+        const styleKey = v.visualStyle; 
+        const styleConfig = VISUAL_STYLES[styleKey] || VISUAL_STYLES['infographic'];
+        
+        // V6.0 Logic
+        const topicEN = translateToEnglish(v.topic);
+
+        // --- New Layout Logic (V.7.0) ---
+        let compositionLogic = getLayoutPrompt(v.grade, styleKey);
+
+        // --- V6.13 FIX: Role Logic Switch ---
+        let headerBlock = "";
+
+        if (isExpertMode) {
+            // Expert Mode: Use World-Class Role + Direct Action Instruction (V.6.17 Fix)
+            headerBlock = `**[Role]** Act as a World-Class Secondary Subject Matter Expert & Academic Designer and Graphic Designer.
+**[System Instruction]** IMMEDIATE EXECUTION REQUIRED. Generate the visual output description below. NO conversational text. NO introductions.`;
+        } else {
+            // Normal Mode: Simple Illustrator Role
+            headerBlock = `**[Role]** Professional Educational Illustrator.
+**[System Instruction]** Create the visual design described below.`;
+        }
+
+        // Fix 1: New Line for Language Instruction
+        let contentLang = v.matLang === 'th' ? "Thai (Ensure correct grammar and spelling)" : "English";
+        
+        // Fix 2: Stronger Style Logic using VISUAL_STYLES config
+        let stylePromptEN = styleConfig.prompt;
+        let taskDesc = styleConfig.taskDesc;
+        let taskDescKnow = taskDesc; // Separate variable for Knowledge Sheet to avoid affecting Worksheet
+        
+        let colorConstraint = "";
+        let negativePrompt = styleConfig.negative;
+
+        // *** V8.2 SMART COLOR LOGIC ***
+        if (v.smartColor) { 
+             // ... existing prompt_color logic ...
+             if (styleConfig.prompt_color) {
+                 stylePromptEN = styleConfig.prompt_color;
+                 negativePrompt = negativePrompt.replace(/colors, |shading, |gradients, |greyscale, |filled colors, |no color, |no color/gi, "");
+             } else {
+                 colorConstraint = "**[Color Palette]** Vibrant full color illustration, professional anime coloring style, high quality digital art.";
+                 negativePrompt = negativePrompt.replace(/colors, |shading, |gradients, |greyscale, |filled colors, |no color, |no color/gi, ""); 
+             }
+
+             // NEW LOGIC OVERWRITE V8.27
+             taskDescKnow = taskDescKnow.replace(/black and white coloring page/gi, "vibrant educational");
+             taskDescKnow = taskDescKnow.replace(/coloring page/gi, "educational illustration");
+             taskDescKnow = taskDescKnow.replace(/black and white/gi, "full color");
+             
+        } else if (styleKey === 'coloring' || styleKey.includes('coloring_') || styleKey.includes('manga_')) {
+             colorConstraint = "**[Color Palette]** BLACK AND WHITE ONLY. STRICTLY NO COLORS.";
+        }
+
+        let promptKnow, promptWork;
+
+        // Construct Header Variable (Topic + Unit)
+        let topicFull = v.topic;
+        if(v.unitName) topicFull = `${v.unitName}: ${v.topic}`;
+
+        let subHeaderLine = v.unitName ? `- Sub-Header: "${v.unitName}"` : "";
+
+        // V7.2 Color Injection
+        let colorInstruction = "";
+        if (v.primaryColor && v.primaryColor !== "Auto (AI Decides)") {
+            colorInstruction += `\n- Primary Color: ${v.primaryColor}`;
+        }
+        if (v.secondaryColor && v.secondaryColor !== "Auto (AI Decides)") {
+            colorInstruction += `\n- Secondary Color: ${v.secondaryColor}`;
+        }
+
+        // V7.4 Font Injection
+        let fontInstruction = getTypographyPrompt(v.grade, v.fontName);
+
+        // V7.6 Bloom & Tone Logic
+        let bloomInstruction = "Bloom's Taxonomy - Auto (AI Decides based on Grade)";
+        if (v.bloom && v.bloom !== 'Auto (AI Decides)') {
+            bloomInstruction = `Bloom's Taxonomy - Level: ${v.bloom}`;
+        }
+
+        let toneInstruction = "Auto (AI Decides based on Context)";
+        if (v.tone && v.tone !== 'Auto (AI Decides)') {
+            toneInstruction = `${v.tone}`;
+        }
+        
+        // V8.29 Specific Content Injection
+        let specificContentBlock = "";
+        if (v.specificContent) {
+            specificContentBlock = `\n**[Specific Content Focus]**\n- Please emphasize and include details about: "${v.specificContent}"`;
+        }
+
+        // V.6.17 FIX: Restore [Text Note] for Knowledge Sheet
+        promptKnow = `
+${headerBlock}
+**[Task]** ${taskDescKnow} on the topic: "${v.topic}" for Grade Level: ${v.grade}.
+
+**[Content Strategy]**
+- Language: ${contentLang}.
+- Main Header: "${v.topic}"
+${subHeaderLine}
+- Summarize "${v.topic}" into key concepts using bullet points.
+- Use icons and visual cues to explain complex data.
+
+- Learning Level: ${bloomInstruction}.
+- Tone of Voice: ${toneInstruction}.
+
+**[Visual Specification]**
+- Dimensions: A4 Portrait (Aspect Ratio 210:297).
+- Layout Strategy: ${compositionLogic}.
+- Art Style: ${stylePromptEN}.
+- Perspective: Flat lay, top-down view (perfectly aligned for printing).
+${fontInstruction}
+${colorInstruction}
+${colorConstraint}
+
+**[Text Content]** Generate actual educational content for the Knowledge Sheet. Include clear Headings, Key Concepts, and short Explanations related to "${v.topic}". Ensure the information is accurate and easy to read for students. Do not use placeholder text.
+${specificContentBlock}
+
+**[Footer]** Small discreet credit at the bottom: "Credit: ครูผู้สอน ${v.teacher}". (Do NOT include student name fields).
+
+**[Constraints & Negative Prompt]**
+DO NOT include: ${negativePrompt}, distorted text, blurred elements, watermark, low resolution, 3d text effects that make reading difficult. 
+CRITICAL: Do NOT print layout labels like [TOP], [HEADER], [IMAGE] on the final output. The design must be ready-to-use.
+`.trim();
+
+        // *** Worksheet Logic (Always B&W if style demands it) ***
+        let workColorConstraint = "";
+        if (styleKey === 'coloring' || styleKey.includes('coloring_') || styleKey.includes('manga_')) {
+             workColorConstraint = "**[Color Palette]** BLACK AND WHITE ONLY. STRICTLY NO COLORS.";
+        }
+        let workNegative = styleConfig.negative; // Reset negative for worksheet to original config
+
+        // V8.1 & V8.2 Logic: Conditional Strict Rules
+        let contentRules = "";
+        let finalNegative = workNegative; // Default to standard negative
+
+        let layoutSection = "";
+        if (v.layoutMode === 'strict') {
+             // Strict Mode: Use Standard Layout, No extra content rules, Standard Negative
+             layoutSection = `**[Layout: Top & Bottom]**
+Top Section (Header Color: a harmonious color automatically selected to match the topic '${v.topic}'): Title a sub-topic related to '${v.topic}', containing:
+**[Creative Task]** Create an activity (matching with empty answer boxes, fill-in-blanks) related to '${v.topic}'.
+Bottom Section (Header Color: a complementary color to the first section): Title another sub-topic related to '${v.topic}', containing:
+**[Creative Task]** Create an activity (questions, drawing space) related to '${v.topic}'.`;
+        } else {
+             // Free Mode: Use Auto Layout + STRICT RULES + Updated Negative
+             layoutSection = `**[Layout Strategy]** ${compositionLogic}
+**[Activity Structure]** Design a creative and engaging worksheet layout suitable for the topic.
+**[CRITICAL REQUIREMENT]** Ensure there are sufficient and clearly defined empty spaces (answer boxes, lines, or drawing areas) for students to complete the tasks. Do not clutter the page with illustrations only.`;
+             
+             // Apply V8.1 Fixes ONLY for Free Mode
+             contentRules = `**[Content Rules]** STRICT RULE: All drawing areas, boxes, and creative spaces must be completely EMPTY and BLANK.
+- ABSOLUTELY NO text, no instructions, no placeholders (e.g., "Draw here"), no labels inside the drawing frames.
+- Keep the space pure white for student input.`;
+
+             finalNegative += ", text inside frames, instructional text, placeholder text, writing in drawing area";
+        }
+
+        // *** V6.9 FIX: Use User Custom Template for Worksheet ***
+        promptWork = `
+${headerBlock}
+**[Task]** ${taskDesc} on an A4 portrait background. Aimed at ${v.grade} students.
+
+**[Visual Specification]**
+- Dimensions: A4 Portrait (Aspect Ratio 210:297).
+- Layout Strategy: ${compositionLogic}.
+- Art Style: ${styleConfig.prompt}.
+- Perspective: Flat lay, top-down view (perfectly aligned for printing).
+
+**[Header]** Title: "${v.topic}", Subtitle: "${v.unitName}".
+
+${layoutSection}
+
+**[Structural Layout Rules]**
+Divide each task area into two distinct zones:
+1. **Zone A (Question)**: Contains the visual elements, questions, or matching items.
+2. **Zone B (Answer Space)**: STRICTLY EMPTY WHITE SPACE (or simple dotted lines) for student input.
+- CRITICAL: Never place illustrations, text, or patterns inside Zone B. It must be writeable.
+
+**[Footer]** Bottom section with writeable lines for: 'Name: __________', 'Class: ...........', 'No: ...'. Also include a credit: "ครูผู้สอน: ${v.teacher}".
 
 **[Worksheet Requirement]** Ensure clear areas for student interaction. CRITICAL: Randomize/Shuffle items in columns so they are NOT aligned. Keep the activity UNSOLVED. 
 STRICTLY PROHIBITED: Do not draw any lines, arrows, dashed lines, or connectors between items. 
 Instead of lines, provide empty answer boxes next to the left-column items for students to write letters/numbers. The gap between columns must be completely blank. Do NOT fill in answers.
 
+${contentRules}
+${specificContentBlock}
+
 **[Text Note]** Do NOT render complex text. Use placeholders.
-Typography: Use Clean, Modern, Sans-Serif, Professional Google Fonts supporting Thai (e.g. style of "Mitr" Google Font).
-
-
+CRITICAL: Do NOT write labels like "Stimulus Zone", "Response Zone", "Zone A", or "Zone B". Keep the layout purely visual.
+${fontInstruction}
+${colorInstruction}
+${workColorConstraint}
 
 **[Negative Prompt]**
-technical, vector, infographic, cold, filled answers, solved problems, messy lines, text paragraphs, complex background.
+${finalNegative}, filled answers, solved problems, messy lines, text paragraphs, complex background, label text "Stimulus Zone", label text "Response Zone", label text "Zone A", label text "Zone B".
+`.trim();
+
+        document.getElementById('outputMaterialsKnow').value = promptKnow;
+        document.getElementById('outputMaterialsWork').value = promptWork;
+        showToast('liveToastGen');
+    }
+
+    function exportData() {
+        const blob = new Blob([JSON.stringify(getFormValues(), null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = `data.json`;
+        document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+        showToast('liveToastSave');
+    }
+
+    function importData() {
+        const fileInput = document.getElementById('jsonFile');
+        if (!fileInput.files.length) {
+            alert('กรุณาเลือกไฟล์ JSON');
+            return;
+        }
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                setFormValues(JSON.parse(e.target.result));
+                const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('importModal'));
+                modal.hide();
+                // Fix: Add setTimeout to ensure toast shows after modal transition
+                setTimeout(() => {
+                    showToast('liveToastImportSuccess');
+                }, 300);
+            } catch (err) { 
+                console.error(err);
+                showToast('liveToastImportError'); 
+            }
+        };
+        reader.readAsText(file);
+    }
+
+    async function copyToClipboard(elementId, btnId) {
+        const textarea = document.getElementById(elementId);
+        const btn = document.getElementById(btnId);
+        const originalHtml = btn.innerHTML;
+        if (btn.classList.contains('btn-success') || !textarea.value) return;
+        try { await navigator.clipboard.writeText(textarea.value); btn.classList.add('btn-success'); showToast('liveToastCopy'); } 
+        catch (err) { textarea.select(); document.execCommand('copy'); btn.classList.add('btn-success'); showToast('liveToastCopy'); }
+        setTimeout(() => { btn.innerHTML = originalHtml; btn.classList.remove('btn-success'); }, 2000);
+    }
+
+    setMode('rasisalai'); 
+    populateColorDropdowns(); // Init Dropdowns
+    populateStyleDropdown(); // Init Style Dropdown
+    populateFontDropdown(); // Init Font Dropdown
+    populateContentDropdowns(); // Init Content Dropdowns (V7.6)
+    // toggleImageAdvice removed
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
